@@ -1,2 +1,2 @@
-python queryhours.py
+py queryhours.py
 pause

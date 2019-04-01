@@ -1,2 +1,2 @@
-python logaday.py
+py logaday.py
 pause

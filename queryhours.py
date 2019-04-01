@@ -32,7 +32,15 @@ with open(filename) as hoursfile:
 				total = total - int(timeparts[2])
 				total = total - int(timeparts[1]) * 60
 				total = total - int(timeparts[0]) * 60 * 60
+				loggedtotal = total
 		
+if (laststamp == 'START'):
+	now = time.asctime(time.localtime(time.time())).split(" ")
+	nowtimes = now[4].split(":")
+	noofdays = noofdays + 1
+	loggedtotal = loggedtotal + int(nowtimes[2])
+	loggedtotal = loggedtotal + int(nowtimes[1]) * 60
+	loggedtotal = loggedtotal + int(nowtimes[0]) * 60 * 60
 print(loggedtotal, "secs total |", loggedtotal / 60 / 60, "hours total")
 if (noofdays > 0):
 	print(loggedtotal / noofdays, " secs on avarage |", loggedtotal / noofdays / 60 / 60, " hours on avarage")

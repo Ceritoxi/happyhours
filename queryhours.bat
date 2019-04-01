@@ -1,0 +1,2 @@
+python queryhours.py
+pause

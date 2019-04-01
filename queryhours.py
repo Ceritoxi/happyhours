@@ -41,6 +41,6 @@ if (laststamp == 'START'):
 	loggedtotal = loggedtotal + int(nowtimes[2])
 	loggedtotal = loggedtotal + int(nowtimes[1]) * 60
 	loggedtotal = loggedtotal + int(nowtimes[0]) * 60 * 60
-print(loggedtotal, "secs total |", loggedtotal / 60 / 60, "hours total")
+print(loggedtotal, "secs total |", int(loggedtotal / 60 / 60), ":", int((loggedtotal / 60) % 60), ":", int((loggedtotal) % 60), "hours total")
 if (noofdays > 0):
-	print(loggedtotal / noofdays, " secs on avarage |", loggedtotal / noofdays / 60 / 60, " hours on avarage")
+	print(int(loggedtotal / noofdays), "secs on avarage |", int(loggedtotal / noofdays / 60 / 60), ":", int((loggedtotal / noofdays / 60) % 60), ":", int((loggedtotal / noofdays) % 60), " time on avarage")

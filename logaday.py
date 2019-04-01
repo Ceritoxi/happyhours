@@ -1,18 +1,26 @@
 #!/usr/bin/python
 import time;
 
-laststamp = 'END'
 
-hoursfile = open("hours.txt", "a+")
+localtime = time.asctime(time.localtime(time.time()))
+localtimeparts = localtime.split(" ")
+month = localtimeparts[1]
+year = localtimeparts[5]
+
+filename = year + "-" + month + ".txt"
+
+
+hoursfile = open(filename, "a+")
 hoursfile.close()
 
-with open("hours.txt") as hoursfile:
+
+laststamp = 'END'
+with open(filename) as hoursfile:
 	for line in hoursfile:
 		splits = line.split(" ")
 		laststamp = splits[6]
 		
-hoursfile = open("hours.txt", "a+")
-
+hoursfile = open(filename, "a+")
 if (laststamp == 'START') :
 	hoursfile.write(time.asctime(time.localtime(time.time())) + ' END ' + "\n")
 else:
@@ -27,7 +35,7 @@ noofdays = 0
 
 isdaystart = 'YOU STARTED THE DAY ';
 
-with open("hours.txt") as hoursfile:
+with open(filename) as hoursfile:
 	currentday = 0;
 	for line in hoursfile:
 		splits = line.split(" ")

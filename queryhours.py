@@ -1,13 +1,20 @@
 #!/usr/bin/python
 import time;
 
+localtime = time.asctime(time.localtime(time.time()))
+localtimeparts = localtime.split(" ")
+month = localtimeparts[1]
+year = localtimeparts[5]
+
+filename = year + "-" + month + ".txt"
+
 laststamp = 'END'
 total = 0
 loggedtotal = 0;
 avarage = 0
 noofdays = 0
 
-with open("hours.txt") as hoursfile:
+with open(filename) as hoursfile:
 	currentday = 0
 	for line in hoursfile:
 		splits = line.split(" ")

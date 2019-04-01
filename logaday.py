@@ -4,7 +4,7 @@ import time;
 laststamp = 'END'
 fak = False
 
-with open("hours.txt") as hoursfile:
+with open("hours.txt" , "a+") as hoursfile:
 	for line in hoursfile:
 		splits = line.split(" ")
 		if (len(splits) > 5):

@@ -15,7 +15,7 @@ avarage = 0
 noofdays = 0
 
 with open(filename) as hoursfile:
-	currentday = 0
+	currentday = '0'
 	for line in hoursfile:
 		splits = line.split(" ")
 		if (len(splits) > 5):
@@ -23,6 +23,7 @@ with open(filename) as hoursfile:
 			timeparts = splits[4].split(":")
 			if (laststamp == 'END'):
 				if (currentday != splits[3]):
+					currentday = splits[3]
 					noofdays = noofdays + 1
 				total = total + int(timeparts[2])
 				total = total + int(timeparts[1]) * 60

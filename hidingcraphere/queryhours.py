@@ -1,8 +1,15 @@
 #!/usr/bin/python
 import time;
 
-localtime = time.asctime(time.localtime(time.time()))
-localtimeparts = localtime.split(" ")
+timee = time.asctime(time.localtime(time.time())) + ''
+splitted = timee.split(" ")
+if (splitted[2] != ''):
+	timee = '';
+	splitted[1] += ' '
+	for split in splitted:
+		timee += split + ' '
+
+localtimeparts = timee.split(" ")
 month = localtimeparts[1]
 year = localtimeparts[5]
 
@@ -36,7 +43,7 @@ with open(filename) as hoursfile:
 				loggedtotal = total
 		
 if (laststamp == 'START'):
-	now = time.asctime(time.localtime(time.time())).split(" ")
+	now = localtimeparts
 	nowtimes = now[4].split(":")
 	noofdays = noofdays + 1
 	loggedtotal = loggedtotal + int(nowtimes[2])
@@ -44,4 +51,4 @@ if (laststamp == 'START'):
 	loggedtotal = loggedtotal + int(nowtimes[0]) * 60 * 60
 print(loggedtotal, "secs total |", int(loggedtotal / 60 / 60), ":", int((loggedtotal / 60) % 60), ":", int((loggedtotal) % 60), "hours total")
 if (noofdays > 0):
-	print(int(loggedtotal / noofdays), "secs on avarage |", int(loggedtotal / noofdays / 60 / 60), ":", int((loggedtotal / noofdays / 60) % 60), ":", int((loggedtotal / noofdays) % 60), " time on avarage")
+	print(int(loggedtotal / noofdays), "secs on avarage |", int(loggedtotal / noofdays / 60 / 60), ":", int((loggedtotal / noofdays / 60) % 60), ":", int((loggedtotal / noofdays) % 60), " time on avarage, in", noofdays, "days")

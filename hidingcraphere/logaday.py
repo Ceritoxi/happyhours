@@ -1,9 +1,15 @@
 #!/usr/bin/python
 import time;
 
-
-localtime = time.asctime(time.localtime(time.time()))
-localtimeparts = localtime.split(" ")
+timee = time.asctime(time.localtime(time.time())) + ''
+splitted = timee.split(" ")
+if (splitted[2] != ''):
+	timee = '';
+	splitted[1] += ' '
+	for split in splitted:
+		timee += split + ' '
+		
+localtimeparts = timee.split(" ")
 month = localtimeparts[1]
 year = localtimeparts[5]
 
@@ -21,10 +27,12 @@ with open(filename) as hoursfile:
 		laststamp = splits[6]
 		
 hoursfile = open(filename, "a+")
+
+
 if (laststamp == 'START') :
-	hoursfile.write(time.asctime(time.localtime(time.time())) + ' END ' + "\n")
+	hoursfile.write(timee + 'END ' + "\n")
 else:
-	hoursfile.write(time.asctime(time.localtime(time.time())) + ' START ' + "\n")
+	hoursfile.write(timee + 'START ' + "\n")
 
 hoursfile.close()
 

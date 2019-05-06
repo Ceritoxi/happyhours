@@ -9,6 +9,7 @@ import com.zlotran.happyhours.dal.RecordDao;
 import com.zlotran.happyhours.dal.RecordsFileReader;
 import com.zlotran.happyhours.dal.RecordsFileWriter;
 import com.zlotran.happyhours.format.TimeFormatter;
+import com.zlotran.happyhours.service.RecordInsertionService;
 import com.zlotran.happyhours.service.RecordStatisticsService;
 import com.zlotran.happyhours.transform.RecordTransformer;
 import com.zlotran.happyhours.validation.RecordValidator;
@@ -34,7 +35,12 @@ public class App {
         RecordDao recordDao = new RecordDao(recordsFileReader, recordsFileWriter, recordValidator, recordTransformer);
         TimeFormatter timeFormatter = new TimeFormatter();
         RecordStatisticsService recordStatisticsService = new RecordStatisticsService(recordDao, timeFormatter);
+        RecordInsertionService recordInsertionService = new RecordInsertionService(recordDao);
 
+        uiStuff(recordStatisticsService, recordInsertionService);
+    }
+
+    private static void uiStuff(RecordStatisticsService recordStatisticsService, RecordInsertionService recordInsertionService) {
         frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
 
         allTimeTotal.setBounds(20, (FRAME_HEIGHT / 3) - (TEXT_BOX_HEIGHT / 2) - ((FRAME_HEIGHT / 3) / 2), TEXT_BOX_WIDTH, TEXT_BOX_HEIGHT);
@@ -70,7 +76,7 @@ public class App {
         JButton logADayButton = new JButton("Log a day");
         logADayButton.setBounds(20 + TEXT_BOX_WIDTH / 4, (FRAME_HEIGHT / 3) - (TEXT_BOX_HEIGHT / 2) - ((FRAME_HEIGHT / 3) / 2) - (TEXT_BOX_HEIGHT * 4), TEXT_BOX_WIDTH / 2,
             TEXT_BOX_HEIGHT * 3);
-        logADayButton.addActionListener(e -> recordDao.addRecordOfCurrentDate());
+        logADayButton.addActionListener(e -> recordInsertionService.addCurrentTimestamp());
         frame.add(logADayButton);
 
         frame.setLayout(null);
@@ -97,12 +103,12 @@ public class App {
                 String todayTotalS = "Today total:\t" + recordStatisticsService.currentDayTotalFormatted();
                 long currentDayTotal = recordStatisticsService.currentDayTotalInSeconds();
                 long currentMonthAverage = recordStatisticsService.averageOfCurrentMonthInSeconds();
-                long allTimeAvarageSeconds = recordStatisticsService.allTimeAverageInSeconds();
+                long allTimeAverageSeconds = recordStatisticsService.allTimeAverageInSeconds();
                 allTimeTotal.setString(allTimeTotalS);
                 allTimeAverage.setString(allTimeAverageS);
                 thisMonthTotal.setString(thisMonthTotalS);
                 thisMonthAverage.setString(thisMonthAverageS);
-                thisMonthAverage.setValue((int) (((double) currentMonthAverage / (double) allTimeAvarageSeconds) * 1000D));
+                thisMonthAverage.setValue((int) (((double) currentMonthAverage / (double) allTimeAverageSeconds) * 1000D));
                 todayTotal.setString(todayTotalS);
                 todayTotal.setValue((int) (((double) currentDayTotal / (double) currentMonthAverage) * 1000D));
             }

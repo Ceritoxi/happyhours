@@ -30,9 +30,9 @@ hoursfile = open(filename, "a+")
 
 
 if (laststamp == 'START') :
-	hoursfile.write(timee + ' END ' + "\n")
+	hoursfile.write(timee + 'END ' + "\n")
 else:
-	hoursfile.write(timee + ' START ' + "\n")
+	hoursfile.write(timee + 'START ' + "\n")
 
 hoursfile.close()
 

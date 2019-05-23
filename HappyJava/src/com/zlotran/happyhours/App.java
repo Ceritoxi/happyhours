@@ -1,7 +1,10 @@
 package com.zlotran.happyhours;
 
+import java.awt.Graphics;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.WindowConstants;
 
@@ -78,6 +81,8 @@ public class App {
             TEXT_BOX_HEIGHT * 3);
         logADayButton.addActionListener(e -> recordInsertionService.addCurrentTimestamp());
         frame.add(logADayButton);
+
+        JPanel jPanel = new JPanel();
 
         frame.setLayout(null);
         frame.setVisible(true);

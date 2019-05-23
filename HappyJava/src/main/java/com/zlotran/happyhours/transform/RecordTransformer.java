@@ -4,9 +4,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.zlotran.happyhours.validation.RecordValidator;
-import com.zlotran.happyhours.domain.State;
 import com.zlotran.happyhours.domain.Record;
+import com.zlotran.happyhours.domain.State;
+import com.zlotran.happyhours.validation.RecordValidator;
 
 public class RecordTransformer {
 

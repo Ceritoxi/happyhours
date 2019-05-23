@@ -1,7 +1,5 @@
 package com.zlotran.happyhours;
 
-import java.awt.Graphics;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -13,6 +11,7 @@ import com.zlotran.happyhours.dal.RecordsFileReader;
 import com.zlotran.happyhours.dal.RecordsFileWriter;
 import com.zlotran.happyhours.format.TimeFormatter;
 import com.zlotran.happyhours.service.RecordInsertionService;
+import com.zlotran.happyhours.service.RecordStatisticsCalculationUtility;
 import com.zlotran.happyhours.service.RecordStatisticsService;
 import com.zlotran.happyhours.transform.RecordTransformer;
 import com.zlotran.happyhours.validation.RecordValidator;
@@ -37,7 +36,8 @@ public class App {
         RecordTransformer recordTransformer = new RecordTransformer(recordValidator);
         RecordDao recordDao = new RecordDao(recordsFileReader, recordsFileWriter, recordValidator, recordTransformer);
         TimeFormatter timeFormatter = new TimeFormatter();
-        RecordStatisticsService recordStatisticsService = new RecordStatisticsService(recordDao, timeFormatter);
+        RecordStatisticsCalculationUtility recordStatisticsCalculationUtility = new RecordStatisticsCalculationUtility();
+        RecordStatisticsService recordStatisticsService = new RecordStatisticsService(recordDao, timeFormatter, recordStatisticsCalculationUtility);
         RecordInsertionService recordInsertionService = new RecordInsertionService(recordDao);
 
         uiStuff(recordStatisticsService, recordInsertionService);

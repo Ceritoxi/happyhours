@@ -1,4 +1,4 @@
-package com.zlotran.happyhours.ui;
+package com.zlotran.happyhours.ui.screen;
 
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;

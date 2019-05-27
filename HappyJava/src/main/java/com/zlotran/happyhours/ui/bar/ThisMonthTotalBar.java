@@ -1,4 +1,4 @@
-package com.zlotran.happyhours.ui;
+package com.zlotran.happyhours.ui.bar;
 
 import javax.swing.JProgressBar;
 
@@ -14,5 +14,9 @@ public class ThisMonthTotalBar extends JProgressBar {
         this.setBounds(20, (2 * (frameHeight / 3)) - (BAR_HEIGHT / 2) - ((frameHeight / 3) / 2), BAR_WIDTH, BAR_HEIGHT);
         this.setStringPainted(true);
         this.setValue(TO);
+    }
+
+    public void changeLabel(String labelChange) {
+        this.setString("This month total:\t" + labelChange);
     }
 }

@@ -1,4 +1,4 @@
-package com.zlotran.happyhours.ui;
+package com.zlotran.happyhours.ui.bar;
 
 import javax.swing.JProgressBar;
 
@@ -15,5 +15,9 @@ public class AllTimeAverageBar extends JProgressBar {
             BAR_HEIGHT);
         this.setStringPainted(true);
         this.setValue(TO);
+    }
+
+    public void changeLabel(String labelChange) {
+        this.setString("All time average:\t" + labelChange);
     }
 }

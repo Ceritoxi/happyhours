@@ -40,19 +40,19 @@ public class RecordStatisticsService {
     }
 
     public String averageOfCurrentMonthFormatted() {
-        return timeFormatter.formatTimeFromSeconds(recordStatisticsCalculationUtility.calculateAverage(recordDao.getRecordsForCurrentMonth()));
+        return timeFormatter.formatTimeFromSeconds(recordStatisticsCalculationUtility.calculateAverageInSeconds(recordDao.getRecordsForCurrentMonth()));
     }
 
     public long averageOfCurrentMonthInSeconds() {
-        return recordStatisticsCalculationUtility.calculateAverage(recordDao.getRecordsForCurrentMonth());
+        return recordStatisticsCalculationUtility.calculateAverageInSeconds(recordDao.getRecordsForCurrentMonth());
     }
 
     public String allTimeAverageFormatted() {
-        return timeFormatter.formatTimeFromSeconds(recordStatisticsCalculationUtility.calculateAverage(recordDao.getRecords()));
+        return timeFormatter.formatTimeFromSeconds(recordStatisticsCalculationUtility.calculateAverageInSeconds(recordDao.getRecords()));
     }
 
     public long allTimeAverageInSeconds() {
-        return recordStatisticsCalculationUtility.calculateAverage(recordDao.getRecords());
+        return recordStatisticsCalculationUtility.calculateAverageInSeconds(recordDao.getRecords());
     }
 
 }

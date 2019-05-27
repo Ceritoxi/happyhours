@@ -1,5 +1,7 @@
 package com.zlotran.happyhours;
 
+import java.time.LocalDateTime;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -10,6 +12,8 @@ import com.zlotran.happyhours.dal.RecordDao;
 import com.zlotran.happyhours.dal.RecordsFileReader;
 import com.zlotran.happyhours.dal.RecordsFileWriter;
 import com.zlotran.happyhours.format.TimeFormatter;
+import com.zlotran.happyhours.format.TimeFormatterUtil;
+import com.zlotran.happyhours.service.LocalDateTimeSupplier;
 import com.zlotran.happyhours.service.RecordInsertionService;
 import com.zlotran.happyhours.service.RecordStatisticsCalculationUtility;
 import com.zlotran.happyhours.service.RecordStatisticsService;
@@ -35,8 +39,10 @@ public class App {
         RecordValidator recordValidator = new RecordValidator();
         RecordTransformer recordTransformer = new RecordTransformer(recordValidator);
         RecordDao recordDao = new RecordDao(recordsFileReader, recordsFileWriter, recordValidator, recordTransformer);
-        TimeFormatter timeFormatter = new TimeFormatter();
-        RecordStatisticsCalculationUtility recordStatisticsCalculationUtility = new RecordStatisticsCalculationUtility();
+        TimeFormatterUtil timeFormatterUtil = new TimeFormatterUtil();
+        TimeFormatter timeFormatter = new TimeFormatter(timeFormatterUtil);
+        LocalDateTimeSupplier localDateTimeSupplier = new LocalDateTimeSupplier();
+        RecordStatisticsCalculationUtility recordStatisticsCalculationUtility = new RecordStatisticsCalculationUtility(localDateTimeSupplier);
         RecordStatisticsService recordStatisticsService = new RecordStatisticsService(recordDao, timeFormatter, recordStatisticsCalculationUtility);
         RecordInsertionService recordInsertionService = new RecordInsertionService(recordDao);
 

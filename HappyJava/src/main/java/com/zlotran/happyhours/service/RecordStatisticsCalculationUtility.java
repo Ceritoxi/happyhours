@@ -1,6 +1,5 @@
 package com.zlotran.happyhours.service;
 
-import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.List;
 
@@ -9,17 +8,30 @@ import com.zlotran.happyhours.domain.State;
 
 public class RecordStatisticsCalculationUtility {
 
-    public long calculateAverage(List<Record> records) {
-        long averageDivisor = records.stream().map(record -> record.getDate().toLocalDate()).distinct().count();
+    private static final long ZERO = 0;
+
+    private LocalDateTimeSupplier localDateTimeSupplier;
+
+    public RecordStatisticsCalculationUtility(LocalDateTimeSupplier localDateTimeSupplier) {
+        this.localDateTimeSupplier = localDateTimeSupplier;
+    }
+
+    public long calculateAverageInSeconds(List<Record> records) {
+        long averageDivisor = calculateAverageDivisor(records);
         if (averageDivisor > 0) {
             return calculateTotalInSecond(records) / averageDivisor;
+        } else {
+            return ZERO;
         }
-        return 0;
+    }
+
+    private long calculateAverageDivisor(List<Record> records) {
+        return records.stream().map(record -> record.getDate().toLocalDate()).distinct().count();
     }
 
     public long calculateTotalInSecond(List<Record> records) {
-        long startEpochSum = 0;
-        long endEpochSum = 0;
+        long startEpochSum = ZERO;
+        long endEpochSum = ZERO;
         for (Record record : records) {
             if (record.getState().equals(State.START)) {
                 startEpochSum += record.getEpoch();
@@ -27,10 +39,12 @@ public class RecordStatisticsCalculationUtility {
                 endEpochSum += record.getEpoch();
             }
         }
-        if (!lastState(records).equals(State.END)) {
-            endEpochSum += LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
-        }
+        endEpochSum += plusTimeInCaseOfOngoingRecord(records);
         return endEpochSum - startEpochSum;
+    }
+
+    private long plusTimeInCaseOfOngoingRecord(List<Record> records) {
+        return lastState(records).equals(State.START) ? localDateTimeSupplier.get().toEpochSecond(ZoneOffset.UTC) : ZERO;
     }
 
     private State lastState(List<Record> records) {

@@ -1,10 +1,9 @@
 package com.zlotran.happyhours.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -12,17 +11,12 @@ import com.zlotran.happyhours.dal.RecordDao;
 import com.zlotran.happyhours.domain.Record;
 import com.zlotran.happyhours.format.TimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
-class RecordStatisticsServiceTest {
+public class RecordStatisticsServiceTest {
 
-    private static final String EXPECTED_FORMATTED_TIME = "06:59:59";
-    private static final long TOTAL_IN_SEC_FOR_CURRENT_MONTH = 20000;
-    private Record testRecord1;
-    private Record testRecord2;
-    Record testRecord3;
-
+    @InjectMocks
     private RecordStatisticsService underTest;
 
     @Mock
@@ -37,62 +31,110 @@ class RecordStatisticsServiceTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
-        underTest = new RecordStatisticsService(recordDao, timeFormatter, recordStatisticsCalculationUtility);
     }
 
     @Test
     void currentMonthTotalFormatted() {
         //GIVEN
-        String expected = EXPECTED_FORMATTED_TIME;
-
         //WHEN
-        when(recordStatisticsCalculationUtility.calculateTotalInSecond(testRecordsOfCurrentMonth())).thenReturn(TOTAL_IN_SEC_FOR_CURRENT_MONTH);
-        String actual = underTest.currentMonthTotalFormatted();
+        underTest.currentMonthTotalFormatted();
         //THEN
-        assertEquals(expected, actual);
-
+        verify(recordDao, times(1)).getRecordsForCurrentMonth();
+        verify(recordStatisticsCalculationUtility, times(1)).calculateTotalInSecond(Matchers.anyListOf(Record.class));
+        verify(timeFormatter, times(1)).formatTimeFromSeconds(Matchers.anyLong());
     }
 
     @Test
     void currentMonthTotalInSeconds() {
+        //GIVEN
+        //WHEN
+        underTest.currentMonthTotalInSeconds();
+        //THEN
+        verify(recordDao, times(1)).getRecordsForCurrentMonth();
+        verify(recordStatisticsCalculationUtility, times(1)).calculateTotalInSecond(Matchers.anyListOf(Record.class));
     }
 
     @Test
     void currentDayTotalFormatted() {
+        //GIVEN
+        //WHEN
+        underTest.currentDayTotalFormatted();
+        //THEN
+        verify(recordDao, times(1)).getRecordsForCurrentDay();
+        verify(recordStatisticsCalculationUtility, times(1)).calculateTotalInSecond(Matchers.anyListOf(Record.class));
+        verify(timeFormatter, times(1)).formatTimeFromSeconds(Matchers.anyLong());
     }
 
     @Test
     void currentDayTotalInSeconds() {
+        //GIVEN
+        //WHEN
+        underTest.currentDayTotalInSeconds();
+        //THEN
+        verify(recordDao, times(1)).getRecordsForCurrentDay();
+        verify(recordStatisticsCalculationUtility, times(1)).calculateTotalInSecond(Matchers.anyListOf(Record.class));
     }
 
     @Test
     void allTimeTotalFormatted() {
+        //GIVEN
+        //WHEN
+        underTest.allTimeTotalFormatted();
+        //THEN
+        verify(recordDao, times(1)).getRecords();
+        verify(recordStatisticsCalculationUtility, times(1)).calculateTotalInSecond(Matchers.anyListOf(Record.class));
+        verify(timeFormatter, times(1)).formatTimeFromSeconds(Matchers.anyLong());
     }
 
     @Test
     void allTimeTotalInSeconds() {
+        //GIVEN
+        //WHEN
+        underTest.allTimeTotalInSeconds();
+        //THEN
+        verify(recordDao, times(1)).getRecords();
+        verify(recordStatisticsCalculationUtility, times(1)).calculateTotalInSecond(Matchers.anyListOf(Record.class));
     }
 
     @Test
     void averageOfCurrentMonthFormatted() {
+        //GIVEN
+        //WHEN
+        underTest.averageOfCurrentMonthFormatted();
+        //THEN
+        verify(recordDao, times(1)).getRecordsForCurrentMonth();
+        verify(recordStatisticsCalculationUtility, times(1)).calculateAverageInSeconds(Matchers.anyListOf(Record.class));
+        verify(timeFormatter, times(1)).formatTimeFromSeconds(Matchers.anyLong());
     }
 
     @Test
     void averageOfCurrentMonthInSeconds() {
+        //GIVEN
+        //WHEN
+        underTest.averageOfCurrentMonthInSeconds();
+        //THEN
+        verify(recordDao, times(1)).getRecordsForCurrentMonth();
+        verify(recordStatisticsCalculationUtility, times(1)).calculateAverageInSeconds(Matchers.anyListOf(Record.class));
     }
 
     @Test
     void allTimeAverageFormatted() {
+        //GIVEN
+        //WHEN
+        underTest.allTimeAverageFormatted();
+        //THEN
+        verify(recordDao, times(1)).getRecords();
+        verify(recordStatisticsCalculationUtility, times(1)).calculateAverageInSeconds(Matchers.anyListOf(Record.class));
+        verify(timeFormatter, times(1)).formatTimeFromSeconds(Matchers.anyLong());
     }
 
     @Test
     void allTimeAverageInSeconds() {
-    }
-
-    private List<Record> testRecordsOfCurrentMonth() {
-        List<Record> records = new ArrayList<>();
-        records.add(testRecord1);
-        records.add(testRecord2);
-        return records;
+        //GIVEN
+        //WHEN
+        underTest.allTimeAverageInSeconds();
+        //THEN
+        verify(recordDao, times(1)).getRecords();
+        verify(recordStatisticsCalculationUtility, times(1)).calculateAverageInSeconds(Matchers.anyListOf(Record.class));
     }
 }

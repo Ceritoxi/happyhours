@@ -2,6 +2,7 @@ package com.zlotran.happyhours.domain;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.Objects;
 
 public class Record {
 
@@ -41,5 +42,20 @@ public class Record {
 
     @Override public String toString() {
         return date + " " + state;
+    }
+
+    @Override public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Record record = (Record) o;
+        return getEpoch() == record.getEpoch() &&
+            Objects.equals(getDate(), record.getDate()) &&
+            getState() == record.getState();
+    }
+
+    @Override public int hashCode() {
+        return Objects.hash(getDate(), getState(), getEpoch());
     }
 }

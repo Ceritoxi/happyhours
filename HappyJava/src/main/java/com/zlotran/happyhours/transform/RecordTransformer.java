@@ -10,7 +10,7 @@ import com.zlotran.happyhours.validation.RecordValidator;
 
 public class RecordTransformer {
 
-    RecordValidator recordValidator;
+    private RecordValidator recordValidator;
 
     public RecordTransformer(RecordValidator recordValidator) {
         this.recordValidator = recordValidator;

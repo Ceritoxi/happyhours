@@ -27,18 +27,27 @@ public class RecordsFileReader {
 
     private List<String> doReadInRecords() throws IOException {
         FileReader reader = new FileReader(App.DATA_FILE_NAME);
+        List<String> result = readTroughFile(reader);
+        reader.close();
+        return result;
+    }
+
+    private List<String> readTroughFile(FileReader reader) throws IOException {
         List<String> result = new ArrayList<>();
         StringBuilder recordBuilder = new StringBuilder();
         int inputChar;
         while ((inputChar = reader.read()) != -1) {
-            if ((char) inputChar != '\n') {
+            if (isStillInCurrentRow((char) inputChar)) {
                 recordBuilder.append((char) inputChar);
             } else {
                 result.add(recordBuilder.toString());
                 recordBuilder = new StringBuilder();
             }
         }
-        reader.close();
         return result;
+    }
+
+    private boolean isStillInCurrentRow(char inputChar) {
+        return inputChar != '\n';
     }
 }

@@ -1,0 +1,17 @@
+package com.zlotran.happyhours;
+
+import com.zlotran.happyhours.controller.RecordStatisticsController;
+
+public class AllTimeAverageLabelRefresher implements LabelRefresher {
+
+    private RecordStatisticsController recordStatisticsController;
+
+    public AllTimeAverageLabelRefresher(RecordStatisticsController recordStatisticsController) {
+        this.recordStatisticsController = recordStatisticsController;
+    }
+
+    @Override public String refresh() {
+        return recordStatisticsController.getAllTimeAverage();
+    }
+
+}

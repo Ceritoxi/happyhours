@@ -51,6 +51,7 @@ public class App {
 
     private static void uiStuff(RecordStatisticsService recordStatisticsService, RecordInsertionService recordInsertionService) {
         frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
+        frame.setTitle("HAPPY HOURS");
 
         allTimeTotal.setBounds(20, (FRAME_HEIGHT / 3) - (TEXT_BOX_HEIGHT / 2) - ((FRAME_HEIGHT / 3) / 2), TEXT_BOX_WIDTH, TEXT_BOX_HEIGHT);
         allTimeTotal.setStringPainted(true);
@@ -87,9 +88,6 @@ public class App {
             TEXT_BOX_HEIGHT * 3);
         logADayButton.addActionListener(e -> recordInsertionService.addCurrentTimestamp());
         frame.add(logADayButton);
-
-        JPanel jPanel = new JPanel();
-
         frame.setLayout(null);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

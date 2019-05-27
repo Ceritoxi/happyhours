@@ -37,14 +37,19 @@ public class RecordsFileReader {
         StringBuilder recordBuilder = new StringBuilder();
         int inputChar;
         while ((inputChar = reader.read()) != -1) {
-            if (isStillInCurrentRow((char) inputChar)) {
-                recordBuilder.append((char) inputChar);
-            } else {
-                result.add(recordBuilder.toString());
-                recordBuilder = new StringBuilder();
-            }
+            recordBuilder = processChar(result, recordBuilder, (char) inputChar);
         }
         return result;
+    }
+
+    private StringBuilder processChar(List<String> result, StringBuilder recordBuilder, char inputChar) {
+        if (isStillInCurrentRow(inputChar)) {
+            recordBuilder.append(inputChar);
+        } else {
+            result.add(recordBuilder.toString());
+            recordBuilder = new StringBuilder();
+        }
+        return recordBuilder;
     }
 
     private boolean isStillInCurrentRow(char inputChar) {

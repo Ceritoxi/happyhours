@@ -1,4 +1,4 @@
-package com.zlotran.happyhours.refresher;
+package com.zlotran.happyhours.ui.refresher;
 
 public interface LabelRefresher {
     String labelRefresh();

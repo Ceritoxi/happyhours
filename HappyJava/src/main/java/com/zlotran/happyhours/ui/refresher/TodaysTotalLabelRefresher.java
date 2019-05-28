@@ -1,4 +1,4 @@
-package com.zlotran.happyhours.refresher;
+package com.zlotran.happyhours.ui.refresher;
 
 import com.zlotran.happyhours.controller.RecordStatisticsController;
 

@@ -1,13 +1,10 @@
 package com.zlotran.happyhours;
 
-import java.time.LocalDateTime;
-
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JProgressBar;
-import javax.swing.WindowConstants;
 
+import com.zlotran.happyhours.controller.RecordInsertionController;
+import com.zlotran.happyhours.controller.RecordStatisticsController;
 import com.zlotran.happyhours.dal.RecordDao;
 import com.zlotran.happyhours.dal.RecordsFileReader;
 import com.zlotran.happyhours.dal.RecordsFileWriter;
@@ -18,6 +15,7 @@ import com.zlotran.happyhours.service.RecordInsertionService;
 import com.zlotran.happyhours.service.RecordStatisticsCalculationUtility;
 import com.zlotran.happyhours.service.RecordStatisticsService;
 import com.zlotran.happyhours.transform.RecordTransformer;
+import com.zlotran.happyhours.ui.UiMaker;
 import com.zlotran.happyhours.validation.RecordValidator;
 
 public class App {
@@ -45,82 +43,11 @@ public class App {
         RecordStatisticsCalculationUtility recordStatisticsCalculationUtility = new RecordStatisticsCalculationUtility(localDateTimeSupplier);
         RecordStatisticsService recordStatisticsService = new RecordStatisticsService(recordDao, timeFormatter, recordStatisticsCalculationUtility);
         RecordInsertionService recordInsertionService = new RecordInsertionService(recordDao);
-
-        uiStuff(recordStatisticsService, recordInsertionService);
+        RecordInsertionController recordInsertionController = new RecordInsertionController(recordInsertionService);
+        RecordStatisticsController recordStatisticsController = new RecordStatisticsController(recordStatisticsService);
+        UiMaker uiMaker = new UiMaker(recordInsertionController, recordStatisticsController);
+        uiMaker.drawUI();
+        uiMaker.startRefreshing();
     }
 
-    private static void uiStuff(RecordStatisticsService recordStatisticsService, RecordInsertionService recordInsertionService) {
-        frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
-        frame.setTitle("HAPPY HOURS");
-
-        allTimeTotal.setBounds(20, (FRAME_HEIGHT / 3) - (TEXT_BOX_HEIGHT / 2) - ((FRAME_HEIGHT / 3) / 2), TEXT_BOX_WIDTH, TEXT_BOX_HEIGHT);
-        allTimeTotal.setStringPainted(true);
-        allTimeTotal.setValue(1);
-        frame.add(allTimeTotal);
-
-        allTimeAverage.setBounds(FRAME_WIDTH - (40 + TEXT_BOX_WIDTH), (FRAME_HEIGHT / 3) - (TEXT_BOX_HEIGHT / 2) - ((FRAME_HEIGHT / 3) / 2), TEXT_BOX_WIDTH,
-            TEXT_BOX_HEIGHT);
-        allTimeAverage.setStringPainted(true);
-        allTimeAverage.setValue(1);
-        frame.add(allTimeAverage);
-
-        thisMonthTotal.setBounds(20, (2 * (FRAME_HEIGHT / 3)) - (TEXT_BOX_HEIGHT / 2) - ((FRAME_HEIGHT / 3) / 2), TEXT_BOX_WIDTH, TEXT_BOX_HEIGHT);
-        thisMonthTotal.setStringPainted(true);
-        thisMonthTotal.setValue(1);
-        frame.add(thisMonthTotal);
-
-        thisMonthAverage
-            .setBounds(FRAME_WIDTH - (40 + TEXT_BOX_WIDTH), (2 * (FRAME_HEIGHT / 3)) - (TEXT_BOX_HEIGHT / 2) - ((FRAME_HEIGHT / 3) / 2), TEXT_BOX_WIDTH,
-                TEXT_BOX_HEIGHT);
-        thisMonthAverage.setStringPainted(true);
-        thisMonthAverage.setValue(0);
-        frame.add(thisMonthAverage);
-
-        todayTotal
-            .setBounds((FRAME_WIDTH / 2) - (TEXT_BOX_WIDTH / 2), (3 * (FRAME_HEIGHT / 3)) - (TEXT_BOX_HEIGHT / 2) - ((FRAME_HEIGHT / 3) / 2), TEXT_BOX_WIDTH,
-                TEXT_BOX_HEIGHT);
-        todayTotal.setStringPainted(true);
-        todayTotal.setValue(0);
-        frame.add(todayTotal);
-
-        JButton logADayButton = new JButton("Log a day");
-        logADayButton.setBounds(20 + TEXT_BOX_WIDTH / 4, (FRAME_HEIGHT / 3) - (TEXT_BOX_HEIGHT / 2) - ((FRAME_HEIGHT / 3) / 2) - (TEXT_BOX_HEIGHT * 4), TEXT_BOX_WIDTH / 2,
-            TEXT_BOX_HEIGHT * 3);
-        logADayButton.addActionListener(e -> recordInsertionService.addCurrentTimestamp());
-        frame.add(logADayButton);
-        frame.setLayout(null);
-        frame.setVisible(true);
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        Repeater repeater = new Repeater(recordStatisticsService);
-        repeater.start();
-    }
-
-    private static class Repeater extends Thread {
-
-        RecordStatisticsService recordStatisticsService;
-
-        Repeater(RecordStatisticsService recordStatisticsService) {
-            this.recordStatisticsService = recordStatisticsService;
-        }
-
-        @Override public void run() {
-            while (true) {
-                String allTimeTotalS = "All time total:\t\t" + recordStatisticsService.allTimeTotalFormatted();
-                String allTimeAverageS = "All time average:\t" + recordStatisticsService.allTimeAverageFormatted();
-                String thisMonthAverageS = "This month average:\t" + recordStatisticsService.averageOfCurrentMonthFormatted();
-                String thisMonthTotalS = "This month total:\t" + recordStatisticsService.currentMonthTotalFormatted();
-                String todayTotalS = "Today total:\t" + recordStatisticsService.currentDayTotalFormatted();
-                long currentDayTotal = recordStatisticsService.currentDayTotalInSeconds();
-                long currentMonthAverage = recordStatisticsService.averageOfCurrentMonthInSeconds();
-                long allTimeAverageSeconds = recordStatisticsService.allTimeAverageInSeconds();
-                allTimeTotal.setString(allTimeTotalS);
-                allTimeAverage.setString(allTimeAverageS);
-                thisMonthTotal.setString(thisMonthTotalS);
-                thisMonthAverage.setString(thisMonthAverageS);
-                thisMonthAverage.setValue((int) (((double) currentMonthAverage / (double) allTimeAverageSeconds) * 1000D));
-                todayTotal.setString(todayTotalS);
-                todayTotal.setValue((int) (((double) currentDayTotal / (double) currentMonthAverage) * 1000D));
-            }
-        }
-    }
 }

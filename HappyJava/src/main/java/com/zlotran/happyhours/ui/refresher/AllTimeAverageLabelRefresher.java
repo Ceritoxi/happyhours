@@ -1,18 +1,18 @@
-package com.zlotran.happyhours.refresher;
+package com.zlotran.happyhours.ui.refresher;
 
 import com.zlotran.happyhours.controller.RecordStatisticsController;
 
-public class ThisMonthTotalLabelRefresher implements LabelRefresher {
+public class AllTimeAverageLabelRefresher implements LabelRefresher {
 
     private static final int FULL = 1;
     private RecordStatisticsController recordStatisticsController;
 
-    public ThisMonthTotalLabelRefresher(RecordStatisticsController recordStatisticsController) {
+    public AllTimeAverageLabelRefresher(RecordStatisticsController recordStatisticsController) {
         this.recordStatisticsController = recordStatisticsController;
     }
 
     @Override public String labelRefresh() {
-        return recordStatisticsController.getThisMonthTotal();
+        return recordStatisticsController.getAllTimeAverage();
     }
 
     @Override public int progressRefresh() {

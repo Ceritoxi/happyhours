@@ -1,14 +1,12 @@
 package com.zlotran.happyhours.ui;
 
-import java.awt.Component;
-
-import com.zlotran.happyhours.refresher.AllTimeAverageLabelRefresher;
 import com.zlotran.happyhours.controller.RecordInsertionController;
 import com.zlotran.happyhours.controller.RecordStatisticsController;
-import com.zlotran.happyhours.refresher.AllTimeTotalLabelRefresher;
-import com.zlotran.happyhours.refresher.ThisMonthAverageLabelRefresher;
-import com.zlotran.happyhours.refresher.ThisMonthTotalLabelRefresher;
-import com.zlotran.happyhours.refresher.TodaysTotalLabelRefresher;
+import com.zlotran.happyhours.ui.refresher.AllTimeAverageLabelRefresher;
+import com.zlotran.happyhours.ui.refresher.AllTimeTotalLabelRefresher;
+import com.zlotran.happyhours.ui.refresher.ThisMonthAverageLabelRefresher;
+import com.zlotran.happyhours.ui.refresher.ThisMonthTotalLabelRefresher;
+import com.zlotran.happyhours.ui.refresher.TodaysTotalLabelRefresher;
 import com.zlotran.happyhours.ui.bar.AllTimeAverageBar;
 import com.zlotran.happyhours.ui.bar.AllTimeTotalBar;
 import com.zlotran.happyhours.ui.bar.RefreshableBar;
@@ -25,6 +23,7 @@ public class UiMaker {
 
     private RecordInsertionController recordInsertionController;
     private RecordStatisticsController recordStatisticsController;
+    private Screen screen;
 
     public UiMaker(RecordInsertionController recordInsertionController, RecordStatisticsController recordStatisticsController) {
         this.recordInsertionController = recordInsertionController;
@@ -32,10 +31,16 @@ public class UiMaker {
     }
 
     public void drawUI() {
-        Screen screen = new Screen();
+        screen = new Screen();
         placeComponentsOnScreen(screen);
         screen.revealScreen();
-        UIRefresher uiRefresher = new UIRefresher(screen);
+    }
+
+    public void startRefreshing() {
+        if (screen != null) {
+            UIRefresher uiRefresher = new UIRefresher(screen);
+            uiRefresher.start();
+        }
     }
 
     private void placeComponentsOnScreen(Screen screen) {
@@ -63,14 +68,8 @@ public class UiMaker {
         }
 
         private void refreshRefreshableBars() {
-            for (Component component : screen.getComponents()) {
-                refreshRefreshableBar(component);
-            }
-        }
-
-        private void refreshRefreshableBar(Component component) {
-            if (component instanceof RefreshableBar) {
-                ((RefreshableBar) component).refresh();
+            for (RefreshableBar bar : screen.getRefreshableBars()) {
+                bar.refresh();
             }
         }
     }

@@ -1,8 +1,5 @@
 package com.zlotran.happyhours;
 
-import javax.swing.JFrame;
-import javax.swing.JProgressBar;
-
 import com.zlotran.happyhours.controller.RecordInsertionController;
 import com.zlotran.happyhours.controller.RecordStatisticsController;
 import com.zlotran.happyhours.dal.RecordDao;
@@ -10,10 +7,10 @@ import com.zlotran.happyhours.dal.RecordsFileReader;
 import com.zlotran.happyhours.dal.RecordsFileWriter;
 import com.zlotran.happyhours.format.TimeFormatter;
 import com.zlotran.happyhours.format.TimeFormatterUtil;
-import com.zlotran.happyhours.supplier.LocalDateTimeSupplier;
 import com.zlotran.happyhours.service.RecordInsertionService;
 import com.zlotran.happyhours.service.RecordStatisticsCalculationUtility;
 import com.zlotran.happyhours.service.RecordStatisticsService;
+import com.zlotran.happyhours.supplier.LocalDateTimeSupplier;
 import com.zlotran.happyhours.transform.RecordTransformer;
 import com.zlotran.happyhours.ui.UiMaker;
 import com.zlotran.happyhours.validation.RecordValidator;

@@ -10,7 +10,7 @@ import com.zlotran.happyhours.dal.RecordsFileReader;
 import com.zlotran.happyhours.dal.RecordsFileWriter;
 import com.zlotran.happyhours.format.TimeFormatter;
 import com.zlotran.happyhours.format.TimeFormatterUtil;
-import com.zlotran.happyhours.service.LocalDateTimeSupplier;
+import com.zlotran.happyhours.supplier.LocalDateTimeSupplier;
 import com.zlotran.happyhours.service.RecordInsertionService;
 import com.zlotran.happyhours.service.RecordStatisticsCalculationUtility;
 import com.zlotran.happyhours.service.RecordStatisticsService;

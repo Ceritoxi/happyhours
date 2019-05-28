@@ -1,4 +1,4 @@
-package com.zlotran.happyhours.service;
+package com.zlotran.happyhours.supplier;
 
 import java.time.LocalDateTime;
 import java.util.function.Supplier;

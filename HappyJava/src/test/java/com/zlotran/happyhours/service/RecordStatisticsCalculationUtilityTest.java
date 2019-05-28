@@ -13,6 +13,7 @@ import org.mockito.MockitoAnnotations;
 
 import com.zlotran.happyhours.domain.Record;
 import com.zlotran.happyhours.domain.State;
+import com.zlotran.happyhours.supplier.LocalDateTimeSupplier;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;

@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.zlotran.happyhours.domain.Record;
 import com.zlotran.happyhours.domain.State;
+import com.zlotran.happyhours.supplier.LocalDateTimeSupplier;
 
 public class RecordStatisticsCalculationUtility {
 

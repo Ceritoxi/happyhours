@@ -20,16 +20,7 @@ import com.zlotran.happyhours.validation.RecordValidator;
 
 public class App {
     public static final String DATA_FILE_NAME = "datafile";
-    private static final int FRAME_WIDTH = 800;
-    private static final int FRAME_HEIGHT = 600;
-    private static final int TEXT_BOX_WIDTH = 350;
-    private static final int TEXT_BOX_HEIGHT = 20;
-    private static JFrame frame = new JFrame();
-    private static final JProgressBar allTimeTotal = new JProgressBar(0, 1);
-    private static final JProgressBar allTimeAverage = new JProgressBar(0, 1);
-    private static final JProgressBar thisMonthAverage = new JProgressBar(0, 1000);
-    private static final JProgressBar thisMonthTotal = new JProgressBar(0, 1);
-    private static final JProgressBar todayTotal = new JProgressBar(0, 1000);
+    public static final String CONFIG_FILE_NAME = "config.cfg";
 
     public static void main(String[] args) {
         RecordsFileReader recordsFileReader = new RecordsFileReader();

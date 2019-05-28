@@ -13,4 +13,28 @@ public class RecordStatisticsController {
     public String getAllTimeAverage() {
         return recordStatisticsService.allTimeAverageFormatted();
     }
+
+    public String getAllTimeTotal() {
+        return recordStatisticsService.allTimeTotalFormatted();
+    }
+
+    public String getThisMonthAverage() {
+        return recordStatisticsService.averageOfCurrentMonthFormatted();
+    }
+
+    public String getThisMonthTotal() {
+        return recordStatisticsService.currentMonthTotalFormatted();
+    }
+
+    public String getToday() {
+        return recordStatisticsService.currentDayTotalFormatted();
+    }
+
+    public int getThisMonthAverageInSeconds() {
+        return (int) recordStatisticsService.averageOfCurrentMonthInSeconds();
+    }
+
+    public int getTodaySeconds() {
+        return (int) recordStatisticsService.currentDayTotalInSeconds();
+    }
 }

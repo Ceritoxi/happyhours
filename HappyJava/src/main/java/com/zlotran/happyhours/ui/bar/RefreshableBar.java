@@ -2,11 +2,12 @@ package com.zlotran.happyhours.ui.bar;
 
 import javax.swing.JProgressBar;
 
-import com.zlotran.happyhours.LabelRefresher;
+import com.zlotran.happyhours.refresher.LabelRefresher;
 
 public class RefreshableBar extends JProgressBar {
 
     protected String label;
+    protected int barProgress;
     private LabelRefresher labelRefresher;
 
     public RefreshableBar(int min, int max, LabelRefresher labelRefresher) {
@@ -14,8 +15,9 @@ public class RefreshableBar extends JProgressBar {
         this.labelRefresher = labelRefresher;
     }
 
-    public void refreshLabel() {
-        label = labelRefresher.refresh();
+    public void refresh() {
+        label = labelRefresher.labelRefresh();
+        barProgress = labelRefresher.progressRefresh();
     }
 
 }

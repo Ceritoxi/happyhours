@@ -14,7 +14,7 @@ public class Screen extends JFrame {
         this.setTitle("HAPPY HOURS");
     }
 
-    public void showMe() {
+    public void revealScreen() {
         this.setLayout(null);
         this.setVisible(true);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

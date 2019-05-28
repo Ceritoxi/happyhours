@@ -1,8 +1,6 @@
 package com.zlotran.happyhours.ui.bar;
 
-import javax.swing.JProgressBar;
-
-import com.zlotran.happyhours.LabelRefresher;
+import com.zlotran.happyhours.refresher.LabelRefresher;
 
 public class AllTimeAverageBar extends RefreshableBar {
 
@@ -19,7 +17,10 @@ public class AllTimeAverageBar extends RefreshableBar {
         this.setValue(TO);
     }
 
-    public void changeLabel() {
+    @Override
+    public void refresh() {
+        super.refresh();
         this.setString("All time average:\t" + label);
+        this.setValue(barProgress);
     }
 }

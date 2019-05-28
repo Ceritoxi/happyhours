@@ -4,7 +4,6 @@ import com.zlotran.happyhours.controller.RecordStatisticsController;
 
 public class AllTimeAverageLabelRefresher implements LabelRefresher {
 
-    private static final int FULL = 1;
     private RecordStatisticsController recordStatisticsController;
 
     public AllTimeAverageLabelRefresher(RecordStatisticsController recordStatisticsController) {
@@ -16,7 +15,7 @@ public class AllTimeAverageLabelRefresher implements LabelRefresher {
     }
 
     @Override public int progressRefresh() {
-        return FULL;
+        return recordStatisticsController.getAllTimeAverageInSeconds();
     }
 
 }

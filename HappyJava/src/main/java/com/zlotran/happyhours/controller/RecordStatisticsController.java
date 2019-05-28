@@ -30,6 +30,10 @@ public class RecordStatisticsController {
         return recordStatisticsService.currentDayTotalFormatted();
     }
 
+    public int getAllTimeAverageInSeconds() {
+        return (int) recordStatisticsService.allTimeAverageInSeconds();
+    }
+
     public int getThisMonthAverageInSeconds() {
         return (int) recordStatisticsService.averageOfCurrentMonthInSeconds();
     }

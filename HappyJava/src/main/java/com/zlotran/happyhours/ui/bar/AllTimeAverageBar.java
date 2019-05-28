@@ -5,7 +5,7 @@ import com.zlotran.happyhours.ui.refresher.LabelRefresher;
 public class AllTimeAverageBar extends RefreshableBar {
 
     private static final int FROM = 0;
-    private static final int TO = 1;
+    private static final int TO = 30600;
     private static final int DEFAULT_BAR_WIDTH = 350;
     private static final int DEFAULT_BAR_HEIGHT = 20;
     private static final String DEFAULT_LABEL_PREFIX = "All time average:\t";

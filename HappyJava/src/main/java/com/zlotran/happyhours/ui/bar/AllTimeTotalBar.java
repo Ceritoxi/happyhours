@@ -18,6 +18,7 @@ public class AllTimeTotalBar extends RefreshableBar {
         super.refresh();
         this.setString(LABEL_PREFIX + label);
         this.setValue(barProgress);
+        this.setForeground(color);
     }
 
 

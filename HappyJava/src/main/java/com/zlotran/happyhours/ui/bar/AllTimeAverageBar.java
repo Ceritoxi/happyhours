@@ -5,6 +5,7 @@ import com.zlotran.happyhours.ui.refresher.LabelRefresher;
 public class AllTimeAverageBar extends RefreshableBar {
 
     private static final int TO = 30600;
+
     private static final String LABEL_PREFIX = "All time average:\t";
 
     public AllTimeAverageBar(LabelRefresher labelRefresher) {
@@ -19,6 +20,7 @@ public class AllTimeAverageBar extends RefreshableBar {
     public void refresh() {
         super.refresh();
         this.setString(LABEL_PREFIX + label);
-        this.setValue(barProgress);
+        this.setValue(barProgress++);
+        this.setForeground(color);
     }
 }

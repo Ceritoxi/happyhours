@@ -16,7 +16,6 @@ import com.zlotran.happyhours.domain.State;
 import com.zlotran.happyhours.supplier.LocalDateTimeSupplier;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.when;
 
 class RecordStatisticsCalculationUtilityTest {

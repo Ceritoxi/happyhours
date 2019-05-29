@@ -1,4 +1,4 @@
-package com.zlotran.happyhours;
+package com.zlotran.happyhours.config;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -7,31 +7,32 @@ import java.util.Map;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.zlotran.happyhours.App;
 
-public class ConfigSource {
+public class GeneralConfig {
 
-    private volatile static ConfigSource configSource;
+    private volatile static GeneralConfig generalConfig;
 
     private boolean configMapIsUpToDate;
     private Map<String, String> configMap;
 
-    private ConfigSource() {
+    private GeneralConfig() {
         this.configMapIsUpToDate = false;
         this.configMap = new HashMap<>();
     }
 
-    public static ConfigSource getConfigSource() {
-        if (configSource == null) {
-            synchronized (ConfigSource.class) {
-                if (configSource == null) {
-                    configSource = new ConfigSource();
+    public static GeneralConfig getInstance() {
+        if (generalConfig == null) {
+            synchronized (GeneralConfig.class) {
+                if (generalConfig == null) {
+                    generalConfig = new GeneralConfig();
                 }
             }
         }
-        return configSource;
+        return generalConfig;
     }
 
-    public void initConfig() {
+    private void initConfig() {
         try {
             String rawConfigJSON = readInRawJSON();
             TypeReference<HashMap<String, String>> typeRef = new TypeReference<>() {
@@ -41,7 +42,9 @@ public class ConfigSource {
             configMapIsUpToDate = true;
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("Config file not found, falling back to default.");
+            System.err.println("Config file not found, falling back to default.");
+            configMap = FallbackGeneralConfig.getFallbackGeneralConfig();
+            configMapIsUpToDate = true;
         }
     }
 

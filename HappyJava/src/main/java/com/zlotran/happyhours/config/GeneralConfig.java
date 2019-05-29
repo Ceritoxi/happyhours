@@ -57,6 +57,7 @@ public class GeneralConfig {
 
     /**
      * Pretty high chance of death
+     *
      * @param key
      * @return
      */
@@ -74,6 +75,7 @@ public class GeneralConfig {
         while ((inputChar = reader.read()) != -1) {
             rawConfigJSONBuilder.append((char) inputChar);
         }
+        reader.close();
         return rawConfigJSONBuilder.toString();
     }
 }

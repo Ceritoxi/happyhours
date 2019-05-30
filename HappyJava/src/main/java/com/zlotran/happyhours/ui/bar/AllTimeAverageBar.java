@@ -2,7 +2,7 @@ package com.zlotran.happyhours.ui.bar;
 
 import com.zlotran.happyhours.ui.refresher.LabelRefresher;
 
-public class AllTimeAverageBar extends ColorChangerRefreshableBar {
+public class AllTimeAverageBar extends RefreshableBar {
 
     private static final int TO = 30600;
 

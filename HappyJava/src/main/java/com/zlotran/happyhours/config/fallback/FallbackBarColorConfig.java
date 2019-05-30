@@ -12,7 +12,7 @@ public class FallbackBarColorConfig {
     private static final String MID_PHASE_GREENNESS_KEY = "mid.greenness";
     private static final String MID_PHASE_BLUENESS_KEY = "mid.blueness";
     private static final String FIRST_MID_PHASE_REDNESS_KEY = "first.mid.redness";
-    private static final String FIRST_PHASE_GREENNESS_KEY = "first.mid.redness";
+    private static final String FIRST_PHASE_GREENNESS_KEY = "first.greenness";
     private static final String FIRST_PHASE_BLUENESS_KEY = "first.blueness";
 
     private static final String GREEN_DEPTH_VALUE = "100";

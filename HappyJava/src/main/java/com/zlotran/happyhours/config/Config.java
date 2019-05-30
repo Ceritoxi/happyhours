@@ -44,6 +44,10 @@ public abstract class Config {
         }
     }
 
+    public void reload() {
+        initConfig();
+    }
+
     public String getConfig(String key) {
         if (!configMapIsUpToDate) {
             initConfig();

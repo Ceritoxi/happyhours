@@ -1,5 +1,11 @@
 package com.zlotran.happyhours.ui;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.zlotran.happyhours.config.BarColorConfig;
+import com.zlotran.happyhours.config.Config;
+import com.zlotran.happyhours.config.GeneralConfig;
 import com.zlotran.happyhours.controller.RecordInsertionController;
 import com.zlotran.happyhours.controller.RecordStatisticsController;
 import com.zlotran.happyhours.ui.bar.AllTimeAverageBar;
@@ -8,6 +14,7 @@ import com.zlotran.happyhours.ui.bar.RefreshableBar;
 import com.zlotran.happyhours.ui.bar.ThisMonthAverageBar;
 import com.zlotran.happyhours.ui.bar.ThisMonthTotalBar;
 import com.zlotran.happyhours.ui.bar.TodaysTotalBar;
+import com.zlotran.happyhours.ui.button.ConfigResetButton;
 import com.zlotran.happyhours.ui.button.LogADayButton;
 import com.zlotran.happyhours.ui.refresher.AllTimeAverageLabelRefresher;
 import com.zlotran.happyhours.ui.refresher.AllTimeTotalLabelRefresher;
@@ -50,6 +57,18 @@ public class UiMaker {
         screen.add(new ThisMonthTotalBar(new ThisMonthTotalLabelRefresher(recordStatisticsController)));
         screen.add(new TodaysTotalBar(new TodaysTotalLabelRefresher(recordStatisticsController)));
         screen.add(new LogADayButton(e -> recordInsertionController.logADay()));
+        screen.add(new ConfigResetButton(e -> resetShit()));
+    }
+
+    private void resetShit() {
+        configs().forEach(Config::reload);
+    }
+
+    private List<Config> configs() {
+        List<Config> configs = new ArrayList<>();
+        configs.add(BarColorConfig.getInstance());
+        configs.add(GeneralConfig.getInstance());
+        return configs;
     }
 
     private static class UIRefresher extends Thread {

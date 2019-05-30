@@ -62,7 +62,7 @@ public class UiMaker {
         }
 
         @Override public void run() {
-            while (true) {
+            while (screen != null) {
                 refreshRefreshableBars();
             }
         }

@@ -26,12 +26,12 @@ public class Screen extends JFrame {
         this.setSize(FRAME_WIDTH, FRAME_HEIGHT);
         this.setTitle(DEFAULT_TITLE);
         this.refreshableBars = new HashSet<>();
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.setLayout(NO_LAYOUT);
     }
 
     public void revealScreen() {
-        this.setLayout(NO_LAYOUT);
         this.setVisible(VISIBLE);
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
     public Set<RefreshableBar> getRefreshableBars() {

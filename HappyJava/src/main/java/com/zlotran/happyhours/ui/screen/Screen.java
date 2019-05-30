@@ -1,5 +1,7 @@
 package com.zlotran.happyhours.ui.screen;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.LayoutManager;
 import java.util.HashSet;
 import java.util.Set;

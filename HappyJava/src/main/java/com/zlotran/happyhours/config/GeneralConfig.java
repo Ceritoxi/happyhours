@@ -1,5 +1,6 @@
 package com.zlotran.happyhours.config;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
@@ -12,13 +13,15 @@ import com.zlotran.happyhours.App;
 public class GeneralConfig {
 
     private volatile static GeneralConfig generalConfig;
-
+    private static final String CONFIG_FILE_NAME = "config.cfg";
+    private File configFile;
     private boolean configMapIsUpToDate;
     private Map<String, String> configMap;
 
     private GeneralConfig() {
         this.configMapIsUpToDate = false;
         this.configMap = new HashMap<>();
+        this.configFile = new File(CONFIG_FILE_NAME);
     }
 
     public static GeneralConfig getInstance() {
@@ -39,11 +42,11 @@ public class GeneralConfig {
             };
             ObjectMapper objectMapper = new ObjectMapper();
             configMap = objectMapper.readValue(rawConfigJSON, typeRef);
-            configMapIsUpToDate = true;
         } catch (IOException e) {
             e.printStackTrace();
             System.err.println("Config file not found, falling back to default.");
             configMap = FallbackGeneralConfig.getFallbackGeneralConfig();
+        } finally {
             configMapIsUpToDate = true;
         }
     }
@@ -57,9 +60,6 @@ public class GeneralConfig {
 
     /**
      * Pretty high chance of death
-     *
-     * @param key
-     * @return
      */
     public Integer getNumericConfig(String key) {
         if (!configMapIsUpToDate) {
@@ -69,7 +69,7 @@ public class GeneralConfig {
     }
 
     private String readInRawJSON() throws IOException {
-        FileReader reader = new FileReader(App.CONFIG_FILE_NAME);
+        FileReader reader = new FileReader(configFile);
         StringBuilder rawConfigJSONBuilder = new StringBuilder();
         int inputChar;
         while ((inputChar = reader.read()) != -1) {

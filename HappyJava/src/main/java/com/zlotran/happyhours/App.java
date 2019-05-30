@@ -17,7 +17,7 @@ import com.zlotran.happyhours.validation.RecordValidator;
 
 public class App {
     public static final String DATA_FILE_NAME = "datafile";
-    public static final String CONFIG_FILE_NAME = "config.cfg";
+
 
     public static void main(String[] args) {
         RecordsFileReader recordsFileReader = new RecordsFileReader();

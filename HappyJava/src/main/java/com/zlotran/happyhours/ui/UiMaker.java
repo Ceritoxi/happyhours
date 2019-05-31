@@ -14,6 +14,7 @@ import com.zlotran.happyhours.ui.bar.RefreshableBar;
 import com.zlotran.happyhours.ui.bar.ThisMonthAverageBar;
 import com.zlotran.happyhours.ui.bar.ThisMonthTotalBar;
 import com.zlotran.happyhours.ui.bar.TodaysTotalBar;
+import com.zlotran.happyhours.ui.bar.TestBar;
 import com.zlotran.happyhours.ui.button.ConfigResetButton;
 import com.zlotran.happyhours.ui.button.LogADayButton;
 import com.zlotran.happyhours.ui.refresher.AllTimeAverageLabelRefresher;
@@ -56,6 +57,7 @@ public class UiMaker {
         screen.add(new ThisMonthAverageBar(new ThisMonthAverageLabelRefresher(recordStatisticsController)));
         screen.add(new ThisMonthTotalBar(new ThisMonthTotalLabelRefresher(recordStatisticsController)));
         screen.add(new TodaysTotalBar(new TodaysTotalLabelRefresher(recordStatisticsController)));
+		screen.add(new TestBar(new TodaysTotalLabelRefresher(recordStatisticsController)));
         screen.add(new LogADayButton(e -> recordInsertionController.logADay()));
         screen.add(new ConfigResetButton(e -> resetShit()));
     }

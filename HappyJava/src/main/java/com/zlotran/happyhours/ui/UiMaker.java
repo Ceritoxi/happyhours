@@ -84,12 +84,13 @@ public class UiMaker {
             this.configs = configs;
         }
 
+
         @Override public void run() {
             while (screen != null) {
                 List<Config> outdatedConfigs = collectOutdatedConfigs();
                 if (outdatedConfigs != null && !outdatedConfigs.isEmpty()) {
                     try {
-                        sleep(500);
+                        sleep(500);//dont do this kids
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -115,6 +116,15 @@ public class UiMaker {
         @Override public void run() {
             while (screen != null) {
                 refreshRefreshableBars();
+                eyySlowDown();
+            }
+        }
+
+        private void eyySlowDown() {
+            try {
+                sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
 

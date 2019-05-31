@@ -62,17 +62,12 @@ public class UiMaker {
         screen.add(new ThisMonthTotalBar(new ThisMonthTotalLabelRefresher(recordStatisticsController)));
         screen.add(new TodaysTotalBar(new TodaysTotalLabelRefresher(recordStatisticsController)));
         screen.add(new LogADayButton(e -> recordInsertionController.logADay()));
-        screen.add(new ConfigResetButton(e -> resetConfigs()));
     }
 
     private void setUpConfigs() {
         configs = new ArrayList<>();
         configs.add(BarColorConfig.getInstance());
         configs.add(GeneralConfig.getInstance());
-    }
-
-    private void resetConfigs() {
-        configs.forEach(Config::resetConfig);
     }
 
     /**

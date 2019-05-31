@@ -18,6 +18,7 @@ public abstract class Config {
 
     private File configFile;
     private boolean configMapIsUpToDate;
+    private long modifyTimestamp;
     private Map<String, String> configMap;
 
     Config(String configFileName, Map<String, String> fallbackMap) {
@@ -25,9 +26,10 @@ public abstract class Config {
         this.configMapIsUpToDate = false;
         this.configFile = new File(configFileName);
         this.fallbackMap = fallbackMap;
+        this.modifyTimestamp = configFile.lastModified();
     }
 
-    private void initConfig() {
+    private synchronized void initConfig() {
         try {
             String rawConfigJSON = readInRawJSON();
             TypeReference<HashMap<String, String>> typeRef = new TypeReference<>() {
@@ -44,11 +46,30 @@ public abstract class Config {
         }
     }
 
-    public void reload() {
-        initConfig();
+    /**
+     * well there must be a better way
+     * @return
+     */
+    public boolean isFresh() {
+        if (configFile.lastModified() != modifyTimestamp) {
+            modifyTimestamp = configFile.lastModified();
+            return false;
+        } else {
+            return true;
+        }
+    }
+    /**
+     * well there must be a better way
+     * @return
+     */
+    public void resetConfig() {
+        if (configFile.lastModified() != modifyTimestamp) {
+            modifyTimestamp = configFile.lastModified();
+            initConfig();
+        }
     }
 
-    public String getConfig(String key) {
+    public synchronized String getConfig(String key) {
         if (!configMapIsUpToDate) {
             initConfig();
         }
@@ -58,7 +79,7 @@ public abstract class Config {
     /**
      * Pretty high chance of death
      */
-    public Integer getNumericConfig(String key) {
+    public synchronized Integer getNumericConfig(String key) {
         if (!configMapIsUpToDate) {
             initConfig();
         }

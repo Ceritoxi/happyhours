@@ -2,6 +2,7 @@ package com.zlotran.happyhours.ui;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.zlotran.happyhours.config.BarColorConfig;
 import com.zlotran.happyhours.config.Config;
@@ -31,10 +32,12 @@ public class UiMaker {
     private RecordInsertionController recordInsertionController;
     private RecordStatisticsController recordStatisticsController;
     private Screen screen;
+    List<Config> configs;
 
     public UiMaker(RecordInsertionController recordInsertionController, RecordStatisticsController recordStatisticsController) {
         this.recordInsertionController = recordInsertionController;
         this.recordStatisticsController = recordStatisticsController;
+        setUpConfigs();
     }
 
     public void drawUI() {
@@ -46,7 +49,9 @@ public class UiMaker {
     public void startRefreshing() {
         if (screen != null) {
             UIRefresher uiRefresher = new UIRefresher(screen);
+            ConfigRefresher configRefresher = new ConfigRefresher(screen, configs);
             uiRefresher.start();
+            configRefresher.start();
         }
     }
 
@@ -57,18 +62,50 @@ public class UiMaker {
         screen.add(new ThisMonthTotalBar(new ThisMonthTotalLabelRefresher(recordStatisticsController)));
         screen.add(new TodaysTotalBar(new TodaysTotalLabelRefresher(recordStatisticsController)));
         screen.add(new LogADayButton(e -> recordInsertionController.logADay()));
-        screen.add(new ConfigResetButton(e -> resetShit()));
+        screen.add(new ConfigResetButton(e -> resetConfigs()));
     }
 
-    private void resetShit() {
-        configs().forEach(Config::reload);
-    }
-
-    private List<Config> configs() {
-        List<Config> configs = new ArrayList<>();
+    private void setUpConfigs() {
+        configs = new ArrayList<>();
         configs.add(BarColorConfig.getInstance());
         configs.add(GeneralConfig.getInstance());
-        return configs;
+    }
+
+    private void resetConfigs() {
+        configs.forEach(Config::resetConfig);
+    }
+
+    /**
+     * some clusterfuck
+     */
+    private static class ConfigRefresher extends Thread {
+
+        private Screen screen;
+        private List<Config> configs;
+
+        private ConfigRefresher(Screen screen, List<Config> configs) {
+            super();
+            this.screen = screen;
+            this.configs = configs;
+        }
+
+        @Override public void run() {
+            while (screen != null) {
+                List<Config> outdatedConfigs = collectOutdatedConfigs();
+                if (outdatedConfigs != null && !outdatedConfigs.isEmpty()) {
+                    try {
+                        sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    outdatedConfigs.forEach(Config::resetConfig);
+                }
+            }
+        }
+
+        private List<Config> collectOutdatedConfigs() {
+            return configs.stream().filter(config -> !config.isFresh()).collect(Collectors.toList());
+        }
     }
 
     private static class UIRefresher extends Thread {

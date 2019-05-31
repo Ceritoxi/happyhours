@@ -14,12 +14,12 @@ public class TimeFormatter {
 
     private TimeFormatterUtil timeFormatterUtil;
 
-    public TimeFormatter(TimeFormatterUtil timeFormatterUtil) {
+    public TimeFormatter(final TimeFormatterUtil timeFormatterUtil) {
         this.timeFormatterUtil = timeFormatterUtil;
     }
 
-    public String formatTimeFromSeconds(long seconds) {
-        StringBuilder result = new StringBuilder();
+    public String formatTimeFromSeconds(final long seconds) {
+        final StringBuilder result = new StringBuilder();
         if (timeFormatterUtil.isAtLeastAYear(seconds)) {
             appendYears(seconds, result);
         }
@@ -32,7 +32,7 @@ public class TimeFormatter {
         return result.toString();
     }
 
-    private void appendYears(long seconds, StringBuilder result) {
+    private void appendYears(final long seconds, final StringBuilder result) {
         result.append(timeFormatterUtil.years(seconds));
         if (timeFormatterUtil.isMoreThanOneYear(seconds)) {
             result.append(YEARS_TEXT);
@@ -41,7 +41,7 @@ public class TimeFormatter {
         }
     }
 
-    private void appendDays(long seconds, StringBuilder result) {
+    private void appendDays(final long seconds, final StringBuilder result) {
         result.append(timeFormatterUtil.shownDays(seconds));
         if (timeFormatterUtil.isMoreThanOneDay(seconds)) {
             result.append(DAYS_TEXT);
@@ -50,7 +50,7 @@ public class TimeFormatter {
         }
     }
 
-    private void appendHours(long seconds, StringBuilder result) {
+    private void appendHours(final long seconds, final StringBuilder result) {
         if (timeFormatterUtil.isLessThanTwoHoursDigits(seconds)) {
             result.append(EXTRA_ZERO_DIGIT).append(timeFormatterUtil.shownHours(seconds)).append(COLON);
         } else {
@@ -58,7 +58,7 @@ public class TimeFormatter {
         }
     }
 
-    private void appendMinutes(long seconds, StringBuilder result) {
+    private void appendMinutes(final long seconds, final StringBuilder result) {
         if (timeFormatterUtil.isLessThanTwoMinuteDigits(seconds)) {
             result.append(EXTRA_ZERO_DIGIT).append(timeFormatterUtil.shownMinutes(seconds)).append(COLON);
         } else {
@@ -66,7 +66,7 @@ public class TimeFormatter {
         }
     }
 
-    private void appendSeconds(long seconds, StringBuilder result) {
+    private void appendSeconds(final long seconds, final StringBuilder result) {
         if (timeFormatterUtil.isLessThanTwoSecondDigits(seconds)) {
             result.append(EXTRA_ZERO_DIGIT).append(timeFormatterUtil.shownSeconds(seconds));
         } else {

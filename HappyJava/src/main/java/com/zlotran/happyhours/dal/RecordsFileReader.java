@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.zlotran.happyhours.App;
+import com.zlotran.happyhours.Application;
 
 public class RecordsFileReader {
 
@@ -20,20 +20,19 @@ public class RecordsFileReader {
             result = doReadInRecords();
         } catch (IOException e) {
             System.err.println("Couldn't find records, the datafile probably does not exist");
-            e.printStackTrace();
         }
         return result;
     }
 
     private List<String> doReadInRecords() throws IOException {
-        FileReader reader = new FileReader(App.DATA_FILE_NAME);
-        List<String> result = readTroughFile(reader);
+        final FileReader reader = new FileReader(Application.DATA_FILE_NAME);
+        final List<String> result = readTroughFile(reader);
         reader.close();
         return result;
     }
 
-    private List<String> readTroughFile(FileReader reader) throws IOException {
-        List<String> result = new ArrayList<>();
+    private List<String> readTroughFile(final FileReader reader) throws IOException {
+        final List<String> result = new ArrayList<>();
         StringBuilder recordBuilder = new StringBuilder();
         int inputChar;
         while ((inputChar = reader.read()) != -1) {
@@ -42,17 +41,18 @@ public class RecordsFileReader {
         return result;
     }
 
-    private StringBuilder processChar(List<String> result, StringBuilder recordBuilder, char inputChar) {
+    private StringBuilder processChar(final List<String> result, final StringBuilder recordBuilder, final char inputChar) {
+        StringBuilder builder = recordBuilder;
         if (isStillInCurrentRow(inputChar)) {
-            recordBuilder.append(inputChar);
+            builder.append(inputChar);
         } else {
-            result.add(recordBuilder.toString());
-            recordBuilder = new StringBuilder();
+            result.add(builder.toString());
+            builder = new StringBuilder();
         }
-        return recordBuilder;
+        return builder;
     }
 
-    private boolean isStillInCurrentRow(char inputChar) {
+    private boolean isStillInCurrentRow(final char inputChar) {
         return inputChar != '\n';
     }
 }

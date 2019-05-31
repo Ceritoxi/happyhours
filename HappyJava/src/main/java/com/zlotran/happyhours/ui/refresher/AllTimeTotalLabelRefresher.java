@@ -7,7 +7,7 @@ public class AllTimeTotalLabelRefresher implements LabelRefresher {
     private static final int FULL = 1;
     private RecordStatisticsController recordStatisticsController;
 
-    public AllTimeTotalLabelRefresher(RecordStatisticsController recordStatisticsController) {
+    public AllTimeTotalLabelRefresher(final RecordStatisticsController recordStatisticsController) {
         this.recordStatisticsController = recordStatisticsController;
     }
 

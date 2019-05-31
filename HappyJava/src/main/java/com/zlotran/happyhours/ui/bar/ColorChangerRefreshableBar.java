@@ -8,7 +8,7 @@ public abstract class ColorChangerRefreshableBar extends RefreshableBar {
 
 
 
-    ColorChangerRefreshableBar(LabelRefresher labelRefresher) {
+    ColorChangerRefreshableBar(final LabelRefresher labelRefresher) {
         super(labelRefresher);
     }
 

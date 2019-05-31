@@ -13,7 +13,7 @@ public class Record {
     public Record() {
     }
 
-    public Record(LocalDateTime date, State state) {
+    public Record(final LocalDateTime date, final State state) {
         this.date = date;
         this.state = state;
         this.epoch = date.toEpochSecond(ZoneOffset.UTC);
@@ -23,7 +23,7 @@ public class Record {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(final LocalDateTime date) {
         this.date = date;
         this.epoch = date.toEpochSecond(ZoneOffset.UTC);
     }
@@ -32,7 +32,7 @@ public class Record {
         return state;
     }
 
-    public void setState(State state) {
+    public void setState(final State state) {
         this.state = state;
     }
 
@@ -44,12 +44,14 @@ public class Record {
         return date + " " + state;
     }
 
-    @Override public boolean equals(Object o) {
-        if (this == o)
+    @Override public boolean equals(final Object object) {
+        if (this == object) {
             return true;
-        if (o == null || getClass() != o.getClass())
+        }
+        if (object == null || getClass() != object.getClass()) {
             return false;
-        Record record = (Record) o;
+        }
+        final Record record = (Record) object;
         return getEpoch() == record.getEpoch() &&
             Objects.equals(getDate(), record.getDate()) &&
             getState() == record.getState();

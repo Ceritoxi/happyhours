@@ -29,7 +29,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>com.zlotran.happyhours.App</mainClass>
+              <mainClass>com.zlotran.happyhours.Application</mainClass>
             </manifest>
           </archive>
           <descriptorRefs>

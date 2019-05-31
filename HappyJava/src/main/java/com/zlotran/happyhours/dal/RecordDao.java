@@ -22,7 +22,7 @@ public class RecordDao {
     private List<Record> recordCache;
     private boolean recordCacheIsValid;
 
-    public RecordDao(RecordsFileReader recordsFileReader, RecordsFileWriter recordsFileWriter, RecordValidator recordValidator, RecordTransformer recordTransformer) {
+    public RecordDao(final RecordsFileReader recordsFileReader, final RecordsFileWriter recordsFileWriter, final RecordValidator recordValidator, final RecordTransformer recordTransformer) {
         this.recordsFileReader = recordsFileReader;
         this.recordsFileWriter = recordsFileWriter;
         this.recordValidator = recordValidator;
@@ -47,7 +47,7 @@ public class RecordDao {
      * Adds a new record to the database.
      * @param record
      */
-    public void addRecord(Record record) {
+    public void addRecord(final Record record) {
         if (record.getState().equals(nextState())) {
             recordsFileWriter.addRecord(recordTransformer.convertToRawRecord(record));
             recordCacheIsValid = false;
@@ -61,7 +61,7 @@ public class RecordDao {
      * Invalid records cause an {@link InvalidRecordException} to occur.
      * @param rawRecord
      */
-    private void addRecord(String rawRecord) {
+    private void addRecord(final String rawRecord) {
         if (recordValidator.isValid(rawRecord)) {
             recordsFileWriter.addRecord(rawRecord);
             recordCacheIsValid = false;
@@ -85,23 +85,23 @@ public class RecordDao {
         }
     }
 
-    public List<Record> getRecordsForMonth(Month month) {
+    public List<Record> getRecordsForMonth(final Month month) {
         return getRecords().stream().filter(record -> record.getDate().getMonth().equals(month)).collect(Collectors.toList());
     }
 
-    public List<Record> getRecordsForMonth(int monthIndex) {
+    public List<Record> getRecordsForMonth(final int monthIndex) {
         return getRecords().stream().filter(record -> record.getDate().getMonthValue() == monthIndex).collect(Collectors.toList());
     }
 
-    public List<Record> getRecordsForYear(int year) {
+    public List<Record> getRecordsForYear(final int year) {
         return getRecords().stream().filter(record -> record.getDate().getYear() == year).collect(Collectors.toList());
     }
 
-    public List<Record> getRecordsForMonthInYear(int year, Month month) {
+    public List<Record> getRecordsForMonthInYear(final int year, final Month month) {
         return getRecords().stream().filter(record -> record.getDate().getYear() == year && record.getDate().getMonth().equals(month)).collect(Collectors.toList());
     }
 
-    public List<Record> getRecordsForMonthInYear(int year, int monthIndex) {
+    public List<Record> getRecordsForMonthInYear(final int year, final int monthIndex) {
         return getRecords().stream().filter(record -> record.getDate().getYear() == year && record.getDate().getMonthValue() == monthIndex ).collect(Collectors.toList());
     }
 
@@ -113,11 +113,11 @@ public class RecordDao {
         return getRecords().stream().filter(record -> record.getDate().getDayOfMonth() == LocalDateTime.now().getDayOfMonth() && record.getDate().getMonth().equals(LocalDate.now().getMonth()) && record.getDate().getYear() == LocalDate.now().getYear()).collect(Collectors.toList());
     }
 
-    public State lastRecordedState() {
-        if (getRecords().size() > 0) {
-            return getRecords().get(getRecords().size() - 1).getState();
-        } else {
+    private State lastRecordedState() {
+        if (getRecords().isEmpty()) {
             return State.END;
+        } else {
+            return getRecords().get(getRecords().size() - 1).getState();
         }
     }
 

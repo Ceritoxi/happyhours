@@ -6,7 +6,7 @@ public class ThisMonthAverageLabelRefresher implements LabelRefresher {
 
     private RecordStatisticsController recordStatisticsController;
 
-    public ThisMonthAverageLabelRefresher(RecordStatisticsController recordStatisticsController) {
+    public ThisMonthAverageLabelRefresher(final RecordStatisticsController recordStatisticsController) {
         this.recordStatisticsController = recordStatisticsController;
     }
 

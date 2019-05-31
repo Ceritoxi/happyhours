@@ -46,9 +46,9 @@ class RecordStatisticsCalculationUtilityTest {
     @Test
     void calculateAverageInSecondsWithEndingLastRecord() {
         //GIVEN
-        List<Record> records = testRecordsWithEndingLastRecord();
+        final List<Record> records = testRecordsWithEndingLastRecord();
         //WHEN
-        long actual = underTest.calculateAverageInSeconds(records);
+        final long actual = underTest.calculateAverageInSeconds(records);
         //THEN
         assertEquals(EXPECTED_AVERAGE_EIGHT_HOURS, actual);
     }
@@ -56,9 +56,9 @@ class RecordStatisticsCalculationUtilityTest {
     @Test
     void calculateTotalInSecondsWithEndingLastRecord() {
         //GIVEN
-        List<Record> records = testRecordsWithEndingLastRecord();
+        final List<Record> records = testRecordsWithEndingLastRecord();
         //WHEN
-        long actual = underTest.calculateTotalInSecond(records);
+        final long actual = underTest.calculateTotalInSecond(records);
         //THEN
         assertEquals(EXPECTED_TOTAL_SIXTEEN_HOURS, actual);
     }
@@ -66,10 +66,10 @@ class RecordStatisticsCalculationUtilityTest {
     @Test
     void calculateTotalInSecondsWithStartingLastRecord() {
         //GIVEN
-        List<Record> records = testRecordsWithStartingLastRecord();
+        final List<Record> records = testRecordsWithStartingLastRecord();
         //WHEN
         when(localDateTimeSupplier.get()).thenReturn(THIRD_OF_JANUARY_SEVENTEEN_O_CLOCK);
-        long actual = underTest.calculateTotalInSecond(records);
+        final long actual = underTest.calculateTotalInSecond(records);
         //THEN
         assertEquals(EXPECTED_TOTAL_TWENTY_TWO_HOURS, actual);
     }
@@ -77,16 +77,16 @@ class RecordStatisticsCalculationUtilityTest {
     @Test
     void calculateAverageInSecondsWithStartingLastRecord() {
         //GIVEN
-        List<Record> records = testRecordsWithStartingLastRecord();
+        final List<Record> records = testRecordsWithStartingLastRecord();
         //WHEN
         when(localDateTimeSupplier.get()).thenReturn(THIRD_OF_JANUARY_SEVENTEEN_O_CLOCK);
-        long actual = underTest.calculateAverageInSeconds(records);
+        final long actual = underTest.calculateAverageInSeconds(records);
         //THEN
         assertEquals(EXPECTED_AVERAGE_EIGHT_HOURS, actual);
     }
 
     private List<Record> testRecordsWithEndingLastRecord() {
-        List<Record> records = new ArrayList<>();
+        final List<Record> records = new ArrayList<>();
         records.add(testRecordFirstOfJanuaryTenOClockStart);
         records.add(testRecordFirstOfJanuarySixteenOClockEnd);
         records.add(testRecordSecondOfJanuaryNineOClockStart);
@@ -95,7 +95,7 @@ class RecordStatisticsCalculationUtilityTest {
     }
 
     private List<Record> testRecordsWithStartingLastRecord() {
-        List<Record> records = new ArrayList<>();
+        final List<Record> records = new ArrayList<>();
         records.add(testRecordFirstOfJanuaryTenOClockStart);
         records.add(testRecordFirstOfJanuarySixteenOClockEnd);
         records.add(testRecordSecondOfJanuaryNineOClockStart);

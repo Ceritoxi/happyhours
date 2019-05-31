@@ -2,7 +2,7 @@ package com.zlotran.happyhours.config;
 
 import com.zlotran.happyhours.config.fallback.FallbackGeneralConfig;
 
-public class GeneralConfig extends Config{
+public final class GeneralConfig extends Config{
 
     private volatile static GeneralConfig generalConfig;
     private static final String CONFIG_FILE_NAME = CONFIG_ROOT + "config.cfg";

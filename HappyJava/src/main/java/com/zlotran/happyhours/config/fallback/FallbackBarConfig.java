@@ -3,7 +3,7 @@ package com.zlotran.happyhours.config.fallback;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FallbackBarConfig {
+public final class FallbackBarConfig {
 
     private static final String MAX_INSEC_KEY = "max.insec";
     private static final String ACCEPTABLE_MIN_INSEC_KEY = "acceptable.min.insec";
@@ -15,12 +15,15 @@ public class FallbackBarConfig {
     private static final String DEFAULT_WIDTH_VALUE = "350";
     private static final String DEFAULT_HEIGHT_VALUE = "25";
 
+    private FallbackBarConfig() {
+    }
+
     public static Map<String, String> getFallbackBarConfig() {
         return assemblyFallbackBarConfig();
     }
 
     private static Map<String, String> assemblyFallbackBarConfig() {
-        Map<String, String> result = new HashMap<>();
+        final Map<String, String> result = new HashMap<>();
         result.put(MAX_INSEC_KEY, MAX_INSEC_VALUE);
         result.put(ACCEPTABLE_MIN_INSEC_KEY, ACCEPTABLE_MIN_INSEC_VALUE);
         result.put(DEFAULT_WIDTH_KEY, DEFAULT_WIDTH_VALUE);

@@ -11,7 +11,7 @@ import static org.mockito.Mockito.when;
 
 class TimeFormatterTest {
 
-    private static final long SECONDS_INPUT = 100000000;
+    private static final long SECONDS_INPUT = 100_000_000;
     private static final String EXPECTED_TRANSFORMATION = "3 Years, 62 Days, 09:46:40";
     private static final long YEAR = 3L;
     private static final long DAYS = 1157L;
@@ -48,7 +48,7 @@ class TimeFormatterTest {
         when(timeFormatterUtil.shownHours(SECONDS_INPUT)).thenReturn(HOURS_SHOWN);
         when(timeFormatterUtil.shownMinutes(SECONDS_INPUT)).thenReturn(MINUTES_SHOWN);
         when(timeFormatterUtil.shownSeconds(SECONDS_INPUT)).thenReturn(SECONDS_SHOWN);
-        String actual = underTest.formatTimeFromSeconds(SECONDS_INPUT);
+        final String actual = underTest.formatTimeFromSeconds(SECONDS_INPUT);
         //THEN
         assertEquals(EXPECTED_TRANSFORMATION, actual);
     }

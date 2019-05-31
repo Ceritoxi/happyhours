@@ -10,12 +10,6 @@ import com.zlotran.happyhours.validation.RecordValidator;
 
 public class RecordTransformer {
 
-    private RecordValidator recordValidator;
-
-    public RecordTransformer(RecordValidator recordValidator) {
-        this.recordValidator = recordValidator;
-    }
-
     private static final int YEAR_INDEX = 0;
     private static final int MONTH_INDEX = 1;
     private static final int DAY_INDEX = 2;
@@ -24,13 +18,19 @@ public class RecordTransformer {
     private static final int SECOND_INDEX = 5;
     private static final int STATE_INDEX = 6;
 
-    public List<Record> convertToRecords(List<String> rawRecords) {
+    private RecordValidator recordValidator;
+
+    public RecordTransformer(final RecordValidator recordValidator) {
+        this.recordValidator = recordValidator;
+    }
+
+    public List<Record> convertToRecords(final List<String> rawRecords) {
         return rawRecords.stream().filter(rawRecord -> recordValidator.isValid(rawRecord)).map(this::convertToRecord).collect(Collectors.toList());
     }
 
-    private Record convertToRecord(String rawRecord) {
-        Record result = new Record();
-        String[] recordPieces = rawRecord.split(" ");
+    private Record convertToRecord(final String rawRecord) {
+        final Record result = new Record();
+        final String[] recordPieces = rawRecord.split(" ");
         result.setDate(LocalDateTime
             .of(Integer.parseInt(recordPieces[YEAR_INDEX]), Integer.parseInt(recordPieces[MONTH_INDEX]), Integer.parseInt(recordPieces[DAY_INDEX]),
                 Integer.parseInt(recordPieces[HOUR_INDEX]), Integer.parseInt(recordPieces[MINUTE_INDEX]), Integer.parseInt(recordPieces[SECOND_INDEX])));
@@ -38,7 +38,7 @@ public class RecordTransformer {
         return result;
     }
 
-    public String convertToRawRecord(Record record) {
+    public String convertToRawRecord(final Record record) {
         return record.getDate().getYear() + " "
             + record.getDate().getMonthValue() + " "
             + record.getDate().getDayOfMonth() + " "

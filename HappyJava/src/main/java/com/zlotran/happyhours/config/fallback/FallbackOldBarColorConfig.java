@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * yeah ikr, i should use objects and shit
  */
-public class FallbackOldBarColorConfig {
+public final class FallbackOldBarColorConfig {
 
     private static final String BAR_DEFAULT_RED_KEY = "color.default.red";
     private static final String BAR_DEFAULT_GREEN_KEY = "color.default.green";
@@ -58,12 +58,15 @@ public class FallbackOldBarColorConfig {
     private static final String PHASE_7_GREEN_VALUE = "216";
     private static final String PHASE_7_BLUE_VALUE = "0";
 
+    private FallbackOldBarColorConfig() {
+    }
+
     public static Map<String, String> getFallbackBarColorConfig() {
         return assemblyFallbackConfig();
     }
 
     private static Map<String, String> assemblyFallbackConfig() {
-        Map<String, String> result = new HashMap<>();
+        final Map<String, String> result = new HashMap<>();
         result.put(BAR_DEFAULT_RED_KEY, BAR_DEFAULT_RED_VALUE);
         result.put(BAR_DEFAULT_GREEN_KEY, BAR_DEFAULT_GREEN_VALUE);
         result.put(BAR_DEFAULT_BLUE_KEY, BAR_DEFAULT_BLUE_VALUE);

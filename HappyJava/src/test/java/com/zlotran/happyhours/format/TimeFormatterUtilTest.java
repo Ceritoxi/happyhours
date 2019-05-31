@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class TimeFormatterUtilTest {
 
-    private static final long MORE_THAN_A_YEAR = 100000000;
+    private static final long MORE_THAN_A_YEAR = 100_000_000;
     private static final long MORE_THAN_A_YEAR_YEARS = 3;
     private static final long MORE_THAN_A_YEAR_DAYS = 1157;
     private static final long MORE_THAN_A_YEAR_SHOWN_DAYS = 62;
@@ -30,7 +30,7 @@ class TimeFormatterUtilTest {
     void isAtLeastAYearIsTrue() {
         //GIVEN
         //WHEN
-        boolean actual = underTest.isAtLeastAYear(MORE_THAN_A_YEAR);
+        final boolean actual = underTest.isAtLeastAYear(MORE_THAN_A_YEAR);
         //THEN
         assertTrue(actual);
     }
@@ -39,7 +39,7 @@ class TimeFormatterUtilTest {
     void isAtLeastAYearIsFalse() {
         //GIVEN
         //WHEN
-        boolean actual = underTest.isAtLeastAYear(LESS_THAN_A_MINUTE);
+        final boolean actual = underTest.isAtLeastAYear(LESS_THAN_A_MINUTE);
         //THEN
         assertFalse(actual);
     }
@@ -48,7 +48,7 @@ class TimeFormatterUtilTest {
     void isAtLeastOneDayIsTrue() {
         //GIVEN
         //WHEN
-        boolean actual = underTest.isAtLeastOneDay(MORE_THAN_A_YEAR);
+        final boolean actual = underTest.isAtLeastOneDay(MORE_THAN_A_YEAR);
         //THEN
         assertTrue(actual);
     }
@@ -57,7 +57,7 @@ class TimeFormatterUtilTest {
     void isAtLeastOneDayIsFalse() {
         //GIVEN
         //WHEN
-        boolean actual = underTest.isAtLeastOneDay(LESS_THAN_A_MINUTE);
+        final boolean actual = underTest.isAtLeastOneDay(LESS_THAN_A_MINUTE);
         //THEN
         assertFalse(actual);
     }
@@ -66,7 +66,7 @@ class TimeFormatterUtilTest {
     void isMoreThanOneYearIsTrue() {
         //GIVEN
         //WHEN
-        boolean actual = underTest.isMoreThanOneYear(MORE_THAN_A_YEAR);
+        final boolean actual = underTest.isMoreThanOneYear(MORE_THAN_A_YEAR);
         //THEN
         assertTrue(actual);
     }
@@ -75,7 +75,7 @@ class TimeFormatterUtilTest {
     void isMoreThanOneYearIsFalse() {
         //GIVEN
         //WHEN
-        boolean actual = underTest.isMoreThanOneYear(LESS_THAN_A_MINUTE);
+        final boolean actual = underTest.isMoreThanOneYear(LESS_THAN_A_MINUTE);
         //THEN
         assertFalse(actual);
     }
@@ -84,7 +84,7 @@ class TimeFormatterUtilTest {
     void isMoreThanOneDayIsTrue() {
         //GIVEN
         //WHEN
-        boolean actual = underTest.isMoreThanOneDay(MORE_THAN_A_YEAR);
+        final boolean actual = underTest.isMoreThanOneDay(MORE_THAN_A_YEAR);
         //THEN
         assertTrue(actual);
     }
@@ -93,7 +93,7 @@ class TimeFormatterUtilTest {
     void isMoreThanOneDayIsFalse() {
         //GIVEN
         //WHEN
-        boolean actual = underTest.isMoreThanOneDay(LESS_THAN_A_MINUTE);
+        final boolean actual = underTest.isMoreThanOneDay(LESS_THAN_A_MINUTE);
         //THEN
         assertFalse(actual);
     }
@@ -102,7 +102,7 @@ class TimeFormatterUtilTest {
     void isLessThanTwoHoursDigitsIsTrue() {
         //GIVEN
         //WHEN
-        boolean actual = underTest.isLessThanTwoHoursDigits(LESS_THAN_TWO_DIGITS);
+        final boolean actual = underTest.isLessThanTwoHoursDigits(LESS_THAN_TWO_DIGITS);
         //THEN
         assertTrue(actual);
     }
@@ -111,7 +111,7 @@ class TimeFormatterUtilTest {
     void isLessThanTwoHoursDigitsIsFalse() {
         //GIVEN
         //WHEN
-        boolean actual = underTest.isLessThanTwoHoursDigits(MORE_THAN_TWO_DIGIT);
+        final boolean actual = underTest.isLessThanTwoHoursDigits(MORE_THAN_TWO_DIGIT);
         //THEN
         assertFalse(actual);
     }
@@ -120,7 +120,7 @@ class TimeFormatterUtilTest {
     void isLessThanTwoMinuteDigitsIsTrue() {
         //GIVEN
         //WHEN
-        boolean actual = underTest.isLessThanTwoMinuteDigits(LESS_THAN_TWO_DIGITS);
+        final boolean actual = underTest.isLessThanTwoMinuteDigits(LESS_THAN_TWO_DIGITS);
         //THEN
         assertTrue(actual);
     }
@@ -129,7 +129,7 @@ class TimeFormatterUtilTest {
     void isLessThanTwoMinuteDigitsIsFalse() {
         //GIVEN
         //WHEN
-        boolean actual = underTest.isLessThanTwoMinuteDigits(MORE_THAN_TWO_DIGIT);
+        final boolean actual = underTest.isLessThanTwoMinuteDigits(MORE_THAN_TWO_DIGIT);
         //THEN
         assertFalse(actual);
     }
@@ -138,7 +138,7 @@ class TimeFormatterUtilTest {
     void isLessThanTwoSecondDigitsIsTrue() {
         //GIVEN
         //WHEN
-        boolean actual = underTest.isLessThanTwoSecondDigits(LESS_THAN_TWO_DIGITS);
+        final boolean actual = underTest.isLessThanTwoSecondDigits(LESS_THAN_TWO_DIGITS);
         //THEN
         assertTrue(actual);
     }
@@ -147,7 +147,7 @@ class TimeFormatterUtilTest {
     void isLessThanTwoSecondDigitsIsFalse() {
         //GIVEN
         //WHEN
-        boolean actual = underTest.isLessThanTwoSecondDigits(MORE_THAN_TWO_DIGIT);
+        final boolean actual = underTest.isLessThanTwoSecondDigits(MORE_THAN_TWO_DIGIT);
         //THEN
         assertFalse(actual);
     }
@@ -156,7 +156,7 @@ class TimeFormatterUtilTest {
     void years() {
         //GIVEN
         //WHEN
-        long actual = underTest.years(MORE_THAN_A_YEAR);
+        final long actual = underTest.years(MORE_THAN_A_YEAR);
         //THEN
         assertEquals(MORE_THAN_A_YEAR_YEARS, actual);
     }
@@ -165,7 +165,7 @@ class TimeFormatterUtilTest {
     void days() {
         //GIVEN
         //WHEN
-        long actual = underTest.days(MORE_THAN_A_YEAR);
+        final long actual = underTest.days(MORE_THAN_A_YEAR);
         //THEN
         assertEquals(MORE_THAN_A_YEAR_DAYS, actual);
     }
@@ -174,7 +174,7 @@ class TimeFormatterUtilTest {
     void shownDays() {
         //GIVEN
         //WHEN
-        long actual = underTest.shownDays(MORE_THAN_A_YEAR);
+        final long actual = underTest.shownDays(MORE_THAN_A_YEAR);
         //THEN
         assertEquals(MORE_THAN_A_YEAR_SHOWN_DAYS, actual);
     }
@@ -183,7 +183,7 @@ class TimeFormatterUtilTest {
     void shownHours() {
         //GIVEN
         //WHEN
-        long actual = underTest.shownHours(MORE_THAN_A_YEAR);
+        final long actual = underTest.shownHours(MORE_THAN_A_YEAR);
         //THEN
         assertEquals(MORE_THAN_A_YEAR_SHOWN_HOURS, actual);
     }
@@ -192,7 +192,7 @@ class TimeFormatterUtilTest {
     void shownMinutes() {
         //GIVEN
         //WHEN
-        long actual = underTest.shownMinutes(MORE_THAN_A_YEAR);
+        final long actual = underTest.shownMinutes(MORE_THAN_A_YEAR);
         //THEN
         assertEquals(MORE_THAN_A_YEAR_SHOWN_MINUTES, actual);
     }
@@ -201,7 +201,7 @@ class TimeFormatterUtilTest {
     void shownSeconds() {
         //GIVEN
         //WHEN
-        long actual = underTest.shownSeconds(MORE_THAN_A_YEAR);
+        final long actual = underTest.shownSeconds(MORE_THAN_A_YEAR);
         //THEN
         assertEquals(MORE_THAN_A_YEAR_SHOWN_SECONDS, actual);
     }

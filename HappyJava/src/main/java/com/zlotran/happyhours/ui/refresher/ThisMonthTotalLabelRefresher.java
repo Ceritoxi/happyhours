@@ -7,7 +7,7 @@ public class ThisMonthTotalLabelRefresher implements LabelRefresher {
     private static final int FULL = 1;
     private RecordStatisticsController recordStatisticsController;
 
-    public ThisMonthTotalLabelRefresher(RecordStatisticsController recordStatisticsController) {
+    public ThisMonthTotalLabelRefresher(final RecordStatisticsController recordStatisticsController) {
         this.recordStatisticsController = recordStatisticsController;
     }
 

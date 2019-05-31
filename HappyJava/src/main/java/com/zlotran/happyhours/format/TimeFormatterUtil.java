@@ -16,55 +16,55 @@ public class TimeFormatterUtil {
     private static final int ONE = 1;
     private static final int ZERO = 0;
 
-    public boolean isAtLeastAYear(long seconds) {
+    public boolean isAtLeastAYear(final long seconds) {
         return years(seconds) > 0;
     }
 
-    public boolean isAtLeastOneDay(long seconds) {
+    public boolean isAtLeastOneDay(final long seconds) {
         return days(seconds) > ZERO;
     }
 
-    public boolean isMoreThanOneYear(long seconds) {
+    public boolean isMoreThanOneYear(final long seconds) {
         return years(seconds) > ONE;
     }
 
-    public boolean isMoreThanOneDay(long seconds) {
+    public boolean isMoreThanOneDay(final long seconds) {
         return days(seconds) > ONE;
     }
 
-    public boolean isLessThanTwoHoursDigits(long seconds) {
+    public boolean isLessThanTwoHoursDigits(final long seconds) {
         return shownHours(seconds) < TWO_DIGITS;
     }
 
-    public boolean isLessThanTwoMinuteDigits(long seconds) {
+    public boolean isLessThanTwoMinuteDigits(final long seconds) {
         return shownMinutes(seconds) < TWO_DIGITS;
     }
 
-    public boolean isLessThanTwoSecondDigits(long seconds) {
+    public boolean isLessThanTwoSecondDigits(final long seconds) {
         return shownSeconds(seconds) < TWO_DIGITS;
     }
 
-    public long years(long seconds) {
+    public long years(final long seconds) {
         return seconds / MINUTES / HOURS / DAYS / YEARS;
     }
 
-    public long days(long seconds) {
+    public long days(final long seconds) {
         return seconds / MINUTES / HOURS / DAYS;
     }
 
-    public long shownDays(long seconds) {
+    public long shownDays(final long seconds) {
         return days(seconds) % DAYS_REMAINDER;
     }
 
-    public long shownHours(long seconds) {
+    public long shownHours(final long seconds) {
         return seconds / MINUTES / HOURS % HOURS_REMAINDER;
     }
 
-    public long shownMinutes(long seconds) {
+    public long shownMinutes(final long seconds) {
         return seconds / MINUTES % MINUTES_REMAINDER;
     }
 
-    public long shownSeconds(long seconds) {
+    public long shownSeconds(final long seconds) {
         return seconds % SECOND_REMAINDER;
     }
 }

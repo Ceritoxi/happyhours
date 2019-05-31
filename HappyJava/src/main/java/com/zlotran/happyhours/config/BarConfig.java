@@ -2,7 +2,7 @@ package com.zlotran.happyhours.config;
 
 import com.zlotran.happyhours.config.fallback.FallbackBarConfig;
 
-public class BarConfig extends Config {
+public final class BarConfig extends Config {
 
     private volatile static BarConfig barConfig;
     private static final String CONFIG_FILE_NAME = CONFIG_ROOT + "bar.cfg";

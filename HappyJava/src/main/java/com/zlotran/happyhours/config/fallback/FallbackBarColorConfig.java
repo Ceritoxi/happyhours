@@ -3,7 +3,7 @@ package com.zlotran.happyhours.config.fallback;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FallbackBarColorConfig {
+public final class FallbackBarColorConfig {
 
     private static final String COLOR_DEFAULT_RED_KEY = "color.default.red";
     private static final String COLOR_DEFAULT_GREEN_KEY = "color.default.green";
@@ -31,12 +31,15 @@ public class FallbackBarColorConfig {
     private static final String LAST_GREENNESS_VALUE = "160";
     private static final String LAST_BLUENESS_VALUE = "50";
 
+    private FallbackBarColorConfig() {
+    }
+
     public static Map<String, String> getFallbackBarColorConfig() {
         return assemblyFallbackConfig();
     }
 
     private static Map<String, String> assemblyFallbackConfig() {
-        Map<String, String> result = new HashMap<>();
+        final Map<String, String> result = new HashMap<>();
         result.put(COLOR_DEFAULT_RED_KEY, COLOR_DEFAULT_RED_VALUE);
         result.put(COLOR_DEFAULT_GREEN_KEY, COLOR_DEFAULT_GREEN_VALUE);
         result.put(COLOR_DEFAULT_BLUE_KEY, COLOR_DEFAULT_BLUE_VALUE);

@@ -6,7 +6,7 @@ public class AllTimeAverageLabelRefresher implements LabelRefresher {
 
     private RecordStatisticsController recordStatisticsController;
 
-    public AllTimeAverageLabelRefresher(RecordStatisticsController recordStatisticsController) {
+    public AllTimeAverageLabelRefresher(final RecordStatisticsController recordStatisticsController) {
         this.recordStatisticsController = recordStatisticsController;
     }
 

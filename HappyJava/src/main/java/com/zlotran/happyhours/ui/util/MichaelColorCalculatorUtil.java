@@ -3,11 +3,13 @@ package com.zlotran.happyhours.ui.util;
 import java.awt.Color;
 
 import com.zlotran.happyhours.config.BarColorConfig;
-import com.zlotran.happyhours.config.OldBarColorConfig;
 
-public class MichaelColorCalculatorUtil {
+public final class MichaelColorCalculatorUtil {
 
-    public static Color calcColor(int barProgress, int peakMidPhase, int minBarProgress, int maxBarProgress) {
+    private MichaelColorCalculatorUtil() {
+    }
+
+    public static Color calcColor(final int barProgress, final int peakMidPhase, final int minBarProgress, final int maxBarProgress) {
         Color color;
         if(barProgress < peakMidPhase) {
             color = new Color(
@@ -35,7 +37,7 @@ public class MichaelColorCalculatorUtil {
 	
 	
 
-    private static int getConfig(String s) {
-        return BarColorConfig.getInstance().getNumericConfig(s);
+    private static int getConfig(final String config) {
+        return BarColorConfig.getInstance().getNumericConfig(config);
     }
 }

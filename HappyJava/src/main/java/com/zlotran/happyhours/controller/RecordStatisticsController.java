@@ -6,7 +6,7 @@ public class RecordStatisticsController {
 
     private RecordStatisticsService recordStatisticsService;
 
-    public RecordStatisticsController(RecordStatisticsService recordStatisticsService) {
+    public RecordStatisticsController(final RecordStatisticsService recordStatisticsService) {
         this.recordStatisticsService = recordStatisticsService;
     }
 

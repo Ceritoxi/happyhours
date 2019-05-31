@@ -8,12 +8,15 @@ import com.zlotran.happyhours.config.OldBarColorConfig;
  * I don't like this, but whatevs
  */
 @Deprecated
-public class ColorCalculatorUtil {
+public final class ColorCalculatorUtil {
 
-    private static final int PEAK_YELLOW = 28800;
-    private static final int PEAK = 30600;
+    private static final int PEAK_YELLOW = 28_800;
+    private static final int PEAK = 30_600;
 
-    public static Color calcColor(int barProgress) {
+    private ColorCalculatorUtil() {
+    }
+
+    public static Color calcColor(final int barProgress) {
         if (barProgress < (PEAK_YELLOW / 4)) {
             return new Color(getRedPhase(1), getGreenPhase(1), getBluePhase(1));
         } else if(barProgress < (PEAK_YELLOW / 4) * 2) {
@@ -31,15 +34,15 @@ public class ColorCalculatorUtil {
         }
     }
 
-    private static int getRedPhase(int phase) {
+    private static int getRedPhase(final int phase) {
         return OldBarColorConfig.getInstance().getNumericConfig("colorchange.phase." + phase + ".red");
     }
 
-    private static int getGreenPhase(int phase) {
+    private static int getGreenPhase(final int phase) {
         return OldBarColorConfig.getInstance().getNumericConfig("colorchange.phase." + phase + ".green");
     }
 
-    private static int getBluePhase(int phase) {
+    private static int getBluePhase(final int phase) {
         return OldBarColorConfig.getInstance().getNumericConfig("colorchange.phase." + phase + ".blue");
     }
 }

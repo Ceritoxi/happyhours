@@ -1,6 +1,7 @@
 package com.zlotran.happyhours.config;
 
-public class ConfigStatus {
+@Deprecated
+public final class ConfigStatus {
 
     private boolean needsReset = true;
 
@@ -24,7 +25,7 @@ public class ConfigStatus {
         return needsReset;
     }
 
-    public void setNeedsReset(boolean needsReset) {
+    public void setNeedsReset(final boolean needsReset) {
         this.needsReset = needsReset;
     }
 }

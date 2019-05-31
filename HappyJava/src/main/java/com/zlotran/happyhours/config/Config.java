@@ -9,9 +9,8 @@ import java.util.Map;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.zlotran.happyhours.config.fallback.FallbackGeneralConfig;
 
-public abstract class Config {
+public class Config {
 
     static final String CONFIG_ROOT = "configs/";
     private final Map<String, String> fallbackMap;
@@ -21,7 +20,7 @@ public abstract class Config {
     private long modifyTimestamp;
     private Map<String, String> configMap;
 
-    Config(String configFileName, Map<String, String> fallbackMap) {
+    Config(final String configFileName, final Map<String, String> fallbackMap) {
         this.configMap = new HashMap<>();
         this.configMapIsUpToDate = false;
         this.configFile = new File(configFileName);
@@ -31,13 +30,12 @@ public abstract class Config {
 
     private synchronized void initConfig() {
         try {
-            String rawConfigJSON = readInRawJSON();
-            TypeReference<HashMap<String, String>> typeRef = new TypeReference<>() {
+            final String rawConfigJSON = readInRawJSON();
+            final TypeReference<HashMap<String, String>> typeRef = new TypeReference<>() {
             };
-            ObjectMapper objectMapper = new ObjectMapper();
+            final ObjectMapper objectMapper = new ObjectMapper();
             configMap = objectMapper.readValue(rawConfigJSON, typeRef);
         } catch (IOException e) {
-            e.printStackTrace();
             System.err.println("Config file not found, falling back to default.");
             writeOutFallbackToFile();
             configMap = fallbackMap;
@@ -64,7 +62,7 @@ public abstract class Config {
         }
     }
 
-    public synchronized String getConfig(String key) {
+    public synchronized String getConfig(final String key) {
         if (!configMapIsUpToDate) {
             initConfig();
         }
@@ -74,7 +72,7 @@ public abstract class Config {
     /**
      * Pretty high chance of death
      */
-    public synchronized Integer getNumericConfig(String key) {
+    public synchronized Integer getNumericConfig(final String key) {
         if (!configMapIsUpToDate) {
             initConfig();
         }
@@ -82,8 +80,8 @@ public abstract class Config {
     }
 
     private String readInRawJSON() throws IOException {
-        FileReader reader = new FileReader(configFile);
-        StringBuilder rawConfigJSONBuilder = new StringBuilder();
+        final FileReader reader = new FileReader(configFile);
+        final StringBuilder rawConfigJSONBuilder = new StringBuilder();
         int inputChar;
         while ((inputChar = reader.read()) != -1) {
             rawConfigJSONBuilder.append((char) inputChar);
@@ -93,14 +91,14 @@ public abstract class Config {
     }
 
     private void writeOutFallbackToFile() {
-        ObjectMapper objectMapper = new ObjectMapper();
+        final ObjectMapper objectMapper = new ObjectMapper();
         new File(CONFIG_ROOT).mkdir();
         try(FileWriter writer = new FileWriter(configFile)) {
-            String jsonResult = objectMapper.writerWithDefaultPrettyPrinter()
+            final String jsonResult = objectMapper.writerWithDefaultPrettyPrinter()
                 .writeValueAsString(fallbackMap);
             writer.write(jsonResult);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Couldn't write the file out... that's a bummer");
         }
     }
 }

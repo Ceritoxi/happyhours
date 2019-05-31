@@ -2,7 +2,7 @@ package com.zlotran.happyhours.config;
 
 import com.zlotran.happyhours.config.fallback.FallbackBarColorConfig;
 
-public class BarColorConfig extends Config{
+public final class BarColorConfig extends Config{
 
     private static final int COLOR_LIMIT = 256;
     private volatile static BarColorConfig barColorConfig;
@@ -24,7 +24,7 @@ public class BarColorConfig extends Config{
     }
 
     @Override
-    public Integer getNumericConfig(String key) {
+    public Integer getNumericConfig(final String key) {
         return super.getNumericConfig(key) % COLOR_LIMIT;
     }
 }

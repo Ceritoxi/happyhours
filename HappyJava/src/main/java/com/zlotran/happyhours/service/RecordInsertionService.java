@@ -6,7 +6,7 @@ public class RecordInsertionService {
 
     private RecordDao recordDao;
 
-    public RecordInsertionService(RecordDao recordDao) {
+    public RecordInsertionService(final RecordDao recordDao) {
         this.recordDao = recordDao;
     }
 

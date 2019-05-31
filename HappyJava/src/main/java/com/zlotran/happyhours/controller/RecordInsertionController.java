@@ -6,7 +6,7 @@ public class RecordInsertionController {
 
     private RecordInsertionService recordInsertionService;
 
-    public RecordInsertionController(RecordInsertionService recordInsertionService) {
+    public RecordInsertionController(final RecordInsertionService recordInsertionService) {
         this.recordInsertionService = recordInsertionService;
     }
 

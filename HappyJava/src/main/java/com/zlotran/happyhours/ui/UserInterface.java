@@ -27,14 +27,14 @@ import com.zlotran.happyhours.ui.screen.Screen;
 /**
  * I honestly can't come up with a better name.
  */
-public class Ui {
+public class UserInterface {
 
     private RecordInsertionController recordInsertionController;
     private RecordStatisticsController recordStatisticsController;
     private Screen screen;
     private List<Config> configs;
 
-    public Ui(RecordInsertionController recordInsertionController, RecordStatisticsController recordStatisticsController) {
+    public UserInterface(final RecordInsertionController recordInsertionController, final RecordStatisticsController recordStatisticsController) {
         this.recordInsertionController = recordInsertionController;
         this.recordStatisticsController = recordStatisticsController;
         setUpConfigs();
@@ -48,14 +48,14 @@ public class Ui {
 
     public void startRefreshing() {
         if (screen != null) {
-            UIRefresher uiRefresher = new UIRefresher(screen);
-            ConfigRefresher configRefresher = new ConfigRefresher(screen, configs);
+            final UIRefresher uiRefresher = new UIRefresher(screen);
+            final ConfigRefresher configRefresher = new ConfigRefresher(screen, configs);
             uiRefresher.start();
             configRefresher.start();
         }
     }
 
-    private void placeComponentsOnScreen(Screen screen) {
+    private void placeComponentsOnScreen(final Screen screen) {
         screen.add(new AllTimeAverageBar(new AllTimeAverageLabelRefresher(recordStatisticsController)));
         screen.add(new AllTimeTotalBar(new AllTimeTotalLabelRefresher(recordStatisticsController)));
         screen.add(new ThisMonthAverageBar(new ThisMonthAverageLabelRefresher(recordStatisticsController)));
@@ -79,7 +79,7 @@ public class Ui {
         private Screen screen;
         private List<Config> configs;
 
-        private ConfigRefresher(Screen screen, List<Config> configs) {
+        private ConfigRefresher(final Screen screen, final List<Config> configs) {
             super();
             this.screen = screen;
             this.configs = configs;
@@ -88,12 +88,12 @@ public class Ui {
 
         @Override public void run() {
             while (screen != null) {
-                List<Config> outdatedConfigs = collectOutdatedConfigs();
+                final List<Config> outdatedConfigs = collectOutdatedConfigs();
                 if (outdatedConfigs != null && !outdatedConfigs.isEmpty()) {
                     try {
-                        sleep(500);//dont do this kids
+                        sleep(500);//don't do this kids
                     } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        System.err.println("Interrupted yoohoo");
                     }
                     outdatedConfigs.forEach(Config::resetConfig);
                 }
@@ -109,7 +109,7 @@ public class Ui {
 
         private Screen screen;
 
-        private UIRefresher(Screen screen) {
+        private UIRefresher(final Screen screen) {
             super();
             this.screen = screen;
         }
@@ -126,12 +126,12 @@ public class Ui {
             try {
                 sleep(100);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                System.err.println("Interrupted yoohoo");
             }
         }
 
         private void refreshRefreshableBars() {
-            for (RefreshableBar bar : screen.getRefreshableBars()) {
+            for (final RefreshableBar bar : screen.getRefreshableBars()) {
                 bar.refresh();
             }
         }

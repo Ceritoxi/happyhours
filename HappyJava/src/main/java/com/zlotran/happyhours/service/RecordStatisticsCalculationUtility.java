@@ -13,12 +13,12 @@ public class RecordStatisticsCalculationUtility {
 
     private LocalDateTimeSupplier localDateTimeSupplier;
 
-    public RecordStatisticsCalculationUtility(LocalDateTimeSupplier localDateTimeSupplier) {
+    public RecordStatisticsCalculationUtility(final LocalDateTimeSupplier localDateTimeSupplier) {
         this.localDateTimeSupplier = localDateTimeSupplier;
     }
 
-    public long calculateAverageInSeconds(List<Record> records) {
-        long averageDivisor = calculateAverageDivisor(records);
+    public long calculateAverageInSeconds(final List<Record> records) {
+        final long averageDivisor = calculateAverageDivisor(records);
         if (averageDivisor > 0) {
             return calculateTotalInSecond(records) / averageDivisor;
         } else {
@@ -26,17 +26,17 @@ public class RecordStatisticsCalculationUtility {
         }
     }
 
-    private long calculateAverageDivisor(List<Record> records) {
+    private long calculateAverageDivisor(final List<Record> records) {
         return records.stream().map(record -> record.getDate().toLocalDate()).distinct().count();
     }
 
-    public long calculateTotalInSecond(List<Record> records) {
+    public long calculateTotalInSecond(final List<Record> records) {
         long startEpochSum = ZERO;
         long endEpochSum = ZERO;
-        for (Record record : records) {
+        for (final Record record : records) {
             if (record.getState().equals(State.START)) {
                 startEpochSum += record.getEpoch();
-            } else if (record.getState().equals(State.END)){
+            } else if (record.getState().equals(State.END)) {
                 endEpochSum += record.getEpoch();
             }
         }
@@ -44,15 +44,15 @@ public class RecordStatisticsCalculationUtility {
         return endEpochSum - startEpochSum;
     }
 
-    private long plusTimeInCaseOfOngoingRecord(List<Record> records) {
+    private long plusTimeInCaseOfOngoingRecord(final List<Record> records) {
         return lastState(records).equals(State.START) ? localDateTimeSupplier.get().toEpochSecond(ZoneOffset.UTC) : ZERO;
     }
 
-    private State lastState(List<Record> records) {
-        if (records.size() > 0) {
-            return records.get(records.size() - 1).getState();
-        } else {
+    private State lastState(final List<Record> records) {
+        if (records.isEmpty()) {
             return State.END;
+        } else {
+            return records.get(records.size() - 1).getState();
         }
     }
 

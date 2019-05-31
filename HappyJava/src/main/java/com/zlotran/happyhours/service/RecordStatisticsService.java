@@ -9,7 +9,7 @@ public class RecordStatisticsService {
     private TimeFormatter timeFormatter;
     private RecordStatisticsCalculationUtility recordStatisticsCalculationUtility;
 
-    public RecordStatisticsService(RecordDao recordDao, TimeFormatter timeFormatter, RecordStatisticsCalculationUtility recordStatisticsCalculationUtility) {
+    public RecordStatisticsService(final RecordDao recordDao, final TimeFormatter timeFormatter, final RecordStatisticsCalculationUtility recordStatisticsCalculationUtility) {
         this.recordDao = recordDao;
         this.timeFormatter = timeFormatter;
         this.recordStatisticsCalculationUtility = recordStatisticsCalculationUtility;

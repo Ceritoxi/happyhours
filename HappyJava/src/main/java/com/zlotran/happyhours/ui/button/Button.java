@@ -10,7 +10,7 @@ public abstract class Button extends JButton {
     static final int BUTTON_WIDTH = 350;
     static final int BUTTON_HEIGHT = 20;
 
-    public Button(String text) {
+    public Button(final String text) {
         super(text);
     }
 }

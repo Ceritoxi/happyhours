@@ -6,7 +6,7 @@ public class TodaysTotalLabelRefresher implements LabelRefresher {
 
     private RecordStatisticsController recordStatisticsController;
 
-    public TodaysTotalLabelRefresher(RecordStatisticsController recordStatisticsController) {
+    public TodaysTotalLabelRefresher(final RecordStatisticsController recordStatisticsController) {
         this.recordStatisticsController = recordStatisticsController;
     }
 

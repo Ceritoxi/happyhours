@@ -40,16 +40,16 @@ public class Screen extends JFrame {
         return refreshableBars;
     }
 
-    public void add(RefreshableBar refreshableBar) {
+    public void add(final RefreshableBar refreshableBar) {
         super.add(refreshableBar);
         refreshableBars.add(refreshableBar);
     }
 
-    private Integer getNumericConfig(String config) {
+    private Integer getNumericConfig(final String config) {
         return GeneralConfig.getInstance().getNumericConfig(config);
     }
 
-    private String getConfig(String config) {
+    private String getConfig(final String config) {
         return GeneralConfig.getInstance().getConfig(config);
     }
 }

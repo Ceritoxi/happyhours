@@ -40,7 +40,7 @@ public abstract class Config {
             e.printStackTrace();
             System.err.println("Config file not found, falling back to default.");
             writeOutFallbackToFile();
-            configMap = FallbackGeneralConfig.getFallbackGeneralConfig();
+            configMap = fallbackMap;
         } finally {
             configMapIsUpToDate = true;
         }

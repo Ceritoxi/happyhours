@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.zlotran.happyhours.config.BarColorConfig;
-import com.zlotran.happyhours.config.OldBarColorConfig;
+import com.zlotran.happyhours.config.BarConfig;
 import com.zlotran.happyhours.config.Config;
 import com.zlotran.happyhours.config.GeneralConfig;
 import com.zlotran.happyhours.controller.RecordInsertionController;
@@ -13,14 +13,12 @@ import com.zlotran.happyhours.controller.RecordStatisticsController;
 import com.zlotran.happyhours.ui.bar.AllTimeAverageBar;
 import com.zlotran.happyhours.ui.bar.AllTimeTotalBar;
 import com.zlotran.happyhours.ui.bar.RefreshableBar;
-import com.zlotran.happyhours.ui.bar.TestBar;
 import com.zlotran.happyhours.ui.bar.ThisMonthAverageBar;
 import com.zlotran.happyhours.ui.bar.ThisMonthTotalBar;
 import com.zlotran.happyhours.ui.bar.TodaysTotalBar;
 import com.zlotran.happyhours.ui.button.LogADayButton;
 import com.zlotran.happyhours.ui.refresher.AllTimeAverageLabelRefresher;
 import com.zlotran.happyhours.ui.refresher.AllTimeTotalLabelRefresher;
-import com.zlotran.happyhours.ui.refresher.LabelRefresher;
 import com.zlotran.happyhours.ui.refresher.ThisMonthAverageLabelRefresher;
 import com.zlotran.happyhours.ui.refresher.ThisMonthTotalLabelRefresher;
 import com.zlotran.happyhours.ui.refresher.TodaysTotalLabelRefresher;
@@ -29,14 +27,14 @@ import com.zlotran.happyhours.ui.screen.Screen;
 /**
  * I honestly can't come up with a better name.
  */
-public class UiMaker {
+public class Ui {
 
     private RecordInsertionController recordInsertionController;
     private RecordStatisticsController recordStatisticsController;
     private Screen screen;
     private List<Config> configs;
 
-    public UiMaker(RecordInsertionController recordInsertionController, RecordStatisticsController recordStatisticsController) {
+    public Ui(RecordInsertionController recordInsertionController, RecordStatisticsController recordStatisticsController) {
         this.recordInsertionController = recordInsertionController;
         this.recordStatisticsController = recordStatisticsController;
         setUpConfigs();
@@ -70,6 +68,7 @@ public class UiMaker {
         configs = new ArrayList<>();
         configs.add(GeneralConfig.getInstance());
         configs.add(BarColorConfig.getInstance());
+        configs.add(BarConfig.getInstance());
     }
 
     /**
@@ -117,6 +116,7 @@ public class UiMaker {
 
         @Override public void run() {
             while (screen != null) {
+                screen.refresh();
                 refreshRefreshableBars();
                 eyySlowDown();
             }

@@ -5,6 +5,7 @@ import java.awt.Color;
 import com.zlotran.happyhours.ui.refresher.LabelRefresher;
 import com.zlotran.happyhours.ui.util.MichaelColorCalculatorUtil;
 
+@Deprecated
 public class TestBar extends ColorChangerRefreshableBar {
 
     private static final int TO = 30600;

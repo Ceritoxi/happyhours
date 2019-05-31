@@ -1,7 +1,5 @@
 package com.zlotran.happyhours.ui.screen;
 
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.LayoutManager;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,17 +12,14 @@ import com.zlotran.happyhours.ui.bar.RefreshableBar;
 
 public class Screen extends JFrame {
 
-    private static final int FRAME_WIDTH = GeneralConfig.getInstance().getNumericConfig("screen.width");
-    private static final int FRAME_HEIGHT = GeneralConfig.getInstance().getNumericConfig("screen.height");
-    private static final String DEFAULT_TITLE = GeneralConfig.getInstance().getConfig("screen.title");
     private static final LayoutManager NO_LAYOUT = null;
     private static final boolean VISIBLE = true;
     private Set<RefreshableBar> refreshableBars;
 
     public Screen() {
         super();
-        this.setSize(FRAME_WIDTH, FRAME_HEIGHT);
-        this.setTitle(DEFAULT_TITLE);
+        this.setSize(getNumericConfig("screen.width"), getNumericConfig("screen.height"));
+        this.setTitle(getConfig("screen.title"));
         this.refreshableBars = new HashSet<>();
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setLayout(NO_LAYOUT);
@@ -34,6 +29,13 @@ public class Screen extends JFrame {
         this.setVisible(VISIBLE);
     }
 
+    /**
+     * TODO: this might need an other solution
+     */
+    public void refresh() {
+        this.setTitle(getConfig("screen.title"));
+    }
+
     public Set<RefreshableBar> getRefreshableBars() {
         return refreshableBars;
     }
@@ -41,5 +43,13 @@ public class Screen extends JFrame {
     public void add(RefreshableBar refreshableBar) {
         super.add(refreshableBar);
         refreshableBars.add(refreshableBar);
+    }
+
+    private Integer getNumericConfig(String config) {
+        return GeneralConfig.getInstance().getNumericConfig(config);
+    }
+
+    private String getConfig(String config) {
+        return GeneralConfig.getInstance().getConfig(config);
     }
 }

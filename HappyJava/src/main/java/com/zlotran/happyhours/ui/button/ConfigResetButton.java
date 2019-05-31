@@ -2,6 +2,7 @@ package com.zlotran.happyhours.ui.button;
 
 import java.awt.event.ActionListener;
 
+@Deprecated
 public class ConfigResetButton extends Button {
 
     private static final String DEFAULT_BUTTON_NAME = "R";

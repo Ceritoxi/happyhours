@@ -1,10 +1,11 @@
 package com.zlotran.happyhours.ui.bar;
 
+import com.zlotran.happyhours.config.BarConfig;
 import com.zlotran.happyhours.ui.refresher.LabelRefresher;
 
 public class ThisMonthAverageBar extends ColorChangerRefreshableBar {
 
-    private static final int TO = 30600;
+    private static final int TO = BarConfig.getInstance().getNumericConfig("max.insec");
     private static final String LABEL_PREFIX = "This month average:\t";
 
     public ThisMonthAverageBar(LabelRefresher labelRefresher) {

@@ -12,7 +12,7 @@ import com.zlotran.happyhours.service.RecordStatisticsCalculationUtility;
 import com.zlotran.happyhours.service.RecordStatisticsService;
 import com.zlotran.happyhours.supplier.LocalDateTimeSupplier;
 import com.zlotran.happyhours.transform.RecordTransformer;
-import com.zlotran.happyhours.ui.UiMaker;
+import com.zlotran.happyhours.ui.Ui;
 import com.zlotran.happyhours.validation.RecordValidator;
 
 public class App {
@@ -33,9 +33,9 @@ public class App {
         RecordInsertionService recordInsertionService = new RecordInsertionService(recordDao);
         RecordInsertionController recordInsertionController = new RecordInsertionController(recordInsertionService);
         RecordStatisticsController recordStatisticsController = new RecordStatisticsController(recordStatisticsService);
-        UiMaker uiMaker = new UiMaker(recordInsertionController, recordStatisticsController);
-        uiMaker.drawUI();
-        uiMaker.startRefreshing();
+        Ui ui = new Ui(recordInsertionController, recordStatisticsController);
+        ui.drawUI();
+        ui.startRefreshing();
     }
 
 }

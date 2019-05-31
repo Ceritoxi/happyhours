@@ -12,7 +12,6 @@ public class BarColorConfig extends Config{
         super(CONFIG_FILE_NAME, FallbackBarColorConfig.getFallbackBarColorConfig());
     }
 
-
     public static BarColorConfig getInstance() {
         if (barColorConfig == null) {
             synchronized (BarColorConfig.class) {

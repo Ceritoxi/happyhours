@@ -51,12 +51,7 @@ public abstract class Config {
      * @return
      */
     public boolean isFresh() {
-        if (configFile.lastModified() != modifyTimestamp) {
-            modifyTimestamp = configFile.lastModified();
-            return false;
-        } else {
-            return true;
-        }
+        return configFile.lastModified() == modifyTimestamp;
     }
     /**
      * well there must be a better way

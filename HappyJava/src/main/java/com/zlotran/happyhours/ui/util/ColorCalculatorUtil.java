@@ -9,7 +9,6 @@ import com.zlotran.happyhours.config.BarColorConfig;
  */
 public class ColorCalculatorUtil {
 
-    private static final int COLOR_LIMIT = 256;
     private static final int PEAK_YELLOW = 28800;
     private static final int PEAK = 30600;
 
@@ -32,14 +31,14 @@ public class ColorCalculatorUtil {
     }
 
     private static int getRedPhase(int phase) {
-        return BarColorConfig.getInstance().getNumericConfig("colorchange.phase." + phase + ".red") % COLOR_LIMIT;
+        return BarColorConfig.getInstance().getNumericConfig("colorchange.phase." + phase + ".red");
     }
 
     private static int getGreenPhase(int phase) {
-        return BarColorConfig.getInstance().getNumericConfig("colorchange.phase." + phase + ".green") % COLOR_LIMIT;
+        return BarColorConfig.getInstance().getNumericConfig("colorchange.phase." + phase + ".green");
     }
 
     private static int getBluePhase(int phase) {
-        return BarColorConfig.getInstance().getNumericConfig("colorchange.phase." + phase + ".blue") % COLOR_LIMIT;
+        return BarColorConfig.getInstance().getNumericConfig("colorchange.phase." + phase + ".blue");
     }
 }

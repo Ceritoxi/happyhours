@@ -4,26 +4,42 @@ import java.awt.Color;
 
 import com.zlotran.happyhours.config.BarColorConfig;
 
+/**
+ * I don't like this, but whatevs
+ */
 public class ColorCalculatorUtil {
 
     private static final int COLOR_LIMIT = 256;
+    private static final int PEAK_YELLOW = 28800;
+    private static final int PEAK = 30600;
 
-    public static Color calcColor(int barProgress, int peakMidPhase, int minBarProgress, int maxBarProgress) {
-        Color color;
-        if (barProgress < peakMidPhase) {
-            color = new Color(getConfig("first.mid.redness"), (int) (((barProgress - minBarProgress) / ((double) peakMidPhase - minBarProgress)) * (getConfig("first.greenness") - getConfig("green.depth"))),
-                getConfig("first.blueness"));
-        } else if (barProgress <= maxBarProgress) {
-            color = new Color(getConfig("first.mid.redness") - (int) (((barProgress - (double) peakMidPhase) / (maxBarProgress - (double) peakMidPhase)) * getConfig("first.mid.redness")),
-                getConfig("mid.greenness") - getConfig("green.depth"),
-                getConfig("mid.blueness"));
+    public static Color calcColor(int barProgress) {
+        if (barProgress < (PEAK_YELLOW / 4)) {
+            return new Color(getRedPhase(1), getGreenPhase(1), getBluePhase(1));
+        } else if(barProgress < (PEAK_YELLOW / 4) * 2) {
+            return new Color(getRedPhase(2), getGreenPhase(2), getBluePhase(2));
+        } else if(barProgress < (PEAK_YELLOW / 4) * 3) {
+            return new Color(getRedPhase(3), getGreenPhase(3), getBluePhase(3));
+        } else if(barProgress < PEAK_YELLOW) {
+            return new Color(getRedPhase(4), getGreenPhase(4), getBluePhase(4));
+        } else if(barProgress < PEAK_YELLOW + (PEAK - PEAK_YELLOW) / 3) {
+            return new Color(getRedPhase(5), getGreenPhase(5), getBluePhase(5));
+        } else if(barProgress < PEAK_YELLOW + ((PEAK - PEAK_YELLOW) / 3) * 2) {
+            return new Color(getRedPhase(6), getGreenPhase(6), getBluePhase(6));
         } else {
-            color = new Color(getConfig("last.redness"), getConfig("last.greenness") - getConfig("green.depth"), getConfig("last.blueness"));
+            return new Color(getRedPhase(7), getGreenPhase(7), getBluePhase(7));
         }
-        return color;
     }
 
-    private static int getConfig(String s) {
-        return BarColorConfig.getInstance().getNumericConfig(s) % COLOR_LIMIT;
+    private static int getRedPhase(int phase) {
+        return BarColorConfig.getInstance().getNumericConfig("colorchange.phase." + phase + ".red") % COLOR_LIMIT;
+    }
+
+    private static int getGreenPhase(int phase) {
+        return BarColorConfig.getInstance().getNumericConfig("colorchange.phase." + phase + ".green") % COLOR_LIMIT;
+    }
+
+    private static int getBluePhase(int phase) {
+        return BarColorConfig.getInstance().getNumericConfig("colorchange.phase." + phase + ".blue") % COLOR_LIMIT;
     }
 }

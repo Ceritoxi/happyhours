@@ -3,27 +3,60 @@ package com.zlotran.happyhours.config.fallback;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * yeah ikr, i should use objects and shit
+ */
 public class FallbackBarColorConfig {
 
-    private static final String GREEN_DEPTH_KEY = "green.depth";
-    private static final String LAST_PHASE_REDNESS_KEY = "last.redness";
-    private static final String LAST_PHASE_GREENNESS_KEY = "last.greenness";
-    private static final String LAST_PHASE_BLUENESS_KEY = "last.blueness";
-    private static final String MID_PHASE_GREENNESS_KEY = "mid.greenness";
-    private static final String MID_PHASE_BLUENESS_KEY = "mid.blueness";
-    private static final String FIRST_MID_PHASE_REDNESS_KEY = "first.mid.redness";
-    private static final String FIRST_PHASE_GREENNESS_KEY = "first.greenness";
-    private static final String FIRST_PHASE_BLUENESS_KEY = "first.blueness";
+    private static final String BAR_DEFAULT_RED_KEY = "color.default.red";
+    private static final String BAR_DEFAULT_GREEN_KEY = "color.default.green";
+    private static final String BAR_DEFAULT_BLUE_KEY = "color.default.blue";
+    private static final String PHASE_1_RED_KEY = "colorchange.phase.1.red";
+    private static final String PHASE_1_GREEN_KEY = "colorchange.phase.1.green";
+    private static final String PHASE_1_BLUE_KEY = "colorchange.phase.1.blue";
+    private static final String PHASE_2_RED_KEY = "colorchange.phase.2.red";
+    private static final String PHASE_2_GREEN_KEY = "colorchange.phase.2.green";
+    private static final String PHASE_2_BLUE_KEY = "colorchange.phase.2.blue";
+    private static final String PHASE_3_RED_KEY = "colorchange.phase.3.red";
+    private static final String PHASE_3_GREEN_KEY = "colorchange.phase.3.green";
+    private static final String PHASE_3_BLUE_KEY = "colorchange.phase.3.blue";
+    private static final String PHASE_4_RED_KEY = "colorchange.phase.4.red";
+    private static final String PHASE_4_GREEN_KEY = "colorchange.phase.4.green";
+    private static final String PHASE_4_BLUE_KEY = "colorchange.phase.4.blue";
+    private static final String PHASE_5_RED_KEY = "colorchange.phase.5.red";
+    private static final String PHASE_5_GREEN_KEY = "colorchange.phase.5.green";
+    private static final String PHASE_5_BLUE_KEY = "colorchange.phase.5.blue";
+    private static final String PHASE_6_RED_KEY = "colorchange.phase.6.red";
+    private static final String PHASE_6_GREEN_KEY = "colorchange.phase.6.green";
+    private static final String PHASE_6_BLUE_KEY = "colorchange.phase.6.blue";
+    private static final String PHASE_7_RED_KEY = "colorchange.phase.7.red";
+    private static final String PHASE_7_GREEN_KEY = "colorchange.phase.7.green";
+    private static final String PHASE_7_BLUE_KEY = "colorchange.phase.7.blue";
 
-    private static final String GREEN_DEPTH_VALUE = "100";
-    private static final String LAST_PHASE_REDNESS_VALUE = "0";
-    private static final String LAST_PHASE_GREENNESS_VALUE = "255";
-    private static final String LAST_PHASE_BLUENESS_VALUE = "0";
-    private static final String MID_PHASE_GREENNESS_VALUE = "255";
-    private static final String MID_PHASE_BLUENESS_VALUE = "0";
-    private static final String FIRST_MID_PHASE_REDNESS_VALUE = "255";
-    private static final String FIRST_PHASE_GREENNESS_VALUE = "255";
-    private static final String FIRST_PHASE_BLUENESS_VALUE = "0";
+    private static final String BAR_DEFAULT_RED_VALUE = "0";
+    private static final String BAR_DEFAULT_GREEN_VALUE = "0";
+    private static final String BAR_DEFAULT_BLUE_VALUE = "255";
+    private static final String PHASE_1_RED_VALUE = "255";
+    private static final String PHASE_1_GREEN_VALUE = "0";
+    private static final String PHASE_1_BLUE_VALUE = "0";
+    private static final String PHASE_2_RED_VALUE = "224";
+    private static final String PHASE_2_GREEN_VALUE = "100";
+    private static final String PHASE_2_BLUE_VALUE = "0";
+    private static final String PHASE_3_RED_VALUE = "224";
+    private static final String PHASE_3_GREEN_VALUE = "164";
+    private static final String PHASE_3_BLUE_VALUE = "0";
+    private static final String PHASE_4_RED_VALUE = "229";
+    private static final String PHASE_4_GREEN_VALUE = "210";
+    private static final String PHASE_4_BLUE_VALUE = "39";
+    private static final String PHASE_5_RED_VALUE = "189";
+    private static final String PHASE_5_GREEN_VALUE = "219";
+    private static final String PHASE_5_BLUE_VALUE = "0";
+    private static final String PHASE_6_RED_VALUE = "138";
+    private static final String PHASE_6_GREEN_VALUE = "219";
+    private static final String PHASE_6_BLUE_VALUE = "0";
+    private static final String PHASE_7_RED_VALUE = "83";
+    private static final String PHASE_7_GREEN_VALUE = "216";
+    private static final String PHASE_7_BLUE_VALUE = "0";
 
     public static Map<String, String> getFallbackBarColorConfig() {
         return assemblyFallbackConfig();
@@ -31,15 +64,31 @@ public class FallbackBarColorConfig {
 
     private static Map<String, String> assemblyFallbackConfig() {
         Map<String, String> result = new HashMap<>();
-        result.put(GREEN_DEPTH_KEY, GREEN_DEPTH_VALUE);
-        result.put(LAST_PHASE_REDNESS_KEY, LAST_PHASE_REDNESS_VALUE);
-        result.put(LAST_PHASE_GREENNESS_KEY, LAST_PHASE_GREENNESS_VALUE);
-        result.put(LAST_PHASE_BLUENESS_KEY, LAST_PHASE_BLUENESS_VALUE);
-        result.put(MID_PHASE_GREENNESS_KEY, MID_PHASE_GREENNESS_VALUE);
-        result.put(MID_PHASE_BLUENESS_KEY, MID_PHASE_BLUENESS_VALUE);
-        result.put(FIRST_MID_PHASE_REDNESS_KEY, FIRST_MID_PHASE_REDNESS_VALUE);
-        result.put(FIRST_PHASE_GREENNESS_KEY, FIRST_PHASE_GREENNESS_VALUE);
-        result.put(FIRST_PHASE_BLUENESS_KEY, FIRST_PHASE_BLUENESS_VALUE);
+        result.put(BAR_DEFAULT_RED_KEY, BAR_DEFAULT_RED_VALUE);
+        result.put(BAR_DEFAULT_GREEN_KEY, BAR_DEFAULT_GREEN_VALUE);
+        result.put(BAR_DEFAULT_BLUE_KEY, BAR_DEFAULT_BLUE_VALUE);
+        result.put(PHASE_1_RED_KEY, PHASE_1_RED_VALUE);
+        result.put(PHASE_1_GREEN_KEY, PHASE_1_GREEN_VALUE);
+        result.put(PHASE_1_BLUE_KEY, PHASE_1_BLUE_VALUE);
+        result.put(PHASE_2_RED_KEY, PHASE_2_RED_VALUE);
+        result.put(PHASE_2_GREEN_KEY, PHASE_2_GREEN_VALUE);
+        result.put(PHASE_2_BLUE_KEY, PHASE_2_BLUE_VALUE);
+        result.put(PHASE_3_RED_KEY, PHASE_3_RED_VALUE);
+        result.put(PHASE_3_GREEN_KEY, PHASE_3_GREEN_VALUE);
+        result.put(PHASE_3_BLUE_KEY, PHASE_3_BLUE_VALUE);
+        result.put(PHASE_4_RED_KEY, PHASE_4_RED_VALUE);
+        result.put(PHASE_4_GREEN_KEY, PHASE_4_GREEN_VALUE);
+        result.put(PHASE_4_BLUE_KEY, PHASE_4_BLUE_VALUE);
+        result.put(PHASE_5_RED_KEY, PHASE_5_RED_VALUE);
+        result.put(PHASE_5_GREEN_KEY, PHASE_5_GREEN_VALUE);
+        result.put(PHASE_5_BLUE_KEY, PHASE_5_BLUE_VALUE);
+        result.put(PHASE_6_RED_KEY, PHASE_6_RED_VALUE);
+        result.put(PHASE_6_GREEN_KEY, PHASE_6_GREEN_VALUE);
+        result.put(PHASE_6_BLUE_KEY, PHASE_6_BLUE_VALUE);
+        result.put(PHASE_7_RED_KEY, PHASE_7_RED_VALUE);
+        result.put(PHASE_7_GREEN_KEY, PHASE_7_GREEN_VALUE);
+        result.put(PHASE_7_BLUE_KEY, PHASE_7_BLUE_VALUE);
         return result;
     }
+
 }

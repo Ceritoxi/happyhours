@@ -4,11 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class FallbackGeneralConfig {
+
     private static final String DEFAULT_SCREEN_TITLE_KEY = "screen.title";
-    private static final String DEFAULT_SCREEN_TITLE_VALUE = "HAPPY HOURS";
     private static final String DEFAULT_SCREEN_WIDTH_KEY = "screen.width";
-    private static final String DEFAULT_SCREEN_WIDTH_VALUE = "800";
     private static final String DEFAULT_SCREEN_HEIGHT_KEY = "screen.height";
+
+    private static final String DEFAULT_SCREEN_TITLE_VALUE = "HAPPY HOURS";
+    private static final String DEFAULT_SCREEN_WIDTH_VALUE = "800";
     private static final String DEFAULT_SCREEN_HEIGHT_VALUE = "600";
 
     public static Map<String, String> getFallbackGeneralConfig() {

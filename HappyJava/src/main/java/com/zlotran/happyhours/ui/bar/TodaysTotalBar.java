@@ -14,7 +14,6 @@ public class TodaysTotalBar extends ColorChangerRefreshableBar {
         this.setBounds((SCREEN_FRAME_WIDTH / 2) - (BAR_WIDTH / 2), (3 * (SCREEN_FRAME_HEIGHT / 3)) - (BAR_HEIGHT / 2) - ((SCREEN_FRAME_HEIGHT / 3) / 2),
             BAR_WIDTH,
             BAR_HEIGHT);
-        this.setStringPainted(true);
         this.setValue(FROM);
     }
 

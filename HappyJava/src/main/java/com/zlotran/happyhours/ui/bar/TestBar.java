@@ -3,7 +3,6 @@ package com.zlotran.happyhours.ui.bar;
 import java.awt.Color;
 
 import com.zlotran.happyhours.ui.refresher.LabelRefresher;
-import com.zlotran.happyhours.ui.util.ColorCalculatorUtil;
 import com.zlotran.happyhours.ui.util.MichaelColorCalculatorUtil;
 
 public class TestBar extends ColorChangerRefreshableBar {

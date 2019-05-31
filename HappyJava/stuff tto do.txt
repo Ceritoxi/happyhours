@@ -1,0 +1,7 @@
+- track datafile for modifications	x
+- track configs for modifications	x
+- swap constants with config files	x
+- make progress baras configurable	x
+- record showing/modification from ui	x
+- record inserting from ui		x
+- ui color picker			x

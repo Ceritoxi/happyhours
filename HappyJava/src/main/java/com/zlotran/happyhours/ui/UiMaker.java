@@ -64,15 +64,6 @@ public class UiMaker {
         screen.add(new ThisMonthTotalBar(new ThisMonthTotalLabelRefresher(recordStatisticsController)));
         screen.add(new TodaysTotalBar(new TodaysTotalLabelRefresher(recordStatisticsController)));
         screen.add(new LogADayButton(e -> recordInsertionController.logADay()));
-        /*screen.add(new TestBar(new LabelRefresher() {
-            @Override public String labelRefresh() {
-                return null;
-            }
-
-            @Override public int progressRefresh() {
-                return 0;
-            }
-        }));*/
     }
 
     private void setUpConfigs() {

@@ -2,11 +2,12 @@ package com.zlotran.happyhours.ui.util;
 
 import java.awt.Color;
 
-import com.zlotran.happyhours.config.BarColorConfig;
+import com.zlotran.happyhours.config.OldBarColorConfig;
 
 /**
  * I don't like this, but whatevs
  */
+@Deprecated
 public class ColorCalculatorUtil {
 
     private static final int PEAK_YELLOW = 28800;
@@ -31,14 +32,14 @@ public class ColorCalculatorUtil {
     }
 
     private static int getRedPhase(int phase) {
-        return BarColorConfig.getInstance().getNumericConfig("colorchange.phase." + phase + ".red");
+        return OldBarColorConfig.getInstance().getNumericConfig("colorchange.phase." + phase + ".red");
     }
 
     private static int getGreenPhase(int phase) {
-        return BarColorConfig.getInstance().getNumericConfig("colorchange.phase." + phase + ".green");
+        return OldBarColorConfig.getInstance().getNumericConfig("colorchange.phase." + phase + ".green");
     }
 
     private static int getBluePhase(int phase) {
-        return BarColorConfig.getInstance().getNumericConfig("colorchange.phase." + phase + ".blue");
+        return OldBarColorConfig.getInstance().getNumericConfig("colorchange.phase." + phase + ".blue");
     }
 }

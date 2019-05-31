@@ -1,7 +1,7 @@
 package com.zlotran.happyhours.ui.bar;
 
 import com.zlotran.happyhours.ui.refresher.LabelRefresher;
-import com.zlotran.happyhours.ui.util.ColorCalculatorUtil;
+import com.zlotran.happyhours.ui.util.MichaelColorCalculatorUtil;
 
 public abstract class ColorChangerRefreshableBar extends RefreshableBar {
 
@@ -14,7 +14,7 @@ public abstract class ColorChangerRefreshableBar extends RefreshableBar {
     @Override
     public void refresh() {
         super.refresh();
-        this.setForeground(ColorCalculatorUtil.calcColor(barProgress));
+        this.setForeground(MichaelColorCalculatorUtil.calcColor(barProgress, 28800, getMinimum(), getMaximum()));
     }
 
 

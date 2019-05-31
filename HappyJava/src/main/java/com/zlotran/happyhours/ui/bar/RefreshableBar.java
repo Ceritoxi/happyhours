@@ -19,8 +19,9 @@ public abstract class RefreshableBar extends JProgressBar {
     static final int FROM = 0;
     static final int TO = 1;
     static final int BAR_WIDTH = 350;
-    static final int BAR_HEIGHT = 20;
-    private static final Color DEFAULT_COLOR = new Color(BarColorConfig.getInstance().getNumericConfig("color.default.red"), BarColorConfig.getInstance().getNumericConfig("color.default.green"), BarColorConfig.getInstance().getNumericConfig("color.default.blue"));
+    static final int BAR_HEIGHT = 25;
+    private static final Color DEFAULT_COLOR = new Color(BarColorConfig.getInstance().getNumericConfig("color.default.red"), BarColorConfig.getInstance().getNumericConfig("color.default.green"), BarColorConfig
+        .getInstance().getNumericConfig("color.default.blue"));
 
     RefreshableBar(LabelRefresher labelRefresher) {
         super();

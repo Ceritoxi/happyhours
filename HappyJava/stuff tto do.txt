@@ -1,7 +1,9 @@
 - track datafile for modifications	x
-- track configs for modifications	x
-- swap constants with config files	x
-- make progress baras configurable	x
+- track configs for modifications	y
+- swap constants with config files	xy
 - record showing/modification from ui	x
 - record inserting from ui		x
 - ui color picker			x
+- ui select month/year from available	x
+- ui options for every config x
+- make progress bars configurabl |automatic plus/minus mintues on log|automatic minus for a day|	x

@@ -1,6 +1,6 @@
 package com.zlotran.happyhours.ui.refresher;
 
-public interface LabelRefresher {
+public interface Refresher {
     String labelRefresh();
     int progressRefresh();
 }

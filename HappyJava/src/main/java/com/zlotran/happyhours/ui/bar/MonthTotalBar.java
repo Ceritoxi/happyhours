@@ -10,7 +10,7 @@ public class MonthTotalBar extends RefreshableBar {
         super(refresher);
         this.setMinimum(FROM);
         this.setMaximum(TO);
-        this.setBounds(20, 2 * (SCREEN_FRAME_HEIGHT / 3) - BAR_HEIGHT / 2 - ((SCREEN_FRAME_HEIGHT / 3) / 2), BAR_WIDTH, BAR_HEIGHT);
+        this.setBounds(20, -50 + 2 * (SCREEN_FRAME_HEIGHT / 3) - BAR_HEIGHT / 2 - ((SCREEN_FRAME_HEIGHT / 3) / 2), BAR_WIDTH, BAR_HEIGHT);
         this.setValue(TO);
     }
 

@@ -22,7 +22,7 @@ public class YearsBox extends Box<String> {
         this.monthAverageBar = monthAverageBar;
         this.monthTotalBar = monthTotalBar;
         removeArrow();
-        this.setBounds(20, 320, 100, 25);
+        this.setBounds(20, 130, 100, 25);
         this.setItems();
         setSelectedItem(recordStatisticsController.getLatestYear());
         this.addActionListener(e -> action());

@@ -4,3 +4,4 @@ datafile
 *.lnk
 *.iml
 target
+*.cfg

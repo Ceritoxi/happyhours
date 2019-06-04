@@ -6,6 +6,7 @@ import java.util.Map;
 /**
  * yeah ikr, i should use objects and shit
  */
+@Deprecated
 public final class FallbackOldBarColorConfig {
 
     private static final String BAR_DEFAULT_RED_KEY = "color.default.red";

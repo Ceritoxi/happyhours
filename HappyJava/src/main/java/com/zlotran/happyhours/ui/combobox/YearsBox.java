@@ -1,8 +1,6 @@
-package com.zlotran.happyhours.ui;
+package com.zlotran.happyhours.ui.combobox;
 
 import java.time.Month;
-
-import javax.swing.JComboBox;
 
 import com.zlotran.happyhours.controller.RecordStatisticsController;
 import com.zlotran.happyhours.ui.bar.MonthAverageBar;
@@ -10,7 +8,7 @@ import com.zlotran.happyhours.ui.bar.MonthTotalBar;
 import com.zlotran.happyhours.ui.refresher.MonthAverageRefresher;
 import com.zlotran.happyhours.ui.refresher.MonthTotalRefresher;
 
-public class YearsBox extends JComboBox<String> {
+public class YearsBox extends Box<String> {
 
     private MonthsBox monthsBox;
     private RecordStatisticsController recordStatisticsController;
@@ -23,8 +21,9 @@ public class YearsBox extends JComboBox<String> {
         this.recordStatisticsController = recordStatisticsController;
         this.monthAverageBar = monthAverageBar;
         this.monthTotalBar = monthTotalBar;
-        this.setBounds(400, 160, 100, 50);
-        setItems();
+        removeArrow();
+        this.setBounds(20, 320, 100, 25);
+        this.setItems();
         setSelectedItem(recordStatisticsController.getLatestYear());
         this.addActionListener(e -> action());
     }
@@ -33,18 +32,20 @@ public class YearsBox extends JComboBox<String> {
         this.monthsBox = monthsBox;
     }
 
-    private void action() {
+    void action() {
         monthAverageBar.setRefresher(new MonthAverageRefresher(recordStatisticsController, (Month)monthsBox.getSelectedItem(), (String)getSelectedItem()));
         monthTotalBar.setRefresher(new MonthTotalRefresher(recordStatisticsController, (Month)monthsBox.getSelectedItem(), (String)getSelectedItem()));
         monthsBox.resetItems();
+    }
+
+    void setItems() {
+        this.recordStatisticsController.getRecordedYears().forEach(this::addItem);
     }
 
     @Override public Object getSelectedItem() {
         return super.getSelectedItem();
     }
 
-    private void setItems() {
-        this.recordStatisticsController.getRecordedYears().forEach(this::addItem);
-    }
+
 
 }

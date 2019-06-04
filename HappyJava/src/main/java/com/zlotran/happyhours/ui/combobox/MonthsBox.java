@@ -1,8 +1,6 @@
-package com.zlotran.happyhours.ui;
+package com.zlotran.happyhours.ui.combobox;
 
 import java.time.Month;
-
-import javax.swing.JComboBox;
 
 import com.zlotran.happyhours.controller.RecordStatisticsController;
 import com.zlotran.happyhours.ui.bar.MonthAverageBar;
@@ -10,7 +8,7 @@ import com.zlotran.happyhours.ui.bar.MonthTotalBar;
 import com.zlotran.happyhours.ui.refresher.MonthAverageRefresher;
 import com.zlotran.happyhours.ui.refresher.MonthTotalRefresher;
 
-public class MonthsBox extends JComboBox<Month> {
+public class MonthsBox extends Box<Month> {
 
     private YearsBox yearsBox;
     private RecordStatisticsController recordStatisticsController;
@@ -23,7 +21,8 @@ public class MonthsBox extends JComboBox<Month> {
         this.recordStatisticsController = recordStatisticsController;
         this.monthAverageBar = monthAverageBar;
         this.monthTotalBar = monthTotalBar;
-        this.setBounds(60, 160, 100,50);
+        removeArrow();
+        this.setBounds(130, 320, 100,25);
         setItems();
         setSelectedItem(recordStatisticsController.getLatestMonth());
         this.addActionListener(e -> action());
@@ -32,17 +31,19 @@ public class MonthsBox extends JComboBox<Month> {
     public MonthsBox() {
     }
 
-    private void action() {
+    void action() {
         monthAverageBar.setRefresher(new MonthAverageRefresher(recordStatisticsController, (Month)getSelectedItem(), (String)yearsBox.getSelectedItem()));
         monthTotalBar.setRefresher(new MonthTotalRefresher(recordStatisticsController, (Month)getSelectedItem(), (String)yearsBox.getSelectedItem()));
     }
 
-    private void setItems() {
+    void setItems() {
         this.recordStatisticsController.getRecordedMonths((String)yearsBox.getSelectedItem()).forEach(this::addItem);
     }
 
     void resetItems() {
+        Object selectedItem = this.getSelectedItem();
         this.removeAllItems();
         this.recordStatisticsController.getRecordedMonths((String)yearsBox.getSelectedItem()).forEach(this::addItem);
+        this.setSelectedItem(selectedItem);
     }
 }

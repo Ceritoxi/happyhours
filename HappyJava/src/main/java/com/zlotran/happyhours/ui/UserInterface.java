@@ -1,13 +1,8 @@
 package com.zlotran.happyhours.ui;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import javax.swing.JComboBox;
 
 import com.zlotran.happyhours.config.BarColorConfig;
 import com.zlotran.happyhours.config.BarConfig;
@@ -17,15 +12,15 @@ import com.zlotran.happyhours.controller.RecordInsertionController;
 import com.zlotran.happyhours.controller.RecordStatisticsController;
 import com.zlotran.happyhours.ui.bar.AllTimeAverageBar;
 import com.zlotran.happyhours.ui.bar.AllTimeTotalBar;
-import com.zlotran.happyhours.ui.bar.RefreshableBar;
 import com.zlotran.happyhours.ui.bar.MonthAverageBar;
 import com.zlotran.happyhours.ui.bar.MonthTotalBar;
+import com.zlotran.happyhours.ui.bar.RefreshableBar;
 import com.zlotran.happyhours.ui.bar.TodaysTotalBar;
 import com.zlotran.happyhours.ui.button.LogADayButton;
+import com.zlotran.happyhours.ui.combobox.MonthsBox;
+import com.zlotran.happyhours.ui.combobox.YearsBox;
 import com.zlotran.happyhours.ui.refresher.AllTimeAverageRefresher;
 import com.zlotran.happyhours.ui.refresher.AllTimeTotalRefresher;
-import com.zlotran.happyhours.ui.refresher.MonthAverageRefresher;
-import com.zlotran.happyhours.ui.refresher.MonthTotalRefresher;
 import com.zlotran.happyhours.ui.refresher.ThisMonthAverageRefresher;
 import com.zlotran.happyhours.ui.refresher.ThisMonthTotalRefresher;
 import com.zlotran.happyhours.ui.refresher.TodaysTotalRefresher;
@@ -101,7 +96,7 @@ public class UserInterface {
 
         @Override public void run() {
             while (screen != null) {
-                final List<Config> outdatedConfigs = collectOutdatedConfigs();
+                List<Config> outdatedConfigs = collectOutdatedConfigs();
                 if (outdatedConfigs != null && !outdatedConfigs.isEmpty()) {
                     try {
                         sleep(500);//don't do this kids
@@ -137,7 +132,7 @@ public class UserInterface {
 
         private void eyySlowDown() {
             try {
-                sleep(100);
+                sleep(200);
             } catch (InterruptedException e) {
                 System.err.println("Interrupted yoohoo");
             }

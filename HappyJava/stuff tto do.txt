@@ -7,3 +7,4 @@
 - ui select month/year from available	x
 - ui options for every config x
 - make progress bars configurabl |automatic plus/minus mintues on log|automatic minus for a day|	x
+- CUSTOMISE DATA FROM UI

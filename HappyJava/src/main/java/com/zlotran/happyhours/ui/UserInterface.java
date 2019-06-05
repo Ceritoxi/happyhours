@@ -105,11 +105,20 @@ public class UserInterface {
                     }
                     outdatedConfigs.forEach(Config::resetConfig);
                 }
+                eyySlowDown();
             }
         }
 
         private List<Config> collectOutdatedConfigs() {
             return configs.stream().filter(config -> !config.isFresh()).collect(Collectors.toList());
+        }
+
+        private void eyySlowDown() {
+            try {
+                sleep(200);
+            } catch (InterruptedException e) {
+                System.err.println("Interrupted yoohoo");
+            }
         }
     }
 

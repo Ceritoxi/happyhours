@@ -3,6 +3,7 @@ package com.zlotran.happyhours.service;
 import java.time.Month;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.zlotran.happyhours.dal.RecordDao;
@@ -81,10 +82,17 @@ public class RecordStatisticsService {
     }
 
     public Month getLatestMonth() {
-        return Month.of(getRecordedMonthsOfYear(Integer.valueOf(getLatestYear())).stream().map(Month::getValue).max(Comparator.comparing(Integer::valueOf)).get());
+        return getRecordedMonthsOfYear(Integer
+            .valueOf(getLatestYear()))
+            .stream()
+            .map(Month::getValue)
+            .max(Comparator.comparing(Integer::valueOf))
+            .map(Month::of)
+            .orElse(null);
+
     }
 
     public String getLatestYear() {
-        return getRecordedYears().stream().map(Integer::valueOf).max(Comparator.comparing(Integer::valueOf)).get().toString();
+        return getRecordedYears().stream().map(Integer::valueOf).max(Comparator.comparing(Integer::valueOf)).map(Object::toString).orElse("-1");
     }
 }

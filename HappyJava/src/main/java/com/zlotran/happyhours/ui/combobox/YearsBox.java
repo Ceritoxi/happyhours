@@ -1,6 +1,8 @@
 package com.zlotran.happyhours.ui.combobox;
 
 import java.time.Month;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.zlotran.happyhours.controller.RecordStatisticsController;
 import com.zlotran.happyhours.ui.bar.MonthAverageBar;
@@ -32,10 +34,28 @@ public class YearsBox extends Box<String> {
         this.monthsBox = monthsBox;
     }
 
-    void action() {
+    public void action() {
         monthAverageBar.setRefresher(new MonthAverageRefresher(recordStatisticsController, (Month)monthsBox.getSelectedItem(), (String)getSelectedItem()));
         monthTotalBar.setRefresher(new MonthTotalRefresher(recordStatisticsController, (Month)monthsBox.getSelectedItem(), (String)getSelectedItem()));
         monthsBox.resetItems();
+    }
+
+    @Override
+    public void refresh() {
+        List<String> recordedYears = this.recordStatisticsController.getRecordedYears();
+        if (!recordedYears.equals(this.getItems())) {
+            this.removeAllItems();
+            recordedYears.forEach(this::addItem);
+            action();
+        }
+    }
+
+    private List<String> getItems() {
+        List<String> items = new ArrayList<>();
+        for (int i = 0; i < this.getItemCount(); i++) {
+            items.add(this.getItemAt(i));
+        }
+        return items;
     }
 
     void setItems() {

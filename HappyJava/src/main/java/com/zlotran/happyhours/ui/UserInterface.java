@@ -17,6 +17,7 @@ import com.zlotran.happyhours.ui.bar.MonthTotalBar;
 import com.zlotran.happyhours.ui.bar.RefreshableBar;
 import com.zlotran.happyhours.ui.bar.TodaysTotalBar;
 import com.zlotran.happyhours.ui.button.LogADayButton;
+import com.zlotran.happyhours.ui.combobox.Box;
 import com.zlotran.happyhours.ui.combobox.MonthsBox;
 import com.zlotran.happyhours.ui.combobox.YearsBox;
 import com.zlotran.happyhours.ui.refresher.AllTimeAverageRefresher;
@@ -135,6 +136,7 @@ public class UserInterface {
             while (screen != null) {
                 screen.refresh();
                 refreshRefreshableBars();
+                refreshComboBoxes();
                 eyySlowDown();
             }
         }
@@ -150,6 +152,12 @@ public class UserInterface {
         private void refreshRefreshableBars() {
             for (final RefreshableBar bar : screen.getRefreshableBars()) {
                 bar.refresh();
+            }
+        }
+
+        private void refreshComboBoxes() {
+            for (final Box box : screen.getComboBoxes()) {
+                box.refresh();
             }
         }
     }

@@ -31,9 +31,13 @@ public class MonthsBox extends Box<Month> {
     public MonthsBox() {
     }
 
-    void action() {
+    public void action() {
         monthAverageBar.setRefresher(new MonthAverageRefresher(recordStatisticsController, (Month)getSelectedItem(), (String)yearsBox.getSelectedItem()));
         monthTotalBar.setRefresher(new MonthTotalRefresher(recordStatisticsController, (Month)getSelectedItem(), (String)yearsBox.getSelectedItem()));
+    }
+
+    @Override public void refresh() {
+
     }
 
     void setItems() {
@@ -44,6 +48,8 @@ public class MonthsBox extends Box<Month> {
         Object selectedItem = this.getSelectedItem();
         this.removeAllItems();
         this.recordStatisticsController.getRecordedMonths((String)yearsBox.getSelectedItem()).forEach(this::addItem);
-        this.setSelectedItem(selectedItem);
+        if (selectedItem != null) {
+            this.setSelectedItem(selectedItem);
+        }
     }
 }

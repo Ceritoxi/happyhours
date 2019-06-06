@@ -11,6 +11,8 @@ public abstract class Box<E> extends JComboBox<E> {
 
     abstract void action();
 
+    public abstract void refresh();
+
     void removeArrow() {
         for (Component component : this.getComponents())
         {

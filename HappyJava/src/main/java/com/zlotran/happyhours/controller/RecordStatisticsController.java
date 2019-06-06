@@ -1,6 +1,7 @@
 package com.zlotran.happyhours.controller;
 
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.zlotran.happyhours.service.RecordStatisticsService;
@@ -34,15 +35,29 @@ public class RecordStatisticsController {
     }
 
     public String getMonthOfYearAverage(String year, Month month) {
-        return recordStatisticsService.monthOfYearAverage(Integer.valueOf(year), month);
+        if (year != null || month != null) {
+            return recordStatisticsService.monthOfYearAverage(Integer.valueOf(year), month);
+        } else {
+            return "0";
+        }
     }
 
     public int getMonthOfYearAverageInSec(String year, Month month) {
-        return (int) recordStatisticsService.monthOfYearAverageInSec(Integer.valueOf(year), month);
+        if (year != null || month != null) {
+            return (int) recordStatisticsService.monthOfYearAverageInSec(Integer.valueOf(year), month);
+        } else {
+            return 0;
+        }
+
     }
 
     public String getMonthOfYearTotal(String year, Month month) {
-        return recordStatisticsService.monthOfYearTotal(Integer.valueOf(year), month);
+        if (year != null || month != null) {
+            return recordStatisticsService.monthOfYearTotal(Integer.valueOf(year), month);
+        } else {
+            return "0";
+        }
+
     }
 
     public int getAllTimeAverageInSeconds() {
@@ -74,7 +89,11 @@ public class RecordStatisticsController {
     }
 
     public List<Month> getRecordedMonths(String year) {
-        return recordStatisticsService.getRecordedMonthsOfYear(Integer.valueOf(year));
+        if (year != null) {
+            return recordStatisticsService.getRecordedMonthsOfYear(Integer.valueOf(year));
+        } else {
+            return new ArrayList<>();
+        }
     }
 
 }

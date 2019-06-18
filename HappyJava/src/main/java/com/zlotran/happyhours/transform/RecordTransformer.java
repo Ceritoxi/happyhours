@@ -1,6 +1,7 @@
 package com.zlotran.happyhours.transform;
 
 import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,20 +32,22 @@ public class RecordTransformer {
     private Record convertToRecord(final String rawRecord) {
         final Record result = new Record();
         final String[] recordPieces = rawRecord.split(" ");
-        result.setDate(LocalDateTime
-            .of(Integer.parseInt(recordPieces[YEAR_INDEX]), Integer.parseInt(recordPieces[MONTH_INDEX]), Integer.parseInt(recordPieces[DAY_INDEX]),
-                Integer.parseInt(recordPieces[HOUR_INDEX]), Integer.parseInt(recordPieces[MINUTE_INDEX]), Integer.parseInt(recordPieces[SECOND_INDEX])));
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Integer.parseInt(recordPieces[YEAR_INDEX]), Integer.parseInt(recordPieces[MONTH_INDEX]) - 1, Integer.parseInt(recordPieces[DAY_INDEX]),
+            Integer.parseInt(recordPieces[HOUR_INDEX]), Integer.parseInt(recordPieces[MINUTE_INDEX]), Integer.parseInt(recordPieces[SECOND_INDEX]));
+        result.setDate(calendar);
         result.setState(State.valueOf(recordPieces[STATE_INDEX]));
         return result;
     }
 
     public String convertToRawRecord(final Record record) {
-        return record.getDate().getYear() + " "
-            + record.getDate().getMonthValue() + " "
-            + record.getDate().getDayOfMonth() + " "
-            + record.getDate().getHour() + " "
-            + record.getDate().getMinute() + " "
-            + record.getDate().getSecond() + " "
+        return record.getYear() + " "
+            + record.getMonthValue() + " "
+            + record.getDay() + " "
+            + record.getHour() + " "
+            + record.getMinute() + " "
+            + record.getSecond() + " "
             + record.getState();
     }
 }

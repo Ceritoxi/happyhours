@@ -10,27 +10,27 @@ import com.zlotran.happyhours.format.TimeFormatterUtil;
 import com.zlotran.happyhours.service.RecordInsertionService;
 import com.zlotran.happyhours.service.RecordStatisticsCalculationUtility;
 import com.zlotran.happyhours.service.RecordStatisticsService;
-import com.zlotran.happyhours.supplier.LocalDateTimeSupplier;
+import com.zlotran.happyhours.supplier.CalendarSupplier;
 import com.zlotran.happyhours.transform.RecordTransformer;
 import com.zlotran.happyhours.ui.UserInterface;
 import com.zlotran.happyhours.validation.RecordValidator;
 
 public final class Application {
-    public static final String DATA_FILE_NAME = "datafile";
+    public static final String DATA_FILE_NAME = "datafile - Copy";
 
     private Application() {
     }
 
     public static void main(final String[] args) {
+        final CalendarSupplier calendarSupplier = new CalendarSupplier();
         final RecordsFileReader recordsFileReader = new RecordsFileReader();
         final RecordsFileWriter recordsFileWriter = new RecordsFileWriter();
         final RecordValidator recordValidator = new RecordValidator();
         final RecordTransformer recordTransformer = new RecordTransformer(recordValidator);
-        final RecordDao recordDao = new RecordDao(recordsFileReader, recordsFileWriter, recordValidator, recordTransformer);
+        final RecordDao recordDao = new RecordDao(recordsFileReader, recordsFileWriter, recordValidator, recordTransformer, calendarSupplier);
         final TimeFormatterUtil timeFormatterUtil = new TimeFormatterUtil();
         final TimeFormatter timeFormatter = new TimeFormatter(timeFormatterUtil);
-        final LocalDateTimeSupplier localDateTimeSupplier = new LocalDateTimeSupplier();
-        final RecordStatisticsCalculationUtility recordStatisticsCalculationUtility = new RecordStatisticsCalculationUtility(localDateTimeSupplier);
+        final RecordStatisticsCalculationUtility recordStatisticsCalculationUtility = new RecordStatisticsCalculationUtility(calendarSupplier);
         final RecordStatisticsService recordStatisticsService = new RecordStatisticsService(recordDao, timeFormatter, recordStatisticsCalculationUtility);
         final RecordInsertionService recordInsertionService = new RecordInsertionService(recordDao);
         final RecordInsertionController recordInsertionController = new RecordInsertionController(recordInsertionService);

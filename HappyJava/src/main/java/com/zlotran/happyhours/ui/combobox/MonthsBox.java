@@ -1,8 +1,8 @@
 package com.zlotran.happyhours.ui.combobox;
 
-import java.time.Month;
 
 import com.zlotran.happyhours.controller.RecordStatisticsController;
+import com.zlotran.happyhours.domain.Month;
 import com.zlotran.happyhours.ui.bar.MonthAverageBar;
 import com.zlotran.happyhours.ui.bar.MonthTotalBar;
 import com.zlotran.happyhours.ui.refresher.MonthAverageRefresher;

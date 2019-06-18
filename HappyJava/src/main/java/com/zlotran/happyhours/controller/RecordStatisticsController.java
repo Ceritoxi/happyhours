@@ -1,9 +1,9 @@
 package com.zlotran.happyhours.controller;
 
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.zlotran.happyhours.domain.Month;
 import com.zlotran.happyhours.service.RecordStatisticsService;
 
 public class RecordStatisticsController {

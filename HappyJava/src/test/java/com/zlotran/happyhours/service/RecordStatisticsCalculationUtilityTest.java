@@ -1,8 +1,7 @@
 package com.zlotran.happyhours.service;
 
-import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -13,7 +12,7 @@ import org.mockito.MockitoAnnotations;
 
 import com.zlotran.happyhours.domain.Record;
 import com.zlotran.happyhours.domain.State;
-import com.zlotran.happyhours.supplier.LocalDateTimeSupplier;
+import com.zlotran.happyhours.supplier.CalendarSupplier;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
@@ -29,19 +28,22 @@ class RecordStatisticsCalculationUtilityTest {
     private static final long EXPECTED_AVERAGE_EIGHT_HOURS = 8 * 60 * 60;
     private static final long EXPECTED_TOTAL_SIXTEEN_HOURS = (6 + 10) * 60 * 60;
     private static final long EXPECTED_TOTAL_TWENTY_TWO_HOURS = (6 + 10 + 8) * 60 * 60;
-    private static final LocalDateTime THIRD_OF_JANUARY_SEVENTEEN_O_CLOCK = LocalDateTime.of(2019, Month.JANUARY, 3, 17, 0, 0);
+    private static final Calendar THIRD_OF_JANUARY_SEVENTEEN_O_CLOCK = Calendar.getInstance();
 
     @InjectMocks
     private RecordStatisticsCalculationUtility underTest;
 
     @Mock
-    private LocalDateTimeSupplier localDateTimeSupplier;
+    private CalendarSupplier calendarSupplier;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
+        setUpDates();
         setUpRecords();
     }
+
+
 
     @Test
     void calculateAverageInSecondsWithEndingLastRecord() {
@@ -68,7 +70,7 @@ class RecordStatisticsCalculationUtilityTest {
         //GIVEN
         final List<Record> records = testRecordsWithStartingLastRecord();
         //WHEN
-        when(localDateTimeSupplier.get()).thenReturn(THIRD_OF_JANUARY_SEVENTEEN_O_CLOCK);
+        when(calendarSupplier.get()).thenReturn(THIRD_OF_JANUARY_SEVENTEEN_O_CLOCK);
         final long actual = underTest.calculateTotalInSecond(records);
         //THEN
         assertEquals(EXPECTED_TOTAL_TWENTY_TWO_HOURS, actual);
@@ -79,7 +81,7 @@ class RecordStatisticsCalculationUtilityTest {
         //GIVEN
         final List<Record> records = testRecordsWithStartingLastRecord();
         //WHEN
-        when(localDateTimeSupplier.get()).thenReturn(THIRD_OF_JANUARY_SEVENTEEN_O_CLOCK);
+        when(calendarSupplier.get()).thenReturn(THIRD_OF_JANUARY_SEVENTEEN_O_CLOCK);
         final long actual = underTest.calculateAverageInSeconds(records);
         //THEN
         assertEquals(EXPECTED_AVERAGE_EIGHT_HOURS, actual);
@@ -104,21 +106,25 @@ class RecordStatisticsCalculationUtilityTest {
         return records;
     }
 
+    private void setUpDates() {
+        THIRD_OF_JANUARY_SEVENTEEN_O_CLOCK.set(2019, Calendar.JANUARY, 3, 17, 0, 0);
+    }
+
     private void setUpRecords() {
         testRecordFirstOfJanuaryTenOClockStart = new Record();
-        testRecordFirstOfJanuaryTenOClockStart.setDate(LocalDateTime.of(2019, Month.JANUARY, 1, 10, 0, 0));
+        testRecordFirstOfJanuaryTenOClockStart.setDate(2019, Calendar.JANUARY, 1, 10, 0, 0);
         testRecordFirstOfJanuaryTenOClockStart.setState(State.START);
         testRecordFirstOfJanuarySixteenOClockEnd = new Record();
-        testRecordFirstOfJanuarySixteenOClockEnd.setDate(LocalDateTime.of(2019, Month.JANUARY, 1, 16, 0, 0));
+        testRecordFirstOfJanuarySixteenOClockEnd.setDate(2019, Calendar.JANUARY, 1, 16, 0, 0);
         testRecordFirstOfJanuarySixteenOClockEnd.setState(State.END);
         testRecordSecondOfJanuaryNineOClockStart = new Record();
-        testRecordSecondOfJanuaryNineOClockStart.setDate(LocalDateTime.of(2019, Month.JANUARY, 2, 9, 0, 0));
+        testRecordSecondOfJanuaryNineOClockStart.setDate(2019, Calendar.JANUARY, 2, 9, 0, 0);
         testRecordSecondOfJanuaryNineOClockStart.setState(State.START);
         testRecordSecondOfJanuaryNineteenOClockEnd = new Record();
-        testRecordSecondOfJanuaryNineteenOClockEnd.setDate(LocalDateTime.of(2019, Month.JANUARY, 2, 19, 0, 0));
+        testRecordSecondOfJanuaryNineteenOClockEnd.setDate(2019, Calendar.JANUARY, 2, 19, 0, 0);
         testRecordSecondOfJanuaryNineteenOClockEnd.setState(State.END);
         testRecordThirdOfJanuaryNineOClockStart = new Record();
-        testRecordThirdOfJanuaryNineOClockStart.setDate(LocalDateTime.of(2019, Month.JANUARY, 3, 9, 0, 0));
+        testRecordThirdOfJanuaryNineOClockStart.setDate(2019, Calendar.JANUARY, 3, 9, 0, 0);
         testRecordThirdOfJanuaryNineOClockStart.setState(State.START);
     }
 

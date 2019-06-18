@@ -1,12 +1,13 @@
 package com.zlotran.happyhours.service;
 
-import java.time.Month;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.zlotran.happyhours.dal.RecordDao;
+import com.zlotran.happyhours.domain.Month;
+import com.zlotran.happyhours.domain.Record;
 import com.zlotran.happyhours.format.TimeFormatter;
 
 public class RecordStatisticsService {
@@ -62,11 +63,11 @@ public class RecordStatisticsService {
     }
 
     public List<String> getRecordedYears() {
-        return recordDao.getRecords().stream().map(r -> r.getDate().getYear()).distinct().map(i -> i + "").collect(Collectors.toList());
+        return recordDao.getRecords().stream().map(Record::getYear).distinct().map(i -> i + "").collect(Collectors.toList());
     }
 
     public List<Month> getRecordedMonthsOfYear(int year) {
-        return recordDao.getRecords().stream().filter(r -> r.getDate().getYear() == year).map(r -> r.getDate().getMonth()).distinct().sorted().collect(Collectors.toList());
+        return recordDao.getRecords().stream().filter(r -> r.getYear() == year).map(Record::getMonth).distinct().sorted().collect(Collectors.toList());
     }
 
     public String monthOfYearAverage(int year, Month month) {
@@ -85,9 +86,7 @@ public class RecordStatisticsService {
         return getRecordedMonthsOfYear(Integer
             .valueOf(getLatestYear()))
             .stream()
-            .map(Month::getValue)
-            .max(Comparator.comparing(Integer::valueOf))
-            .map(Month::of)
+            .max(Enum::compareTo)
             .orElse(null);
 
     }

@@ -1,20 +1,22 @@
 package com.zlotran.happyhours.service;
 
 import java.time.ZoneOffset;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collector;
 
 import com.zlotran.happyhours.domain.Record;
 import com.zlotran.happyhours.domain.State;
-import com.zlotran.happyhours.supplier.LocalDateTimeSupplier;
+import com.zlotran.happyhours.supplier.CalendarSupplier;
 
 public class RecordStatisticsCalculationUtility {
 
     private static final long ZERO = 0;
 
-    private LocalDateTimeSupplier localDateTimeSupplier;
+    private CalendarSupplier calendarSupplier;
 
-    public RecordStatisticsCalculationUtility(final LocalDateTimeSupplier localDateTimeSupplier) {
-        this.localDateTimeSupplier = localDateTimeSupplier;
+    public RecordStatisticsCalculationUtility(final CalendarSupplier calendarSupplier) {
+        this.calendarSupplier = calendarSupplier;
     }
 
     public long calculateAverageInSeconds(final List<Record> records) {
@@ -27,7 +29,19 @@ public class RecordStatisticsCalculationUtility {
     }
 
     private long calculateAverageDivisor(final List<Record> records) {
-        return records.stream().map(record -> record.getDate().toLocalDate()).distinct().count();
+        List<Record> distinctResults = new ArrayList<>();
+        for (Record record : records) {
+            boolean foundDistinct = true;
+            for (Record distinctResult : distinctResults) {
+                if (distinctResult.onSameDay(record)) {
+                    foundDistinct = false;
+                }
+            }
+            if (foundDistinct) {
+                distinctResults.add(record);
+            }
+        }
+        return distinctResults.size();
     }
 
     public long calculateTotalInSecond(final List<Record> records) {
@@ -45,7 +59,7 @@ public class RecordStatisticsCalculationUtility {
     }
 
     private long plusTimeInCaseOfOngoingRecord(final List<Record> records) {
-        return lastState(records).equals(State.START) ? localDateTimeSupplier.get().toEpochSecond(ZoneOffset.UTC) : ZERO;
+        return lastState(records).equals(State.START) ? calendarSupplier.get().getTimeInMillis() / 1000 : ZERO;
     }
 
     private State lastState(final List<Record> records) {

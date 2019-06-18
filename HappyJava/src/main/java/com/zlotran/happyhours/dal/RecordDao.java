@@ -2,14 +2,16 @@ package com.zlotran.happyhours.dal;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.zlotran.happyhours.domain.Month;
 import com.zlotran.happyhours.domain.Record;
 import com.zlotran.happyhours.domain.State;
 import com.zlotran.happyhours.exception.InvalidRecordException;
+import com.zlotran.happyhours.supplier.CalendarSupplier;
 import com.zlotran.happyhours.transform.RecordTransformer;
 import com.zlotran.happyhours.validation.RecordValidator;
 
@@ -19,20 +21,22 @@ public class RecordDao {
     private RecordsFileWriter recordsFileWriter;
     private RecordValidator recordValidator;
     private RecordTransformer recordTransformer;
+    private CalendarSupplier calendarSupplier;
     private List<Record> recordCache;
     private boolean recordCacheIsValid;
 
-    public RecordDao(final RecordsFileReader recordsFileReader, final RecordsFileWriter recordsFileWriter, final RecordValidator recordValidator, final RecordTransformer recordTransformer) {
+    public RecordDao(final RecordsFileReader recordsFileReader, final RecordsFileWriter recordsFileWriter, final RecordValidator recordValidator, final RecordTransformer recordTransformer, final CalendarSupplier calendarSupplier) {
         this.recordsFileReader = recordsFileReader;
         this.recordsFileWriter = recordsFileWriter;
         this.recordValidator = recordValidator;
         this.recordTransformer = recordTransformer;
+        this.calendarSupplier = calendarSupplier;
         this.recordCache = new ArrayList<>();
         this.recordCacheIsValid = false;
     }
 
     public void addRecordOfCurrentDate() {
-        addRecord(new Record(LocalDateTime.now(), nextState()));
+        addRecord(new Record(calendarSupplier.get(), nextState()));
     }
 
     private State nextState() {
@@ -86,31 +90,23 @@ public class RecordDao {
     }
 
     public List<Record> getRecordsForMonth(final Month month) {
-        return getRecords().stream().filter(record -> record.getDate().getMonth().equals(month)).collect(Collectors.toList());
-    }
-
-    public List<Record> getRecordsForMonth(final int monthIndex) {
-        return getRecords().stream().filter(record -> record.getDate().getMonthValue() == monthIndex).collect(Collectors.toList());
+        return getRecords().stream().filter(record -> record.getMonth().equals(month)).collect(Collectors.toList());
     }
 
     public List<Record> getRecordsForYear(final int year) {
-        return getRecords().stream().filter(record -> record.getDate().getYear() == year).collect(Collectors.toList());
+        return getRecords().stream().filter(record -> record.getYear() == year).collect(Collectors.toList());
     }
 
     public List<Record> getRecordsForMonthInYear(final int year, final Month month) {
-        return getRecords().stream().filter(record -> record.getDate().getYear() == year && record.getDate().getMonth().equals(month)).collect(Collectors.toList());
-    }
-
-    public List<Record> getRecordsForMonthInYear(final int year, final int monthIndex) {
-        return getRecords().stream().filter(record -> record.getDate().getYear() == year && record.getDate().getMonthValue() == monthIndex ).collect(Collectors.toList());
+        return getRecords().stream().filter(record -> record.getYear() == year && record.getMonth().equals(month)).collect(Collectors.toList());
     }
 
     public List<Record> getRecordsForCurrentMonth() {
-        return getRecords().stream().filter(record -> record.getDate().getMonth().equals(LocalDate.now().getMonth()) && record.getDate().getYear() == LocalDate.now().getYear()).collect(Collectors.toList());
+        return getRecords().stream().filter(record -> record.getMonth().equals(calendarSupplier.getCurrentMonth()) && record.getYear() == calendarSupplier.getCurrentYear()).collect(Collectors.toList());
     }
 
     public List<Record> getRecordsForCurrentDay() {
-        return getRecords().stream().filter(record -> record.getDate().getDayOfMonth() == LocalDateTime.now().getDayOfMonth() && record.getDate().getMonth().equals(LocalDate.now().getMonth()) && record.getDate().getYear() == LocalDate.now().getYear()).collect(Collectors.toList());
+        return getRecords().stream().filter(record -> record.getDay() == calendarSupplier.getCurrentDay() && record.getMonth().equals(calendarSupplier.getCurrentMonth()) && record.getYear() == calendarSupplier.getCurrentYear()).collect(Collectors.toList());
     }
 
     private State lastRecordedState() {

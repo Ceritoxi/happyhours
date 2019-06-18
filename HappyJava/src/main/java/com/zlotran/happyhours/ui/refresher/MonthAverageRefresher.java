@@ -1,8 +1,9 @@
 package com.zlotran.happyhours.ui.refresher;
 
-import java.time.Month;
+
 
 import com.zlotran.happyhours.controller.RecordStatisticsController;
+import com.zlotran.happyhours.domain.Month;
 
 public class MonthAverageRefresher implements Refresher {
 

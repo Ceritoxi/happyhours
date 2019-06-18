@@ -1,8 +1,7 @@
 package com.zlotran.happyhours.transform;
 
-import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -21,7 +20,7 @@ import static org.mockito.Mockito.when;
 
 class RecordTransformerTest {
 
-    private static final LocalDateTime FIRST_OF_JANUARY_NINE_O_CLOCK = LocalDateTime.of(2019, Month.JANUARY, 1, 9, 0, 0);
+    private static final Calendar FIRST_OF_JANUARY_NINE_O_CLOCK = Calendar.getInstance();
     private static final String EXPECTED_RAW_FORMAT_OF_FIRST_OF_JANUARY_NINE_O_CLOCK_START = "2019 1 1 9 0 0 START";
 
     private static final String PROPER_RAW_INPUT_FIRST_OF_JANUARY_NINE_O_CLOCK_START = "2019 1 1 9 0 0 START";
@@ -38,8 +37,10 @@ class RecordTransformerTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
-
+        setUpDates();
     }
+
+
 
     @Test
     void canConvertToRecordFromProperRawInput() {
@@ -145,5 +146,9 @@ class RecordTransformerTest {
         record.setState(State.START);
         records.add(record);
         return records;
+    }
+
+    private void setUpDates() {
+        FIRST_OF_JANUARY_NINE_O_CLOCK.set(2019, Calendar.JANUARY, 1, 9, 0, 0);
     }
 }

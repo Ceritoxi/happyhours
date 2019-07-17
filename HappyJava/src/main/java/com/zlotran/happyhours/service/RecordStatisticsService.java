@@ -97,9 +97,9 @@ public class RecordStatisticsService {
     public long monthOfYearAverageInSec(int year, Month month) {
         return recordStatisticsCalculationUtility.calculateAverageInSeconds(recordDao.getRecordsForMonthInYear(year, month));
     }
-
+    
     public Month getLatestMonth() {
-        return Collections.max(getRecordedMonthsOfYear(Integer.valueOf(getLatestYear())));
+        return getLatestYear().equals("0") ? null : Collections.max(getRecordedMonthsOfYear(Integer.valueOf(getLatestYear())));
     }
 
     public String getLatestYear() {
@@ -107,6 +107,6 @@ public class RecordStatisticsService {
         for (String recordedYear : getRecordedYears()) {
             recordedYears.add(Integer.valueOf(recordedYear));
         }
-        return Collections.max(recordedYears).toString();
+        return recordedYears.isEmpty() ? "0" : Collections.max(recordedYears).toString();
     }
 }

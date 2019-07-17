@@ -1,9 +1,8 @@
 package com.zlotran.happyhours.service;
 
-import java.time.ZoneOffset;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
-import java.util.stream.Collector;
 
 import com.zlotran.happyhours.domain.Record;
 import com.zlotran.happyhours.domain.State;
@@ -55,11 +54,22 @@ public class RecordStatisticsCalculationUtility {
             }
         }
         endEpochSum += plusTimeInCaseOfOngoingRecord(records);
+        endEpochSum -= minusTimeInCaseOfLoneEndRecord(records);
         return endEpochSum - startEpochSum;
     }
 
     private long plusTimeInCaseOfOngoingRecord(final List<Record> records) {
         return lastState(records).equals(State.START) ? calendarSupplier.get().getTimeInMillis() / 1000 : ZERO;
+    }
+
+    /**
+     * This is something that I don't like but I have no better idea yet
+     */
+    private long minusTimeInCaseOfLoneEndRecord(final List<Record> records) {
+        Calendar todayStart = calendarSupplier.get();
+        todayStart.set(calendarSupplier.getCurrentYear(), calendarSupplier.get().get(
+            Calendar.MONTH),calendarSupplier.getCurrentDay(), 0,0,0);
+        return records.size() == 1 && lastState(records).equals(State.END) ? todayStart.getTimeInMillis() / 1000 : ZERO;
     }
 
     private State lastState(final List<Record> records) {

@@ -1,6 +1,7 @@
 package com.zlotran.happyhours.ui.combobox;
 
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +29,11 @@ public class YearsBox extends Box<String> {
         this.setBounds(20, 130, 100, 25);
         this.setItems();
         setSelectedItem(recordStatisticsController.getLatestYear());
-        this.addActionListener(e -> action());
+        this.addActionListener(new ActionListener() {
+            @Override public void actionPerformed(ActionEvent e) {
+                YearsBox.this.action();
+            }
+        });
     }
 
     public void setMonthsBox(MonthsBox monthsBox) {
@@ -36,8 +41,8 @@ public class YearsBox extends Box<String> {
     }
 
     public void action() {
-        monthAverageBar.setRefresher(new MonthAverageRefresher(recordStatisticsController, (Month)monthsBox.getSelectedItem(), (String)getSelectedItem()));
-        monthTotalBar.setRefresher(new MonthTotalRefresher(recordStatisticsController, (Month)monthsBox.getSelectedItem(), (String)getSelectedItem()));
+        monthAverageBar.setRefresher(new MonthAverageRefresher(recordStatisticsController, (Month) monthsBox.getSelectedItem(), (String) getSelectedItem()));
+        monthTotalBar.setRefresher(new MonthTotalRefresher(recordStatisticsController, (Month) monthsBox.getSelectedItem(), (String) getSelectedItem()));
         monthsBox.resetItems();
     }
 
@@ -46,7 +51,9 @@ public class YearsBox extends Box<String> {
         List<String> recordedYears = this.recordStatisticsController.getRecordedYears();
         if (!recordedYears.equals(this.getItems())) {
             this.removeAllItems();
-            recordedYears.forEach(this::addItem);
+            for (String recordedYear : recordedYears) {
+                this.addItem(recordedYear);
+            }
             action();
         }
     }
@@ -60,13 +67,13 @@ public class YearsBox extends Box<String> {
     }
 
     void setItems() {
-        this.recordStatisticsController.getRecordedYears().forEach(this::addItem);
+        for (String recordedYear : this.recordStatisticsController.getRecordedYears()) {
+            this.addItem(recordedYear);
+        }
     }
 
     @Override public Object getSelectedItem() {
         return super.getSelectedItem();
     }
-
-
 
 }

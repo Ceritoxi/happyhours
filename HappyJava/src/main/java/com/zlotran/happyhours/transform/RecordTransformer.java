@@ -1,9 +1,8 @@
 package com.zlotran.happyhours.transform;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.zlotran.happyhours.domain.Record;
 import com.zlotran.happyhours.domain.State;
@@ -26,13 +25,18 @@ public class RecordTransformer {
     }
 
     public List<Record> convertToRecords(final List<String> rawRecords) {
-        return rawRecords.stream().filter(rawRecord -> recordValidator.isValid(rawRecord)).map(this::convertToRecord).collect(Collectors.toList());
+        List<Record> mappedResult = new ArrayList<>();
+        for (String rawRecord : rawRecords) {
+            if (recordValidator.isValid(rawRecord)) {
+                mappedResult.add(convertToRecord(rawRecord));
+            }
+        }
+        return mappedResult;
     }
 
     private Record convertToRecord(final String rawRecord) {
         final Record result = new Record();
         final String[] recordPieces = rawRecord.split(" ");
-
         Calendar calendar = Calendar.getInstance();
         calendar.set(Integer.parseInt(recordPieces[YEAR_INDEX]), Integer.parseInt(recordPieces[MONTH_INDEX]) - 1, Integer.parseInt(recordPieces[DAY_INDEX]),
             Integer.parseInt(recordPieces[HOUR_INDEX]), Integer.parseInt(recordPieces[MINUTE_INDEX]), Integer.parseInt(recordPieces[SECOND_INDEX]));

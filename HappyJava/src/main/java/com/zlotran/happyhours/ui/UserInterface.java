@@ -1,8 +1,9 @@
 package com.zlotran.happyhours.ui;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.zlotran.happyhours.config.BarColorConfig;
 import com.zlotran.happyhours.config.BarConfig;
@@ -69,7 +70,11 @@ public class UserInterface {
         screen.add(monthAverageBar);
         screen.add(monthTotalBar);
         screen.add(new TodaysTotalBar(new TodaysTotalRefresher(recordStatisticsController)));
-        screen.add(new LogADayButton(e -> recordInsertionController.logADay()));
+        screen.add(new LogADayButton(new ActionListener() {
+            @Override public void actionPerformed(ActionEvent e) {
+                recordInsertionController.logADay();
+            }
+        }));
         screen.add(yearsBox);
         screen.add(monthsBox);
     }
@@ -104,14 +109,22 @@ public class UserInterface {
                     } catch (InterruptedException e) {
                         System.err.println("Interrupted yoohoo");
                     }
-                    outdatedConfigs.forEach(Config::resetConfig);
+                    for (Config outdatedConfig : outdatedConfigs) {
+                        outdatedConfig.resetConfig();
+                    }
                 }
                 eyySlowDown();
             }
         }
 
         private List<Config> collectOutdatedConfigs() {
-            return configs.stream().filter(config -> !config.isFresh()).collect(Collectors.toList());
+            List<Config> result = new ArrayList<>();
+            for (Config config : configs) {
+                if (!config.isFresh()) {
+                    result.add(config);
+                }
+            }
+            return result;
         }
 
         private void eyySlowDown() {

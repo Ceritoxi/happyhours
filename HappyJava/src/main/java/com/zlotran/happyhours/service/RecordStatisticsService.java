@@ -1,9 +1,8 @@
 package com.zlotran.happyhours.service;
 
-import java.util.Comparator;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 import com.zlotran.happyhours.dal.RecordDao;
 import com.zlotran.happyhours.domain.Month;
@@ -16,7 +15,8 @@ public class RecordStatisticsService {
     private TimeFormatter timeFormatter;
     private RecordStatisticsCalculationUtility recordStatisticsCalculationUtility;
 
-    public RecordStatisticsService(final RecordDao recordDao, final TimeFormatter timeFormatter, final RecordStatisticsCalculationUtility recordStatisticsCalculationUtility) {
+    public RecordStatisticsService(final RecordDao recordDao, final TimeFormatter timeFormatter,
+        final RecordStatisticsCalculationUtility recordStatisticsCalculationUtility) {
         this.recordDao = recordDao;
         this.timeFormatter = timeFormatter;
         this.recordStatisticsCalculationUtility = recordStatisticsCalculationUtility;
@@ -63,15 +63,31 @@ public class RecordStatisticsService {
     }
 
     public List<String> getRecordedYears() {
-        return recordDao.getRecords().stream().map(Record::getYear).distinct().map(i -> i + "").collect(Collectors.toList());
+        List<String> mappedDistinctResult = new ArrayList<>();
+        for (Record record : recordDao.getRecords()) {
+            if (!mappedDistinctResult.contains(record.getYear() + "")) {
+                mappedDistinctResult.add(record.getYear() + "");
+            }
+        }
+        return mappedDistinctResult;
     }
 
     public List<Month> getRecordedMonthsOfYear(int year) {
-        return recordDao.getRecords().stream().filter(r -> r.getYear() == year).map(Record::getMonth).distinct().sorted().collect(Collectors.toList());
+        List<Month> mappedResult = new ArrayList<>();
+        for (Record record : recordDao.getRecords()) {
+            if (record.getYear() == year) {
+                if (!mappedResult.contains(record.getMonth())) {
+                    mappedResult.add(record.getMonth());
+                }
+            }
+        }
+        Collections.sort(mappedResult);
+        return mappedResult;
     }
 
     public String monthOfYearAverage(int year, Month month) {
-        return timeFormatter.formatTimeFromSeconds(recordStatisticsCalculationUtility.calculateAverageInSeconds(recordDao.getRecordsForMonthInYear(year, month)));
+        return timeFormatter
+            .formatTimeFromSeconds(recordStatisticsCalculationUtility.calculateAverageInSeconds(recordDao.getRecordsForMonthInYear(year, month)));
     }
 
     public String monthOfYearTotal(int year, Month month) {
@@ -83,15 +99,14 @@ public class RecordStatisticsService {
     }
 
     public Month getLatestMonth() {
-        return getRecordedMonthsOfYear(Integer
-            .valueOf(getLatestYear()))
-            .stream()
-            .max(Enum::compareTo)
-            .orElse(null);
-
+        return Collections.max(getRecordedMonthsOfYear(Integer.valueOf(getLatestYear())));
     }
 
     public String getLatestYear() {
-        return getRecordedYears().stream().map(Integer::valueOf).max(Comparator.comparing(Integer::valueOf)).map(Object::toString).orElse("-1");
+        List<Integer> recordedYears = new ArrayList<>();
+        for (String recordedYear : getRecordedYears()) {
+            recordedYears.add(Integer.valueOf(recordedYear));
+        }
+        return Collections.max(recordedYears).toString();
     }
 }

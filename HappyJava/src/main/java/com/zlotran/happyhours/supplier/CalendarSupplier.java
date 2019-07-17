@@ -1,13 +1,12 @@
 package com.zlotran.happyhours.supplier;
 
 import java.util.Calendar;
-import java.util.function.Supplier;
 
 import com.zlotran.happyhours.domain.Month;
 
-public class CalendarSupplier implements Supplier<Calendar> {
+public class CalendarSupplier {
 
-    @Override public Calendar get() {
+    public Calendar get() {
         return Calendar.getInstance();
     }
 

@@ -16,7 +16,6 @@ import com.zlotran.happyhours.ui.UserInterface;
 import com.zlotran.happyhours.validation.RecordValidator;
 
 public final class Application {
-    public static final String DATA_FILE_NAME = "datafile - Copy";
 
     private Application() {
     }

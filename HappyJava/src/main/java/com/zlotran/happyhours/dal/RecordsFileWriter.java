@@ -4,6 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import com.zlotran.happyhours.Application;
+import com.zlotran.happyhours.config.GeneralConfig;
 
 public class RecordsFileWriter {
 
@@ -21,7 +22,7 @@ public class RecordsFileWriter {
     }
 
     private void doAddRecord(final String record) throws IOException {
-        final FileWriter writer = new FileWriter(Application.DATA_FILE_NAME, true);
+        final FileWriter writer = new FileWriter(GeneralConfig.getInstance().getConfig("datafile"), true);
         writer.write(record + "\n");
         writer.close();
     }

@@ -1,11 +1,7 @@
 package com.zlotran.happyhours.dal;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.zlotran.happyhours.domain.Month;
 import com.zlotran.happyhours.domain.Record;
@@ -25,7 +21,8 @@ public class RecordDao {
     private List<Record> recordCache;
     private boolean recordCacheIsValid;
 
-    public RecordDao(final RecordsFileReader recordsFileReader, final RecordsFileWriter recordsFileWriter, final RecordValidator recordValidator, final RecordTransformer recordTransformer, final CalendarSupplier calendarSupplier) {
+    public RecordDao(final RecordsFileReader recordsFileReader, final RecordsFileWriter recordsFileWriter, final RecordValidator recordValidator,
+        final RecordTransformer recordTransformer, final CalendarSupplier calendarSupplier) {
         this.recordsFileReader = recordsFileReader;
         this.recordsFileWriter = recordsFileWriter;
         this.recordValidator = recordValidator;
@@ -49,6 +46,7 @@ public class RecordDao {
 
     /**
      * Adds a new record to the database.
+     *
      * @param record
      */
     public void addRecord(final Record record) {
@@ -63,6 +61,7 @@ public class RecordDao {
     /**
      * Adds a raw record to the database.
      * Invalid records cause an {@link InvalidRecordException} to occur.
+     *
      * @param rawRecord
      */
     private void addRecord(final String rawRecord) {
@@ -77,6 +76,7 @@ public class RecordDao {
     /**
      * Get all the records from the database.
      * Records are cached, so consequent calling of the method will likely not cause performance issues.
+     *
      * @return every {@link Record} stored in the database.
      */
     public List<Record> getRecords() {
@@ -90,23 +90,55 @@ public class RecordDao {
     }
 
     public List<Record> getRecordsForMonth(final Month month) {
-        return getRecords().stream().filter(record -> record.getMonth().equals(month)).collect(Collectors.toList());
+        List<Record> result = new ArrayList<>();
+        for (Record record : getRecords()) {
+            if (record.getMonth().equals(month)) {
+                result.add(record);
+            }
+        }
+        return result;
     }
 
     public List<Record> getRecordsForYear(final int year) {
-        return getRecords().stream().filter(record -> record.getYear() == year).collect(Collectors.toList());
+        List<Record> result = new ArrayList<>();
+        for (Record record : getRecords()) {
+            if (record.getYear() == year) {
+                result.add(record);
+            }
+        }
+        return result;
     }
 
     public List<Record> getRecordsForMonthInYear(final int year, final Month month) {
-        return getRecords().stream().filter(record -> record.getYear() == year && record.getMonth().equals(month)).collect(Collectors.toList());
+        List<Record> result = new ArrayList<>();
+        for (Record record : getRecords()) {
+            if (record.getYear() == year && record.getMonth().equals(month)) {
+                result.add(record);
+            }
+        }
+        return result;
     }
 
     public List<Record> getRecordsForCurrentMonth() {
-        return getRecords().stream().filter(record -> record.getMonth().equals(calendarSupplier.getCurrentMonth()) && record.getYear() == calendarSupplier.getCurrentYear()).collect(Collectors.toList());
+        List<Record> result = new ArrayList<>();
+        for (Record record : getRecords()) {
+            if (record.getYear() == calendarSupplier.getCurrentYear() && record.getMonth().equals(calendarSupplier.getCurrentMonth())) {
+                result.add(record);
+            }
+        }
+        return result;
     }
 
     public List<Record> getRecordsForCurrentDay() {
-        return getRecords().stream().filter(record -> record.getDay() == calendarSupplier.getCurrentDay() && record.getMonth().equals(calendarSupplier.getCurrentMonth()) && record.getYear() == calendarSupplier.getCurrentYear()).collect(Collectors.toList());
+        List<Record> result = new ArrayList<>();
+        for (Record record : getRecords()) {
+            if (record.getYear() == calendarSupplier.getCurrentYear() &&
+                record.getMonth().equals(calendarSupplier.getCurrentMonth()) &&
+                record.getDay() == calendarSupplier.getCurrentDay()) {
+                result.add(record);
+            }
+        }
+        return result;
     }
 
     private State lastRecordedState() {

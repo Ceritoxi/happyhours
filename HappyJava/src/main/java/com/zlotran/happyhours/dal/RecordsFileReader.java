@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.zlotran.happyhours.Application;
+import com.zlotran.happyhours.config.Config;
+import com.zlotran.happyhours.config.GeneralConfig;
 
 public class RecordsFileReader {
 
@@ -25,7 +27,7 @@ public class RecordsFileReader {
     }
 
     private List<String> doReadInRecords() throws IOException {
-        final FileReader reader = new FileReader(Application.DATA_FILE_NAME);
+        final FileReader reader = new FileReader(GeneralConfig.getInstance().getConfig("datafile"));
         final List<String> result = readTroughFile(reader);
         reader.close();
         return result;

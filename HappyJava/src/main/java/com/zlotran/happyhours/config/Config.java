@@ -31,7 +31,7 @@ public class Config {
     private synchronized void initConfig() {
         try {
             final String rawConfigJSON = readInRawJSON();
-            final TypeReference<HashMap<String, String>> typeRef = new TypeReference<>() {
+            final TypeReference<HashMap<String, String>> typeRef = new TypeReference<HashMap<String, String>>() {
             };
             final ObjectMapper objectMapper = new ObjectMapper();
             configMap = objectMapper.readValue(rawConfigJSON, typeRef);

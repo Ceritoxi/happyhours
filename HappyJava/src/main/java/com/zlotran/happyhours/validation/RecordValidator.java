@@ -1,7 +1,9 @@
 package com.zlotran.happyhours.validation;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import com.zlotran.happyhours.domain.Record;
 
 public class RecordValidator {
 
@@ -10,6 +12,16 @@ public class RecordValidator {
     }
 
     public List<String> filterOutIllegalRecords(final List<String> records) {
-        return records.stream().filter(this::isValid).collect(Collectors.toList());
+        List<String> result = new ArrayList<>();
+        for (String record : records) {
+            if (this.isValid(record)) {
+                result.add(record);
+            }
+        }
+        return result;
+    }
+
+    public boolean isValid(List<Record> records) {
+        return true;
     }
 }

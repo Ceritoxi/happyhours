@@ -1,6 +1,9 @@
 package com.zlotran.happyhours.ui.combobox;
 
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import com.zlotran.happyhours.controller.RecordStatisticsController;
 import com.zlotran.happyhours.domain.Month;
 import com.zlotran.happyhours.ui.bar.MonthAverageBar;
@@ -25,7 +28,11 @@ public class MonthsBox extends Box<Month> {
         this.setBounds(130, 130, 100,25);
         setItems();
         setSelectedItem(recordStatisticsController.getLatestMonth());
-        this.addActionListener(e -> action());
+        this.addActionListener(new ActionListener() {
+            @Override public void actionPerformed(ActionEvent e) {
+                MonthsBox.this.action();
+            }
+        });
     }
 
     public MonthsBox() {
@@ -41,13 +48,18 @@ public class MonthsBox extends Box<Month> {
     }
 
     void setItems() {
-        this.recordStatisticsController.getRecordedMonths((String)yearsBox.getSelectedItem()).forEach(this::addItem);
+        for (Month recordedMonth : this.recordStatisticsController.getRecordedMonths((String) yearsBox.getSelectedItem())) {
+            this.addItem(recordedMonth);
+        }
+
     }
 
     void resetItems() {
         Object selectedItem = this.getSelectedItem();
         this.removeAllItems();
-        this.recordStatisticsController.getRecordedMonths((String)yearsBox.getSelectedItem()).forEach(this::addItem);
+        for (Month recordedMonth : this.recordStatisticsController.getRecordedMonths((String) yearsBox.getSelectedItem())) {
+            this.addItem(recordedMonth);
+        }
         if (selectedItem != null) {
             this.setSelectedItem(selectedItem);
         }

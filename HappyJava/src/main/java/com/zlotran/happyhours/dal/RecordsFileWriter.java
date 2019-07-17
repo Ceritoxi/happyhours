@@ -3,7 +3,6 @@ package com.zlotran.happyhours.dal;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import com.zlotran.happyhours.Application;
 import com.zlotran.happyhours.config.GeneralConfig;
 
 public class RecordsFileWriter {

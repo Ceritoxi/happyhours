@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.zlotran.happyhours.Application;
-import com.zlotran.happyhours.config.Config;
 import com.zlotran.happyhours.config.GeneralConfig;
 
 public class RecordsFileReader {

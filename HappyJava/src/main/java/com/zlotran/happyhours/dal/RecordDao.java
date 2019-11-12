@@ -121,4 +121,7 @@ public class RecordDao {
         }
     }
 
+    public List<Record> getRecordsForCurrentMonthWithoutToday() {
+        return getRecordsForCurrentMonth().stream().filter(record -> record.getDate().getDayOfMonth() != LocalDateTime.now().getDayOfMonth()).collect(Collectors.toList());
+    }
 }

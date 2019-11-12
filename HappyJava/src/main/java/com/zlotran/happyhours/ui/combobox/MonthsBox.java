@@ -22,7 +22,7 @@ public class MonthsBox extends Box<Month> {
         this.monthAverageBar = monthAverageBar;
         this.monthTotalBar = monthTotalBar;
         removeArrow();
-        this.setBounds(130, 130, 100,25);
+        this.setBounds(130, 180, 100,25);
         setItems();
         setSelectedItem(recordStatisticsController.getLatestMonth());
         this.addActionListener(e -> action());

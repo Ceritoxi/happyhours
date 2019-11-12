@@ -3,7 +3,6 @@ package com.zlotran.happyhours.service;
 import java.time.Month;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.zlotran.happyhours.dal.RecordDao;
@@ -94,5 +93,17 @@ public class RecordStatisticsService {
 
     public String getLatestYear() {
         return getRecordedYears().stream().map(Integer::valueOf).max(Comparator.comparing(Integer::valueOf)).map(Object::toString).orElse("-1");
+    }
+
+    public String currentMonthDifferenceFormatted() {
+        return timeFormatter.formatTimeFromSeconds(recordStatisticsCalculationUtility.calculateDifferenceFromEightThirtyInSeconds(recordDao.getRecordsForCurrentMonth()));
+    }
+
+    public int currentMonthDifferenceInSeconds() {
+        return (int)recordStatisticsCalculationUtility.calculateDifferenceFromEightThirtyInSeconds(recordDao.getRecordsForCurrentMonth());
+    }
+
+    public int currentMonthDifferenceInSecondsWithoutToday() {
+        return (int)recordStatisticsCalculationUtility.calculateDifferenceFromEightThirtyInSeconds(recordDao.getRecordsForCurrentMonthWithoutToday());
     }
 }

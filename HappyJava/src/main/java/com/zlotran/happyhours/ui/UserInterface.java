@@ -15,6 +15,7 @@ import com.zlotran.happyhours.ui.bar.AllTimeTotalBar;
 import com.zlotran.happyhours.ui.bar.MonthAverageBar;
 import com.zlotran.happyhours.ui.bar.MonthTotalBar;
 import com.zlotran.happyhours.ui.bar.RefreshableBar;
+import com.zlotran.happyhours.ui.bar.MonthDifferenceBar;
 import com.zlotran.happyhours.ui.bar.TodaysTotalBar;
 import com.zlotran.happyhours.ui.button.LogADayButton;
 import com.zlotran.happyhours.ui.combobox.Box;
@@ -23,6 +24,7 @@ import com.zlotran.happyhours.ui.combobox.YearsBox;
 import com.zlotran.happyhours.ui.refresher.AllTimeAverageRefresher;
 import com.zlotran.happyhours.ui.refresher.AllTimeTotalRefresher;
 import com.zlotran.happyhours.ui.refresher.ThisMonthAverageRefresher;
+import com.zlotran.happyhours.ui.refresher.ThisMonthDifferenceTotalRefresher;
 import com.zlotran.happyhours.ui.refresher.ThisMonthTotalRefresher;
 import com.zlotran.happyhours.ui.refresher.TodaysTotalRefresher;
 import com.zlotran.happyhours.ui.screen.Screen;
@@ -61,6 +63,7 @@ public class UserInterface {
     private void placeComponentsOnScreen(final Screen screen) {
         MonthAverageBar monthAverageBar = new MonthAverageBar(new ThisMonthAverageRefresher(recordStatisticsController));
         MonthTotalBar monthTotalBar = new MonthTotalBar(new ThisMonthTotalRefresher(recordStatisticsController));
+        MonthDifferenceBar monthDifferenceBar = new MonthDifferenceBar(new ThisMonthDifferenceTotalRefresher(recordStatisticsController), recordStatisticsController.getMonthDifferenceFromEightThirtyWithoutToday());
         YearsBox yearsBox = new YearsBox(new MonthsBox(), recordStatisticsController, monthAverageBar, monthTotalBar);
         MonthsBox monthsBox = new MonthsBox(yearsBox, recordStatisticsController, monthAverageBar, monthTotalBar);
         yearsBox.setMonthsBox(monthsBox);
@@ -68,6 +71,7 @@ public class UserInterface {
         screen.add(new AllTimeTotalBar(new AllTimeTotalRefresher(recordStatisticsController)));
         screen.add(monthAverageBar);
         screen.add(monthTotalBar);
+        screen.add(monthDifferenceBar);
         screen.add(new TodaysTotalBar(new TodaysTotalRefresher(recordStatisticsController)));
         screen.add(new LogADayButton(e -> recordInsertionController.logADay()));
         screen.add(yearsBox);

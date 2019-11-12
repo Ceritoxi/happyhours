@@ -26,6 +26,15 @@ public class RecordStatisticsCalculationUtility {
         }
     }
 
+    public long calculateDifferenceFromEightThirtyInSeconds(final List<Record> records) {
+        final long averageDivisor = calculateAverageDivisor(records);
+        if (averageDivisor > 0) {
+            return calculateTotalInSecond(records) - (long)(averageDivisor * 8.5 * 60 * 60);
+        } else {
+            return ZERO;
+        }
+    }
+
     private long calculateAverageDivisor(final List<Record> records) {
         return records.stream().map(record -> record.getDate().toLocalDate()).distinct().count();
     }

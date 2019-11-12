@@ -18,8 +18,13 @@ public class TimeFormatter {
         this.timeFormatterUtil = timeFormatterUtil;
     }
 
-    public String formatTimeFromSeconds(final long seconds) {
+    public String formatTimeFromSeconds(long seconds) {
         final StringBuilder result = new StringBuilder();
+        result.append(" ");
+        if(seconds < 0) {
+            seconds = seconds * -1;
+            result.append("-");
+        }
         if (timeFormatterUtil.isAtLeastAYear(seconds)) {
             appendYears(seconds, result);
         }
@@ -73,5 +78,4 @@ public class TimeFormatter {
             result.append(timeFormatterUtil.shownSeconds(seconds));
         }
     }
-
 }

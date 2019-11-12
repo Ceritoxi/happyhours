@@ -20,7 +20,7 @@ public class Screen extends JFrame {
 
     public Screen() {
         super();
-        this.setSize(getNumericConfig("screen.width"), getNumericConfig("screen.height"));
+        this.setSize(getNumericConfig("screen.width"), 450); //getNumericConfig("screen.height"));
         this.setTitle(getConfig("screen.title"));
         this.refreshableBars = new HashSet<>();
         this.comboBoxes = new HashSet<>();

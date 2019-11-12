@@ -60,6 +60,18 @@ public class RecordStatisticsController {
 
     }
 
+    public String getMonthDifferenceFromEightThirty() {
+        return recordStatisticsService.currentMonthDifferenceFormatted();
+    }
+
+    public int getMonthDifferenceFromEightThirtyInSeconds() {
+        return recordStatisticsService.currentMonthDifferenceInSeconds();
+    }
+
+    public int getMonthDifferenceFromEightThirtyWithoutToday() {
+        return recordStatisticsService.currentMonthDifferenceInSecondsWithoutToday();
+    }
+
     public int getAllTimeAverageInSeconds() {
         return (int) recordStatisticsService.allTimeAverageInSeconds();
     }
@@ -95,5 +107,4 @@ public class RecordStatisticsController {
             return new ArrayList<>();
         }
     }
-
 }

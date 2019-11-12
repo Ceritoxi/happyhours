@@ -8,9 +8,7 @@ public class LogADayButton extends Button {
 
     public LogADayButton(final ActionListener logADayActionListener) {
         super(DEFAULT_BUTTON_NAME);
-        this.setBounds(585, 130, BUTTON_WIDTH
-                / 2,
-            BUTTON_HEIGHT * 3);
+        this.setBounds(585, 310, BUTTON_WIDTH / 2, BUTTON_HEIGHT * 3);
         this.addActionListener(logADayActionListener);
     }
 }
